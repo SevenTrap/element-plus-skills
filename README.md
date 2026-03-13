@@ -64,6 +64,14 @@ npm install element-plus
 npm install @element-plus/icons-vue
 ```
 
+### Install Element Plus Skills Library
+
+Add the Element Plus Skills library to your project, enabling AI agents to understand and utilize Element Plus components:
+
+```bash
+npx skills add https://github.com/jiaiyan/element-plus-skills --skill element-plus-skills
+```
+
 ## 📚 Usage
 
 ### For AI Agents

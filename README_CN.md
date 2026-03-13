@@ -64,6 +64,14 @@ npm install element-plus
 npm install @element-plus/icons-vue
 ```
 
+### 安装 Element Plus Skills 技能库
+
+将 Element Plus Skills 技能库添加到您的项目中，以便 AI 智能体能够理解和使用 Element Plus 组件：
+
+```bash
+npx skills add https://github.com/jiaiyan/element-plus-skills --skill element-plus-skills
+```
+
 ## 📚 使用方法
 
 ### 适用于 AI 智能体
