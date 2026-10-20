@@ -3,146 +3,42 @@ name: "el-tree-select"
 description: "TreeSelect component combining Tree and Select functionality. Invoke when user needs to select from hierarchical data in a dropdown, like organization structures or category trees."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# TreeSelect Component
+# Tree-backed select inputs
 
-TreeSelect combines Tree and Select components for hierarchical data selection.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Organization structure selection
-- Category tree selection
-- Hierarchical data selection
-- Tree-based dropdowns
+- TreeSelect combines Select and Tree. Single mode binds a node key; `multiple` binds key arrays. It cannot bind whole option objects as standard Select can.
+- The default value field is `value`; set `node-key` for another unique identifier. Keys must be unique across the whole tree. `props` maps labels/children/disabled fields.
+- Default selection targets leaves; `check-strictly` permits selecting any level. `show-checkbox` enables checking; leaf text is checkable by default through `check-on-click-leaf`.
+- Lazy loading follows Tree's `load` contract. `cache-data` supplies labels for selected nodes whose data has not loaded yet.
+- Direct forwarded Tree/Select methods are deprecated for 3.0.0. In 2.14.6 the actual exposed instance names are `treeRef` and `selectRef`: use `treeSelectRef.value?.treeRef.getCheckedKeys()` or `.selectRef.focus()` after mount. The source/types take precedence over prose mentioning `tree`/`select`.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    placeholder="Select"
-  />
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref()
-const data = [
-  {
-    value: '1',
-    label: 'Level 1',
-    children: [
-      { value: '1-1', label: 'Level 1-1' },
-      { value: '1-2', label: 'Level 1-2' }
-    ]
-  }
-]
+import { ElTreeSelect } from 'element-plus'
+const selected = ref<number[]>([2])
+const data = [{ id: 1, label: 'Group', children: [{ id: 2, label: 'Item' }] }]
 </script>
-```
 
-## Select Any Level
-
-```vue
 <template>
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    check-strictly
-  />
+  <el-tree-select v-model="selected" :data="data" node-key="id" multiple
+    show-checkbox default-expand-all style="width: 240px" />
 </template>
 ```
 
-## Multiple Selection
+## References
 
-```vue
-<template>
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    multiple
-    show-checkbox
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref([])
-</script>
-```
-
-## Filterable
-
-```vue
-<template>
-  <el-tree-select
-    v-model="value"
-    :data="data"
-    filterable
-  />
-</template>
-```
-
-## Lazy Loading
-
-```vue
-<template>
-  <el-tree-select
-    v-model="value"
-    :props="props"
-    lazy
-    :load="load"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref()
-const props = { label: 'name', children: 'zones' }
-
-const load = (node, resolve) => {
-  if (node.level === 0) {
-    return resolve([{ name: 'Root' }])
-  }
-  setTimeout(() => {
-    resolve([{ name: 'Child' }])
-  }, 500)
-}
-</script>
-```
-
-## API Reference
-
-### Attributes
-
-Inherits from both Tree and Select components.
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| number \| array` | — |
-| data | Tree data | `array` | — |
-| multiple | Multiple selection | `boolean` | `false` |
-| check-strictly | Parent-child independent | `boolean` | `false` |
-| filterable | Enable filter | `boolean` | `false` |
-| lazy | Enable lazy loading | `boolean` | `false` |
-| load | Lazy load method | `(node, resolve) => void` | — |
-| cache-data | Cached lazy node data | `CacheOption[]` | `[]` |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| treeRef | Tree component instance | `TreeInstance` |
-| selectRef | Select component instance | `SelectInstance` |
-
-## Best Practices
-
-1. Use `check-strictly` for selecting any level
-2. Use `lazy` for large tree data
-3. Use `cache-data` for lazy loaded labels
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/tree-select.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/tree-select) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/tree-select/node-key.vue).

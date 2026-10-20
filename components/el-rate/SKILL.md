@@ -3,123 +3,37 @@ name: "el-rate"
 description: "Rate component for rating functionality. Invoke when user needs to collect user ratings, display star ratings, or allow feedback scoring."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Rate Component
+# Numeric ratings
 
-Rate component is used for rating with customizable icons and levels.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- User ratings
-- Product reviews
-- Feedback scoring
-- Star ratings
+- Bind a numeric `v-model`; default score is 0 and default `max` is 5. `allow-half` enables half-step selection.
+- `disabled` makes the rating read-only; use `score-template` with `show-score` for a numeric display. `show-text` uses `texts` instead.
+- `clearable` lets selecting the same score reset to zero. `change` reports committed user changes.
+- Use `aria-label` for its accessible name; the old `label` alias is deprecated. Custom icons are Vue components, not legacy CSS icon names.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-rate v-model="value" />
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref(0)
+import { ElRate } from 'element-plus'
+const score = ref(3.5)
 </script>
+
+<template><el-rate v-model="score" allow-half clearable aria-label="Rating" /></template>
 ```
 
-## With Half Stars
+## References
 
-```vue
-<template>
-  <el-rate v-model="value" allow-half />
-</template>
-```
-
-## With Text
-
-```vue
-<template>
-  <el-rate
-    v-model="value"
-    show-text
-    :texts="['Bad', 'Poor', 'Fair', 'Good', 'Excellent']"
-  />
-</template>
-```
-
-## Clearable
-
-```vue
-<template>
-  <el-rate v-model="value" clearable />
-</template>
-```
-
-## Custom Icons
-
-```vue
-<template>
-  <el-rate
-    v-model="value"
-    :icons="[StarFilled, StarFilled, StarFilled]"
-    :void-icon="Star"
-  />
-</template>
-
-<script setup>
-import { StarFilled, Star } from '@element-plus/icons-vue'
-</script>
-```
-
-## Read-only
-
-```vue
-<template>
-  <el-rate
-    v-model="value"
-    disabled
-    show-score
-    score-template="{value} points"
-  />
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `number` | `0` |
-| max | Max rating score | `number` | `5` |
-| size | Size | `'large' \| 'default' \| 'small'` | — |
-| disabled | Read-only | `boolean` | `false` |
-| allow-half | Allow half stars | `boolean` | `false` |
-| low-threshold | Low/medium threshold | `number` | `2` |
-| high-threshold | Medium/high threshold | `number` | `4` |
-| colors | Colors for levels | `string[] \| Record<number, string>` | — |
-| void-color | Color of unselected | `string` | `'#c6d1de'` |
-| icons | Icon components | `string[] \| Component[]` | — |
-| void-icon | Unselected icon | `string \| Component` | — |
-| show-text | Display texts | `boolean` | `false` |
-| show-score | Display score | `boolean` | `false` |
-| text-color | Text color | `string` | `''` |
-| texts | Text array | `string[]` | — |
-| score-template | Score template | `string` | `'{value}'` |
-| clearable | Can reset to 0 | `boolean` | `false` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Triggers when value changes | `(value: number) => void` |
-
-## Best Practices
-
-1. Use `allow-half` for precise ratings
-2. Use `show-score` for read-only displays
-3. Use `clearable` to allow resetting
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/rate.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/rate) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/rate/allow-half.vue).

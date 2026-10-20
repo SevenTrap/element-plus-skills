@@ -3,120 +3,37 @@ name: "el-loading"
 description: "Loading component for showing animation while loading data. Invoke when user needs to display loading states, async operation feedback, or data fetching indicators."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Loading Component
+# Loading
 
-Loading component shows animation while loading data via directive or service.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Data loading states
-- Async operation feedback
-- Form submission
-- Page transitions
+Use v-loading or ElLoading.service(), not el-loading. The directive accepts a boolean or documented options object. Service returns an instance whose close() must run in finally after async work. Fullscreen service calls share one active instance. Directive body/fullscreen/lock modifiers control placement and scroll locking. Containers need a measurable height. Spinner/svg values may render HTML: use trusted content only.
 
-## Directive Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-table v-loading="loading" :data="tableData">
-    <el-table-column prop="name" label="Name" />
-  </el-table>
+  <div v-loading="loading" element-loading-text="Loading…" style="height: 160px">Content</div>
+  <el-button @click="loading = !loading">Toggle</el-button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
+import { ElLoading } from 'element-plus'
+const vLoading = ElLoading.directive
 const loading = ref(true)
-const tableData = ref([])
 </script>
 ```
 
-## Customization
+## Versioned reference
 
-```vue
-<template>
-  <div
-    v-loading="loading"
-    element-loading-text="Loading..."
-    element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
-  >
-    Content
-  </div>
-</template>
-```
-
-## Full Screen
-
-```vue
-<template>
-  <el-button @click="openLoading">Show Full Screen Loading</el-button>
-</template>
-
-<script setup>
-import { ElLoading } from 'element-plus'
-
-const openLoading = () => {
-  const loading = ElLoading.service({
-    lock: true,
-    text: 'Loading...',
-    background: 'rgba(0, 0, 0, 0.7)'
-  })
-  setTimeout(() => loading.close(), 2000)
-}
-</script>
-```
-
-## Service Usage
-
-```vue
-<script setup>
-import { ElLoading } from 'element-plus'
-
-const showLoading = () => {
-  const instance = ElLoading.service({
-    target: '.container',
-    text: 'Loading...',
-    spinner: 'el-icon-loading',
-    background: 'rgba(255, 255, 255, 0.7)'
-  })
-  
-  return instance
-}
-</script>
-```
-
-## API Reference
-
-### Options
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| target | DOM node to cover | `string \| HTMLElement` | `document.body` |
-| body | Append to body | `boolean` | `false` |
-| fullscreen | Full screen mode | `boolean` | `true` |
-| lock | Lock scrolling | `boolean` | `false` |
-| text | Loading text | `string \| VNode` | — |
-| spinner | Custom spinner class | `string` | — |
-| background | Background color | `string` | — |
-| customClass | Custom class | `string` | — |
-| svg | Custom SVG | `string` | — |
-| svgViewBox | SVG viewBox | `string` | — |
-
-### Directives
-
-| Name | Description | Type |
-|------|-------------|------|
-| v-loading | Show loading | `boolean \| LoadingOptions` |
-| element-loading-text | Loading text | `string` |
-| element-loading-spinner | Spinner icon | `string` |
-| element-loading-background | Background color | `string` |
-
-## Best Practices
-
-1. Use `v-loading` directive for component-level loading
-2. Use `ElLoading.service` for programmatic control
-3. Set `lock` to prevent scrolling during loading
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/loading) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/loading.md).

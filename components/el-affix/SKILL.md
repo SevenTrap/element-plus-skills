@@ -3,115 +3,29 @@ name: "el-affix"
 description: "Affix component for fixing elements to a specific visible area. Invoke when user needs to create sticky navigation, fixed headers, or elements that remain visible while scrolling."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Affix Component
+# Affix
 
-Affix component fixes an element to a specific visible area, useful for sticky navigation, headers, or toolbars.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Sticky navigation headers
-- Fixed toolbars while scrolling
-- Persistent action buttons
-- Floating sidebars
+Use el-affix without v-model; offset is measured from top or bottom. target constrains the fixed element to a CSS selector's bounds; it does not designate a scrolling container. The official target example uses a container without its own scrollbar. Use change for the fixed boolean and update()/updateRoot() after relevant layout changes.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-affix :offset="120">
-    <el-button type="primary">Offset top 120px</el-button>
-  </el-affix>
-</template>
-```
-
-## Target Container
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <div class="scroll-container" style="height: 400px; overflow: auto;">
-    <el-affix target=".scroll-container" :offset="80">
-      <el-button type="primary">Fixed in container</el-button>
-    </el-affix>
-  </div>
+  <el-affix :offset="20"><el-button>Fixed action</el-button></el-affix>
 </template>
 ```
 
-## Fixed Position
+## Versioned reference
 
-```vue
-<template>
-  <el-affix position="top" :offset="20">
-    <el-button type="primary">Fixed at top</el-button>
-  </el-affix>
-  
-  <el-affix position="bottom" :offset="20">
-    <el-button type="primary">Fixed at bottom</el-button>
-  </el-affix>
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| offset | Offset distance | `number` | `0` |
-| position | Position of affix | `'top' \| 'bottom'` | `'top'` |
-| target | Target container (CSS selector) | `string` | — |
-| z-index | z-index of affix | `number` | `100` |
-| teleported | Whether affix element is teleported | `boolean` | `false` |
-| append-to | Which element the affix appends to | `CSSSelector \| HTMLElement` | `'body'` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Triggers when fixed state changed | `(fixed: boolean) => void` |
-| scroll | Triggers when scrolling | `({ scrollTop: number, fixed: boolean }) => void` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Customize default content |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| update | Update affix state manually | `() => void` |
-| updateRoot | Update rootRect info | `() => void` |
-
-## Common Patterns
-
-### Sticky Header with State Tracking
-
-```vue
-<template>
-  <el-affix :offset="0" @change="handleAffixChange">
-    <header :class="{ 'is-fixed': isFixed }">
-      <nav>Sticky Navigation</nav>
-    </header>
-  </el-affix>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const isFixed = ref(false)
-
-const handleAffixChange = (fixed) => {
-  isFixed.value = fixed
-}
-</script>
-```
-
-## Best Practices
-
-1. Use `target` to limit affix to a specific container
-2. Set appropriate `z-index` to avoid layering issues
-3. Handle `change` event for UI state updates
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/affix) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/affix.md).

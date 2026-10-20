@@ -3,120 +3,34 @@ name: "el-color-picker-panel"
 description: "ColorPickerPanel is the core panel component of ColorPicker for custom color selection UI. Invoke when user needs to build custom color picker interfaces without the dropdown wrapper."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# ColorPickerPanel Component
+# ColorPickerPanel
 
-ColorPickerPanel is the core component of ColorPicker for building custom color selection interfaces.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Custom color picker UI
-- Embedded color selection
-- Advanced color tools
-- Custom dropdown implementations
+This standalone panel is beta in 2.14.6. Bind a color string or null; show-alpha changes the default format from hex to rgb. Choose color-format explicitly for storage. border controls the outline and predefine supplies presets. Popup trigger/teleport props belong to ColorPicker, not this panel.
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
   <el-color-picker-panel v-model="color" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const color = ref('#409EFF')
+const color = ref<string | null>('#409EFF')
 </script>
 ```
 
-## Alpha Channel
+## Versioned reference
 
-```vue
-<template>
-  <el-color-picker-panel v-model="color" show-alpha />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const color = ref('rgba(64, 158, 255, 0.8)')
-</script>
-```
-
-## Predefined Colors
-
-```vue
-<template>
-  <el-color-picker-panel
-    v-model="color"
-    :predefine="predefineColors"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const color = ref('#409EFF')
-const predefineColors = [
-  '#ff4500',
-  '#ff8c00',
-  '#ffd700',
-  '#90ee90',
-  '#00ced1',
-  '#1e90ff',
-  '#c71585'
-]
-</script>
-```
-
-## Without Border
-
-```vue
-<template>
-  <el-color-picker-panel v-model="color" :border="false" />
-</template>
-```
-
-## Disabled
-
-```vue
-<template>
-  <el-color-picker-panel v-model="color" disabled />
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string` | — |
-| border | Show border | `boolean` | `true` |
-| disabled | Disabled | `boolean` | `false` |
-| show-alpha | Show alpha slider | `boolean` | `false` |
-| color-format | Color format | `'rgb' \| 'prgb' \| 'hex' \| 'hex3' \| 'hex4' \| 'hex6' \| 'hex8' \| 'name' \| 'hsl' \| 'hsv'` | `'hex'` or `'rgb'` |
-| predefine | Predefined colors | `string[]` | — |
-| validate-event | Trigger form validation | `boolean` | `true` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| footer | Content after the panel |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| color | Current color object | `Color` |
-| inputRef | Input ref | `InputInstance` |
-| update | Update sub components | `() => void` |
-
-## Best Practices
-
-1. Use for custom color picker implementations
-2. Combine with Popover for dropdown behavior
-3. Use `predefine` for brand colors
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/color-picker-panel) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/color-picker-panel.md).

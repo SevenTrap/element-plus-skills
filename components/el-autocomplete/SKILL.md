@@ -3,154 +3,37 @@ name: "el-autocomplete"
 description: "Autocomplete component for input suggestions. Invoke when user needs to provide input suggestions, autocomplete functionality, or search-as-you-type features."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Autocomplete Component
+# Autocomplete
 
-Autocomplete provides input suggestions based on user input.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Search suggestions
-- Form autocomplete
-- Address inputs
-- Quick selection from options
+Bind a string; fetch-suggestions(query, callback) passes suggestion objects to callback. value-key defaults to value; select receives the whole object. Use the default slot's item to customize rendering. debounce defaults to 300 ms. Guard remote responses against stale requests. popper-append-to-body is deprecated; use teleported.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-autocomplete
-    v-model="state"
-    :fetch-suggestions="querySearch"
-    clearable
-    placeholder="Please input"
-    @select="handleSelect"
-  />
-</template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const state = ref('')
-const links = ref([])
-
-const querySearch = (queryString, cb) => {
-  const results = queryString
-    ? links.value.filter(createFilter(queryString))
-    : links.value
-  cb(results)
-}
-
-const createFilter = (queryString) => {
-  return (restaurant) => {
-    return (
-      restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-    )
-  }
-}
-
-const handleSelect = (item) => {
-  console.log(item)
-}
-
-onMounted(() => {
-  links.value = [
-    { value: 'vue', link: 'https://github.com/vuejs/vue' },
-    { value: 'element', link: 'https://github.com/ElemeFE/element' },
-    { value: 'cooking', link: 'https://github.com/ElemeFE/cooking' }
-  ]
-})
-</script>
-```
-
-## Custom Template
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-autocomplete
-    v-model="state"
-    :fetch-suggestions="querySearch"
-    placeholder="Please input"
-  >
-    <template #default="{ item }">
-      <div class="value">{{ item.value }}</div>
-      <span class="link">{{ item.link }}</span>
-    </template>
-  </el-autocomplete>
-</template>
-```
-
-## Remote Search
-
-```vue
-<template>
-  <el-autocomplete
-    v-model="state"
-    :fetch-suggestions="querySearchAsync"
-    placeholder="Please input"
-  />
+  <el-autocomplete v-model="query" :fetch-suggestions="search" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const state = ref('')
-
-const querySearchAsync = (queryString, cb) => {
-  fetch(`/api/search?q=${queryString}`)
-    .then(res => res.json())
-    .then(data => cb(data))
+const query = ref('')
+const search = (text: string, callback: (items: { value: string }[]) => void) => {
+  callback([{ value: 'Vue' }, { value: 'Element Plus' }].filter(item => item.value.toLowerCase().includes(text.toLowerCase())))
 }
 </script>
 ```
 
-## API Reference
+## Versioned reference
 
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string` | — |
-| placeholder | Placeholder | `string` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| value-key | Key for display value | `string` | `'value'` |
-| debounce | Debounce delay (ms) | `number` | `300` |
-| placement | Popup placement | Placement enum | `'bottom-start'` |
-| fetch-suggestions | Method to fetch suggestions | `(queryString, cb) => void` | — |
-| popper-class | Custom popup class | `string` | — |
-| trigger-on-focus | Trigger on focus | `boolean` | `true` |
-| name | Native name attribute | `string` | — |
-| select-when-unmatched | Select on enter even if no match | `boolean` | `false` |
-| label | Label text | `string` | — |
-| hide-loading | Hide loading icon | `boolean` | `false` |
-| popper-append-to-body | Append popup to body | `boolean` | `true` |
-| highlight-first-item | Highlight first item | `boolean` | `false` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| select | Triggers when a suggestion is selected | `(item) => void` |
-| change | Triggers when input value changes | `(value: string) => void` |
-| input | Triggers on input | `(value: string) => void` |
-| focus | Triggers on focus | `(event: Event) => void` |
-| blur | Triggers on blur | `(event: Event) => void` |
-| clear | Triggers on clear | `() => void` |
-
-### Slots
-
-| Name | Description | Type |
-|------|-------------|------|
-| default | Custom suggestion item | `{ item }` |
-| prefix | Prefix content | — |
-| suffix | Suffix content | — |
-| prepend | Prepend content | — |
-| append | Append content | — |
-
-## Best Practices
-
-1. Use `debounce` to reduce API calls
-2. Implement `fetch-suggestions` for async data
-3. Use custom templates for rich suggestions
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/autocomplete) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/autocomplete.md).

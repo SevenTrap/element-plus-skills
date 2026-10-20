@@ -3,143 +3,35 @@ name: "el-cascader"
 description: "Cascader component for hierarchical option selection. Invoke when user needs to select from multi-level data like regions, categories, or organizational structures."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Cascader Component
+# Cascader
 
-Cascader displays and selects options with clear hierarchical structure.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Region/location selection
-- Category hierarchies
-- Organizational structures
-- Multi-level navigation
+Options default to value/label/children keys, remapped through props. Default v-model is a selected path array. props.emitPath=false returns the node value; props.multiple=true returns multiple paths (or values when emitPath=false). checkStrictly allows intermediate levels. lazyLoad resolves real children; this component does not virtualize nodes. popper-append-to-body is deprecated; use teleported.
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-cascader v-model="value" :options="options" />
+  <el-cascader v-model="value" :options="options" clearable />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref([])
-const options = [
-  {
-    value: 'guide',
-    label: 'Guide',
-    children: [
-      { value: 'disciplines', label: 'Disciplines' },
-      { value: 'consistency', label: 'Consistency' }
-    ]
-  }
-]
+const value = ref<string[]>([])
+const options = [{ value: 'guide', label: 'Guide', children: [{ value: 'install', label: 'Installation' }] }]
 </script>
 ```
 
-## Multiple Selection
+## Versioned reference
 
-```vue
-<template>
-  <el-cascader v-model="value" :options="options" :props="props" clearable />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref([])
-const props = { multiple: true }
-</script>
-```
-
-## Select Any Level
-
-```vue
-<template>
-  <el-cascader v-model="value" :options="options" :props="{ checkStrictly: true }" />
-</template>
-```
-
-## Dynamic Loading
-
-```vue
-<template>
-  <el-cascader :props="props" />
-</template>
-
-<script setup>
-const props = {
-  lazy: true,
-  lazyLoad(node, resolve) {
-    const { level } = node
-    setTimeout(() => {
-      const nodes = Array.from({ length: level + 1 }).map((item, i) => ({
-        value: `${level}-${i}`,
-        label: `Option ${level}-${i}`,
-        leaf: level >= 2
-      }))
-      resolve(nodes)
-    }, 1000)
-  }
-}
-</script>
-```
-
-## Filterable
-
-```vue
-<template>
-  <el-cascader v-model="value" :options="options" filterable />
-</template>
-```
-
-## API Reference
-
-### Cascader Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| number \| array` | — |
-| options | Data of options | `CascaderOption[]` | — |
-| props | Configuration options | `CascaderProps` | — |
-| size | Size of input | `'large' \| 'default' \| 'small'` | — |
-| placeholder | Placeholder | `string` | — |
-| disabled | Whether disabled | `boolean` | — |
-| clearable | Whether clearable | `boolean` | — |
-| show-all-levels | Display all levels | `boolean` | `true` |
-| collapse-tags | Collapse tags in multiple mode | `boolean` | — |
-| separator | Option label separator | `string` | `' / '` |
-| filterable | Whether searchable | `boolean` | — |
-
-### CascaderProps
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| expandTrigger | Expand trigger mode | `'click' \| 'hover'` | `'click'` |
-| multiple | Enable multiple selection | `boolean` | `false` |
-| checkStrictly | Parent-child independent | `boolean` | `false` |
-| emitPath | Emit path array | `boolean` | `true` |
-| lazy | Enable lazy loading | `boolean` | `false` |
-| lazyLoad | Lazy load method | `(node, resolve) => void` | — |
-| value | Value key | `string` | `'value'` |
-| label | Label key | `string` | `'label'` |
-| children | Children key | `string` | `'children'` |
-
-### Events
-
-| Name | Description |
-|------|-------------|
-| change | Value changes |
-| expand-change | Expand changes |
-| blur | Blur event |
-| focus | Focus event |
-
-## Best Practices
-
-1. Use `checkStrictly` for selecting any level
-2. Use `lazy` loading for large datasets
-3. Use `filterable` for searchable cascaders
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/cascader) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/cascader.md).

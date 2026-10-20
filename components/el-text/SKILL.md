@@ -3,106 +3,42 @@ name: "el-text"
 description: "Text component for text display with styling options. Invoke when user needs to display styled text, truncated text, or text with semantic types."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Text Component
+# Styled and truncated text
 
-Text component provides styled text display with various options.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Styled text display
-- Truncated text
-- Semantic text types
-- Text with sizes
+- Use `ElText` for semantic inline text styling. It has no value model; set `tag` when a different HTML element is appropriate.
+- `truncated` creates a single-line ellipsis; constrain its width or its parent's width. `line-clamp` limits lines. Neither option can truncate content with unlimited available space.
+- `isTruncated` is exposed in exactly 2.14.6. A component ref unwraps it, so use `textRef?.isTruncated` in templates to enable a Tooltip only when necessary.
+- The component supplies a native title when truncated; set `title=""` if a custom Tooltip replaces that behavior. Measurement updates after layout, resize, and content changes.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ElText, ElTooltip } from 'element-plus'
+const textRef = ref<InstanceType<typeof ElText>>()
+const label = 'A long label that should only show a tooltip when truncated'
+</script>
+
 <template>
-  <el-text>Default text</el-text>
-  <el-text type="primary">Primary text</el-text>
-  <el-text type="success">Success text</el-text>
-  <el-text type="warning">Warning text</el-text>
-  <el-text type="danger">Danger text</el-text>
-  <el-text type="info">Info text</el-text>
+  <el-tooltip :content="label" :disabled="!textRef?.isTruncated">
+    <el-text ref="textRef" truncated title="" style="width: 160px">{{ label }}</el-text>
+  </el-tooltip>
 </template>
 ```
 
-## Sizes
+## References
 
-```vue
-<template>
-  <el-text size="large">Large text</el-text>
-  <el-text>Default text</el-text>
-  <el-text size="small">Small text</el-text>
-</template>
-```
-
-## Truncated
-
-```vue
-<template>
-  <el-text truncated>
-    This is a very long text that will be truncated with ellipsis when it exceeds the container width
-  </el-text>
-</template>
-```
-
-## Line Clamp
-
-```vue
-<template>
-  <el-text :line-clamp="2">
-    This is a very long text that will be clamped to 2 lines with ellipsis when it exceeds the container width. This is a very long text that will be clamped to 2 lines with ellipsis when it exceeds the container width.
-  </el-text>
-</template>
-```
-
-## Override Tag
-
-```vue
-<template>
-  <el-text tag="p">Paragraph text</el-text>
-  <el-text tag="div">Div text</el-text>
-</template>
-```
-
-## Mixed
-
-```vue
-<template>
-  <el-text>
-    Normal text with
-    <el-text type="primary">primary</el-text>
-    and
-    <el-text type="danger">danger</el-text>
-    inline
-  </el-text>
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| type | Text type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | — |
-| size | Text size | `'large' \| 'default' \| 'small'` | `'default'` |
-| truncated | Render ellipsis | `boolean` | `false` |
-| line-clamp | Maximum lines | `string \| number` | — |
-| tag | Custom element tag | `string` | `'span'` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Default content |
-
-## Best Practices
-
-1. Use `truncated` for single-line ellipsis
-2. Use `line-clamp` for multi-line ellipsis
-3. Use `tag` for semantic HTML
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/text.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/text) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/text/truncated.vue).

@@ -3,89 +3,30 @@ name: "el-backtop"
 description: "Backtop component for back-to-top button. Invoke when user needs to provide quick navigation back to the top of a long page."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Backtop Component
+# Backtop
 
-Backtop component provides a button to scroll back to the top of the page.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Long page navigation
-- Quick scroll to top
-- Improved user experience
-- Document readers
+target is the CSS selector of the actual scrolling element and must resolve on mounting; without it document scrolling is used. Give custom scroll containers a finite height and overflow. visibility-height defaults to 200 px. The default slot customizes a 40×40 px control. There is no v-model.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-backtop />
-</template>
-```
-
-## Customizations
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-backtop :bottom="100">
-    <div class="backtop-custom">
-      UP
-    </div>
-  </el-backtop>
-</template>
-
-<style>
-.backtop-custom {
-  height: 100%;
-  width: 100%;
-  background-color: var(--el-bg-color-overlay);
-  box-shadow: var(--el-box-shadow-lighter);
-  text-align: center;
-  line-height: 40px;
-  color: #1989fa;
-}
-</style>
-```
-
-## Target Container
-
-```vue
-<template>
-  <div class="scroll-container" style="height: 400px; overflow: auto;">
-    <el-backtop target=".scroll-container" :visibility-height="100">
-      UP
-    </el-backtop>
-  </div>
+  <div class="backtop-scroll" style="height: 200px; overflow: auto"><div style="height: 1000px">Scroll down</div></div>
+  <el-backtop target=".backtop-scroll" :visibility-height="100" />
 </template>
 ```
 
-## API Reference
+## Versioned reference
 
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| target | Target to trigger scroll | `string` | — |
-| visibility-height | Min height to show button | `number` | `200` |
-| right | Right distance | `number` | `40` |
-| bottom | Bottom distance | `number` | `40` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| click | Triggers when clicked | `(evt: MouseEvent) => void` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Customize default content |
-
-## Best Practices
-
-1. Set appropriate `visibility-height` for your layout
-2. Customize position with `right` and `bottom`
-3. Use `target` for scrollable containers
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/backtop) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/backtop.md).

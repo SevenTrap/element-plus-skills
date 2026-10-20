@@ -3,145 +3,43 @@ name: "el-tag"
 description: "Tag component for marking and selection. Invoke when user needs to display labels, categories, or removable tags for filtering and categorization."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Tag Component
+# Tags and checkable tags
 
-Tag component is used for marking and selection with various styles and themes.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Category labels
-- Status tags
-- Removable filters
-- Selection markers
+- `ElTag` displays status/category text; `closable` emits `close` but does not remove it. Update the backing list (for example using `filter`) to remove a tag.
+- Tag `type` values use `danger` rather than `error`. `effect` controls light/dark/plain appearance, `round` changes shape, and `hit` adds a border treatment.
+- `ElCheckTag` is a separate boolean-selection component. Pass `checked` and handle `change(checked)`; it is not an ordinary `v-model` input.
+- Provide unique keys for dynamic tag lists. `disable-transitions` can help when surrounding list animation manages transitions.
 
-## Basic Usage
+## Example
 
-```vue
-<template>
-  <el-tag>Tag 1</el-tag>
-  <el-tag type="success">Tag 2</el-tag>
-  <el-tag type="info">Tag 3</el-tag>
-  <el-tag type="warning">Tag 4</el-tag>
-  <el-tag type="danger">Tag 5</el-tag>
-</template>
-```
-
-## Removable Tag
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-tag
-    v-for="tag in tags"
-    :key="tag.name"
-    closable
-    @close="handleClose(tag)"
-  >
-    {{ tag.name }}
-  </el-tag>
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const tags = ref([
-  { name: 'Tag 1' },
-  { name: 'Tag 2' },
-  { name: 'Tag 3' }
-])
-
-const handleClose = (tag) => {
-  tags.value.splice(tags.value.indexOf(tag), 1)
-}
-</script>
-```
-
-## Sizes
-
-```vue
-<template>
-  <el-tag size="large">Large</el-tag>
-  <el-tag>Default</el-tag>
-  <el-tag size="small">Small</el-tag>
-</template>
-```
-
-## Theme
-
-```vue
-<template>
-  <el-tag effect="dark">Dark</el-tag>
-  <el-tag effect="light">Light</el-tag>
-  <el-tag effect="plain">Plain</el-tag>
-</template>
-```
-
-## Rounded
-
-```vue
-<template>
-  <el-tag round>Round Tag</el-tag>
-</template>
-```
-
-## Checkable Tag
-
-```vue
-<template>
-  <el-check-tag :checked="checked" @change="onChange">Toggle Tag</el-check-tag>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
+import { ElCheckTag, ElTag } from 'element-plus'
+const tags = ref(['Vue', 'Element Plus'])
 const checked = ref(false)
-
-const onChange = (value) => {
-  checked.value = value
-}
 </script>
+
+<template>
+  <el-tag v-for="tag in tags" :key="tag" closable @close="tags = tags.filter(item => item !== tag)">
+    {{ tag }}
+  </el-tag>
+  <el-check-tag :checked="checked" @change="checked = $event">Selected</el-check-tag>
+</template>
 ```
 
-## API Reference
+## References
 
-### Tag Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| type | Type of tag | `'primary' \| 'success' \| 'info' \| 'warning' \| 'danger'` | `'primary'` |
-| closable | Whether removable | `boolean` | `false` |
-| disable-transitions | Disable animations | `boolean` | `false` |
-| hit | Highlighted border | `boolean` | `false` |
-| color | Background color | `string` | — |
-| size | Size | `'large' \| 'default' \| 'small'` | — |
-| effect | Theme | `'dark' \| 'light' \| 'plain'` | `'light'` |
-| round | Whether rounded | `boolean` | `false` |
-
-### Tag Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| click | Triggers when clicked | `(evt: MouseEvent) => void` |
-| close | Triggers when removed | `(evt: MouseEvent) => void` |
-
-### CheckTag Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| checked / v-model:checked | Is checked | `boolean` | `false` |
-| disabled | Whether disabled | `boolean` | `false` |
-| type | Type of check tag | `'primary' \| 'success' \| 'info' \| 'warning' \| 'danger'` | `'primary'` |
-
-### CheckTag Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Triggers when clicked | `(value: boolean) => void` |
-
-## Best Practices
-
-1. Use `closable` for removable tags
-2. Use `effect` for different visual styles
-3. Use `el-check-tag` for selectable tags
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/tag.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/tag) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/tag/checkable.vue).

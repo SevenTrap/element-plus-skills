@@ -3,107 +3,29 @@ name: "el-breadcrumb"
 description: "Breadcrumb component for displaying the location of the current page. Invoke when user needs to show navigation paths, page hierarchy, or enable easier browsing back."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Breadcrumb Component
+# Breadcrumb
 
-Breadcrumb component displays the location of the current page, making it easier to browse back through navigation hierarchy.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Page navigation paths
-- Category hierarchies
-- Document structures
-- Multi-level navigation
+Compose el-breadcrumb with el-breadcrumb-item. Use plain text for the current page; to and replace integrate with an installed Vue Router. separator-icon takes an imported icon component and overrides separator. There is no v-model.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/">promotion management</a></el-breadcrumb-item>
-    <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
-  </el-breadcrumb>
-</template>
-```
-
-## Icon Separator
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-breadcrumb :separator-icon="ArrowRight">
-    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion management</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-  </el-breadcrumb>
+  <el-breadcrumb separator="/"><el-breadcrumb-item>Home</el-breadcrumb-item><el-breadcrumb-item>Settings</el-breadcrumb-item></el-breadcrumb>
 </template>
-
-<script setup>
-import { ArrowRight } from '@element-plus/icons-vue'
-</script>
 ```
 
-## API Reference
+## Versioned reference
 
-### Breadcrumb Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| separator | Separator character | `string` | `'/'` |
-| separator-icon | Icon component for separator | `string \| Component` | — |
-
-### Breadcrumb Slots
-
-| Name | Description | Subtags |
-|------|-------------|---------|
-| default | Customize default content | Breadcrumb Item |
-
-### BreadcrumbItem Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| to | Target route, same as vue-router `to` | `string \| RouteLocationRaw` | `''` |
-| replace | If true, navigation won't leave history record | `boolean` | `false` |
-
-### BreadcrumbItem Slots
-
-| Name | Description |
-|------|-------------|
-| default | Customize default content |
-
-## Common Patterns
-
-### Dynamic Breadcrumb
-
-```vue
-<template>
-  <el-breadcrumb separator="/">
-    <el-breadcrumb-item v-for="item in breadcrumbs" :key="item.path" :to="item.path">
-      {{ item.title }}
-    </el-breadcrumb-item>
-  </el-breadcrumb>
-</template>
-
-<script setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-
-const breadcrumbs = computed(() => {
-  return route.matched.filter(r => r.meta?.title).map(r => ({
-    path: r.path,
-    title: r.meta.title
-  }))
-})
-</script>
-```
-
-## Best Practices
-
-1. Use `to` prop for vue-router integration
-2. Use `separator-icon` for custom separators
-3. Keep breadcrumb paths concise and meaningful
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/breadcrumb) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/breadcrumb.md).

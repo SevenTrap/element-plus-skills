@@ -3,153 +3,43 @@ name: "el-steps"
 description: "Steps component for guiding users through processes. Invoke when user needs to display step progress, wizard interfaces, or process workflows."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Steps Component
+# Workflow steps
 
-Steps component guides users through tasks in accordance with a process.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Wizard interfaces
-- Process workflows
-- Step progress indicators
-- Multi-step forms
+- Compose `ElSteps` with `ElStep` children. `active` is a zero-based numeric prop; there is no `v-model` or automatic workflow progression.
+- `process-status` styles the active step; `finish-status` styles preceding steps. An individual step's `status` overrides inferred state.
+- `direction="vertical"` requires a height for useful spacing. `simple` removes descriptions and other rich step presentation.
+- Set `title`, `description`, and an icon component or slots. Advance only after application validation succeeds; reaching the number of steps marks all as finished.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ElButton, ElStep, ElSteps } from 'element-plus'
+const active = ref(0)
+const next = () => { active.value = (active.value + 1) % 4 }
+</script>
+
 <template>
   <el-steps :active="active" finish-status="success">
-    <el-step title="Step 1" />
-    <el-step title="Step 2" />
-    <el-step title="Step 3" />
+    <el-step title="Details" /><el-step title="Review" /><el-step title="Done" />
   </el-steps>
-  
-  <el-button @click="next">Next step</el-button>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const active = ref(0)
-
-const next = () => {
-  if (active.value++ > 2) active.value = 0
-}
-</script>
-```
-
-## With Status
-
-```vue
-<template>
-  <el-steps :active="1">
-    <el-step title="Step 1" description="Some description" />
-    <el-step title="Step 2" description="Some description" status="process" />
-    <el-step title="Step 3" description="Some description" status="wait" />
-  </el-steps>
+  <el-button @click="next">Next</el-button>
 </template>
 ```
 
-## Center
+## References
 
-```vue
-<template>
-  <el-steps :active="2" align-center>
-    <el-step title="Step 1" />
-    <el-step title="Step 2" />
-    <el-step title="Step 3" />
-  </el-steps>
-</template>
-```
-
-## With Description
-
-```vue
-<template>
-  <el-steps :active="1">
-    <el-step title="Step 1" description="Description for step 1" />
-    <el-step title="Step 2" description="Description for step 2" />
-    <el-step title="Step 3" description="Description for step 3" />
-  </el-steps>
-</template>
-```
-
-## With Icon
-
-```vue
-<template>
-  <el-steps :active="1">
-    <el-step title="Step 1" :icon="Edit" />
-    <el-step title="Step 2" :icon="Upload" />
-    <el-step title="Step 3" :icon="Picture" />
-  </el-steps>
-</template>
-
-<script setup>
-import { Edit, Upload, Picture } from '@element-plus/icons-vue'
-</script>
-```
-
-## Vertical
-
-```vue
-<template>
-  <el-steps :active="1" direction="vertical">
-    <el-step title="Step 1" />
-    <el-step title="Step 2" />
-    <el-step title="Step 3" />
-  </el-steps>
-</template>
-```
-
-## Simple
-
-```vue
-<template>
-  <el-steps :active="1" simple>
-    <el-step title="Step 1" />
-    <el-step title="Step 2" />
-    <el-step title="Step 3" />
-  </el-steps>
-</template>
-```
-
-## API Reference
-
-### Steps Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| space | Spacing of each step | `number \| string` | `''` |
-| direction | Display direction | `'vertical' \| 'horizontal'` | `'horizontal'` |
-| active | Current activation step | `number` | `0` |
-| process-status | Status of current step | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'process'` |
-| finish-status | Status of finished steps | `'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `'finish'` |
-| align-center | Center title and description | `boolean` | — |
-| simple | Apply simple theme | `boolean` | — |
-
-### Step Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| title | Step title | `string` | `''` |
-| description | Step description | `string` | `''` |
-| icon | Custom icon | `string \| Component` | — |
-| status | Current status | `'' \| 'wait' \| 'process' \| 'finish' \| 'error' \| 'success'` | `''` |
-
-### Step Slots
-
-| Name | Description |
-|------|-------------|
-| icon | Custom icon |
-| title | Step title |
-| description | Step description |
-
-## Best Practices
-
-1. Use `active` to track current step
-2. Use `direction="vertical"` for limited width
-3. Use `simple` for minimal UI
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/steps.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/steps) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/steps/basic.vue).

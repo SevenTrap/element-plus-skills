@@ -3,154 +3,39 @@ name: "el-statistic"
 description: "Statistic component for displaying numerical statistics. Invoke when user needs to display counts, amounts, rankings, or countdown timers."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Statistic Component
+# Statistics and countdowns
 
-Statistic displays numerical values with optional formatting and countdown support.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Dashboard statistics
-- Count displays
-- Amount displays
-- Countdown timers
+- `ElStatistic` formats a `value`; use `precision`, decimal/group separators, `prefix`/`suffix`, or a `formatter`. These are display components without `v-model`.
+- `ElCountdown` counts down to an absolute timestamp or Dayjs value. Pass `Date.now() + duration`, not a number of remaining seconds.
+- `format` uses Dayjs format tokens; bracket literal text. `change` reports remaining milliseconds and `finish` signals reaching zero.
+- Use `title`, `prefix`, and `suffix` slots for rich markup. Keep time computation reactive only where needed; do not recreate the target on every render.
 
-## Basic Usage
+## Example
 
-```vue
-<template>
-  <el-statistic title="Total Users" :value="268500" />
-</template>
-```
-
-## With Prefix/Suffix
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-statistic title="Revenue" :value="100000" prefix="$" suffix="USD" />
-</template>
-```
-
-## Formatting
-
-```vue
-<template>
-  <el-statistic
-    title="Formatted Number"
-    :value="1234567.89"
-    :precision="2"
-    group-separator=","
-    decimal-separator="."
-  />
-</template>
-```
-
-## Custom Formatter
-
-```vue
-<template>
-  <el-statistic
-    title="Custom Format"
-    :value="1234567"
-    :formatter="formatter"
-  />
-</template>
-
-<script setup>
-const formatter = (value) => {
-  return value.toLocaleString('en-US')
-}
+<script setup lang="ts">
+import { ElCountdown, ElStatistic } from 'element-plus'
+const deadline = Date.now() + 60_000
 </script>
-```
 
-## Countdown
-
-```vue
 <template>
-  <el-countdown
-    title="Countdown"
-    :value="deadline"
-    @finish="handleFinish"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const deadline = ref(Date.now() + 1000 * 60 * 60 * 24)
-
-const handleFinish = () => {
-  console.log('Countdown finished')
-}
-</script>
-```
-
-## Countdown Format
-
-```vue
-<template>
-  <el-countdown
-    title="Custom Format"
-    :value="deadline"
-    format="DD days HH:mm:ss"
-  />
+  <el-statistic title="Orders" :value="12345" />
+  <el-countdown title="Time remaining" :value="deadline" format="mm:ss" />
 </template>
 ```
 
-## API Reference
+## References
 
-### Statistic Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| value | Numeric value | `number` | `0` |
-| title | Title | `string` | — |
-| prefix | Prefix | `string` | — |
-| suffix | Suffix | `string` | — |
-| precision | Decimal precision | `number` | `0` |
-| decimal-separator | Decimal separator | `string` | `'.'` |
-| group-separator | Thousand separator | `string` | `','` |
-| formatter | Custom formatter | `(value: number) => string \| number` | — |
-| value-style | Value style | `CSSProperties` | — |
-
-### Statistic Slots
-
-| Name | Description |
-|------|-------------|
-| title | Custom title |
-| prefix | Custom prefix |
-| suffix | Custom suffix |
-
-### Countdown Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| value | Target time | `number \| Dayjs` | — |
-| title | Title | `string` | — |
-| prefix | Prefix | `string` | — |
-| suffix | Suffix | `string` | — |
-| format | Display format | `string` | `'HH:mm:ss'` |
-| value-style | Value style | `CSSProperties` | — |
-
-### Countdown Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Time difference changes | `(value: number) => void` |
-| finish | Countdown ends | `() => void` |
-
-### Countdown Slots
-
-| Name | Description |
-|------|-------------|
-| title | Custom title |
-| prefix | Custom prefix |
-| suffix | Custom suffix |
-
-## Best Practices
-
-1. Use `precision` for decimal values
-2. Use `group-separator` for large numbers
-3. Use Countdown for time-sensitive displays
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/statistic.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/statistic) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/statistic/countdown.vue).

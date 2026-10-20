@@ -3,124 +3,39 @@ name: "el-space"
 description: "Space component for consistent spacing between elements. Invoke when user needs to create consistent gaps between components, layout spacing, or element arrangement."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Space Component
+# Spacing component groups
 
-Space component provides consistent spacing between elements for better layout control.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Consistent component spacing
-- Button groups
-- Form layouts
-- Navigation items
+- Use `ElSpace` to space direct child elements; it has no value model. `direction` controls horizontal/vertical flow and `alignment` maps cross-axis alignment.
+- `size` accepts a named size, number, or `[horizontalGap, verticalGap]`. `wrap` permits horizontal wrapping.
+- `fill` stretches children according to `fill-ratio`; ensure the container has the desired width. Use `spacer` for a text or VNode separator.
+- For page grids or complex responsive layout, use Layout/CSS rather than assuming Space performs column layout.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
+<script setup lang="ts">
+import { ElButton, ElSpace } from 'element-plus'
+</script>
+
 <template>
-  <el-space>
-    <el-button>Button 1</el-button>
-    <el-button>Button 2</el-button>
-    <el-button>Button 3</el-button>
+  <el-space :size="[12, 8]" wrap>
+    <el-button>Save</el-button><el-button>Preview</el-button><el-button>Cancel</el-button>
   </el-space>
 </template>
 ```
 
-## Vertical Layout
+## References
 
-```vue
-<template>
-  <el-space direction="vertical">
-    <el-button>Button 1</el-button>
-    <el-button>Button 2</el-button>
-  </el-space>
-</template>
-```
-
-## Control Size
-
-```vue
-<template>
-  <el-space size="small">
-    <el-button>Small</el-button>
-  </el-space>
-  <el-space size="default">
-    <el-button>Default</el-button>
-  </el-space>
-  <el-space size="large">
-    <el-button>Large</el-button>
-  </el-space>
-</template>
-```
-
-## Custom Size
-
-```vue
-<template>
-  <el-space :size="20">
-    <el-button>Button 1</el-button>
-    <el-button>Button 2</el-button>
-  </el-space>
-</template>
-```
-
-## Auto Wrapping
-
-```vue
-<template>
-  <el-space wrap>
-    <el-button v-for="i in 20" :key="i">Button {{ i }}</el-button>
-  </el-space>
-</template>
-```
-
-## Spacer
-
-```vue
-<template>
-  <el-space spacer="|">
-    <el-button>Button 1</el-button>
-    <el-button>Button 2</el-button>
-  </el-space>
-</template>
-```
-
-## Fill Container
-
-```vue
-<template>
-  <el-space fill>
-    <el-button>Button 1</el-button>
-    <el-button>Button 2</el-button>
-  </el-space>
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| alignment | Alignment of items | CSS align-items | `'center'` |
-| direction | Placement direction | `'vertical' \| 'horizontal'` | `'horizontal'` |
-| spacer | Spacer element | `string \| number \| VNode` | — |
-| size | Spacing size | `'default' \| 'small' \| 'large' \| number \| [number, number]` | `'small'` |
-| wrap | Auto wrapping | `boolean` | `false` |
-| fill | Fill container | `boolean` | `false` |
-| fill-ratio | Fill ratio | `number` | `100` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Items to be spaced |
-
-## Best Practices
-
-1. Use `wrap` for responsive layouts
-2. Use `spacer` for custom separators
-3. Use `fill` for equal-width items
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/space.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/space) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/space/basic.vue).

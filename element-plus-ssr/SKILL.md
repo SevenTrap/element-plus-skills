@@ -1,376 +1,89 @@
 ---
 name: "element-plus-ssr"
-description: "Configures Element Plus for server-side rendering (SSR) applications. Invoke when user needs to implement SSR with Element Plus or fix hydration errors."
+description: "Integrate Element Plus 2.14.6 with Vue SSR or Nuxt, ensuring stable IDs, z-index initialization, and correct teleport hydration."
 metadata:
   author: jiaiyan
   version: "1.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Element Plus Server-Side Rendering (SSR)
+# Element Plus SSR
 
-This skill provides comprehensive guidance for using Element Plus in SSR environments, including Nuxt.js and custom SSR setups.
+Target **Element Plus 2.14.6**. Nuxt projects can use `@element-plus/nuxt` to handle Element Plus SSR integration; inspect the module version and existing configuration before adding manual equivalents.
 
-## When to Invoke
+## Per-app initialization
 
-Invoke this skill when:
-- User is building an SSR application with Element Plus
-- User encounters hydration errors with Element Plus components
-- User needs to configure Element Plus for Nuxt.js
-- User asks about Teleport handling in SSR
-- User needs to fix ID or z-index hydration mismatches
-
-## Nuxt.js Integration (Recommended)
-
-For Nuxt.js users, use the official Element Plus Nuxt module:
-
-### Installation
-
-```bash
-npm install -D @element-plus/nuxt
-```
-
-### Configuration
-
-Add to `nuxt.config.ts`:
+Create a fresh application and injection objects for each server request. Initialize equivalent objects on the client before hydration:
 
 ```ts
-export default defineNuxtConfig({
-  modules: ['@element-plus/nuxt'],
-})
-```
-
-The module automatically handles all SSR-specific configurations.
-
-Refer to [Element Plus Nuxt documentation](https://github.com/element-plus/element-plus-nuxt#readme) for more details.
-
-## Custom SSR Configuration
-
-For custom SSR setups, you need to handle several special cases to avoid hydration errors.
-
-### 1. Provide ID Injection
-
-Element Plus generates unique IDs for components. In SSR, different IDs on server and client cause hydration errors.
-
-**Solution**: Inject `ID_INJECTION_KEY`:
-
-```ts
-import { createApp } from 'vue'
-import { ID_INJECTION_KEY } from 'element-plus'
+// app.ts, shared by server and client
+import { createSSRApp } from 'vue'
+import ElementPlus, { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus'
 import App from './App.vue'
 
-const app = createApp(App)
-app.provide(ID_INJECTION_KEY, {
-  prefix: 1024,
-  current: 0,
-})
+export function createApp() {
+  const app = createSSRApp(App)
+  app.use(ElementPlus)
+  app.provide(ID_INJECTION_KEY, { prefix: 1024, current: 0 })
+  app.provide(ZINDEX_INJECTION_KEY, { current: 0 })
+  return app
+}
 ```
 
-### 2. Provide ZIndex
-
-Components like Dialog, Drawer, and Tooltip use z-index. Hydration errors can occur if z-index values differ between server and client.
-
-**Solution**: Inject `ZINDEX_INJECTION_KEY`:
+Use the same `prefix` and starting counters on server and client; if multiple apps share one page, give each app a different stable prefix. Do not share an injection object across requests. `ZINDEX_INJECTION_KEY` is the increasing counter, separate from the configured base z-index (2000 by default). Import styles through the bundler's client entry or existing SSR style pipeline.
 
 ```ts
-import { createApp } from 'vue'
-import { ZINDEX_INJECTION_KEY } from 'element-plus'
-import App from './App.vue'
-
-const app = createApp(App)
-app.provide(ZINDEX_INJECTION_KEY, { current: 0 })
+// entry-client.ts
+import { createApp } from './app'
+createApp().mount('#app')
 ```
 
-### 3. Handle Teleports
+The server renders a new app from `createApp()` with `renderToString`. Keep initial route, locale, theme, and data consistent with client hydration.
 
-Many Element Plus components use Vue's [Teleport](https://vuejs.org/guide/scaling-up/ssr.html#teleports) internally:
-- ElDialog
-- ElDrawer
-- ElTooltip
-- ElDropdown
-- ElSelect
-- ElDatePicker
-- ElPopover
-- ElPopconfirm
+## Teleports
 
-#### Option A: Client-Only Rendering
+Dialog, Drawer, Tooltip, Dropdown, Select, and date picker overlays may teleport. Choose according to whether their initial content must be server rendered:
 
-Render Teleport components only on the client:
-
-**Using Nuxt's ClientOnly**:
-
-```html
-<client-only>
-  <el-tooltip content="the tooltip content">
-    <el-button>tooltip</el-button>
-  </el-tooltip>
-</client-only>
-```
-
-**Manual Client-Only**:
+- Client-only overlay rendering is simplest when SSR content is unnecessary. In Nuxt use `ClientOnly`; in Vue guard with a flag set in `onMounted`.
+- To preserve SSR overlay content, collect the render context's teleports and insert each in its actual target in the HTML document.
 
 ```vue
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const isClient = ref(false)
-
-onMounted(() => {
-  isClient.value = true
-})
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
 </script>
 
 <template>
-  <el-tooltip v-if="isClient" content="the tooltip content">
-    <el-button>tooltip</el-button>
+  <el-tooltip v-if="mounted" content="Help">
+    <el-button>Help</el-button>
   </el-tooltip>
 </template>
 ```
 
-#### Option B: Inject Teleport Markup
+For the default `el` namespace, popper container targets start with `#el-popper-container-`. A server adapter can construct their wrappers from the renderer's own teleport output:
 
-Inject the Teleport markup into the correct location in your HTML template.
-
-**HTML Template**:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Element Plus SSR</title>
-    <!--preload-links-->
-  </head>
-  <body>
-    <!--app-teleports-->
-    <div id="app"><!--app-html--></div>
-    <script type="module" src="/src/entry-client.js"></script>
-  </body>
-</html>
-```
-
-**Server Entry (entry-server.js)**:
-
-```js
-import { renderToString } from 'vue/server-renderer'
-import { createApp } from './main'
-
-export async function render(url, manifest) {
-  const { app } = createApp()
-  
-  const ctx = {}
-  const html = await renderToString(app, ctx)
-  const preloadLinks = renderPreloadLinks(ctx.modules, manifest)
-  const teleports = renderTeleports(ctx.teleports)
-
-  return [html, preloadLinks, teleports]
-}
-
-function renderTeleports(teleports) {
+```ts
+function renderTeleports(teleports?: Record<string, string>) {
   if (!teleports) return ''
-  return Object.entries(teleports).reduce((all, [key, value]) => {
-    if (key.startsWith('#el-popper-container-')) {
-      return `${all}<div id="${key.slice(1)}">${value}</div>`
+  return Object.entries(teleports).reduce((html, [target, content]) => {
+    if (target.startsWith('#el-popper-container-')) {
+      return `${html}<div id="${target.slice(1)}">${content}</div>`
     }
-    return all
+    return html
   }, teleports.body || '')
 }
 ```
 
-**Server/Prerender Script**:
+Insert the result next to the app root inside `<body>`, as in the pinned SSR guide. Do not interpolate arbitrary user-provided target selectors into this helper. Custom `namespace` or `append-to` values require corresponding target handling; other targets must also be rendered explicitly. Rendering only `#app` and ignoring `ctx.teleports` loses overlay markup.
 
-```js
-const [appHtml, preloadLinks, teleports] = await render(url, manifest)
+Verify the production SSR build by loading directly into an overlay-containing route and checking hydration warnings, matching IDs, open/close behavior, and repeated requests. Client-only guards should cover only components that need them.
 
-const html = template
-  .replace('<!--preload-links-->', preloadLinks)
-  .replace('<!--app-html-->', appHtml)
-  .replace(/(\n|\r\n)\s*<!--app-teleports-->/, teleports)
-```
+## Versioned sources
 
-## Complete SSR Setup Example
+Validated against Element Plus **2.14.6**. Use the release sources below when checking details; the upstream `dev` branch can contain unreleased changes.
 
-### main.ts
-
-```ts
-import { createApp } from 'vue'
-import ElementPlus from 'element-plus'
-import { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus'
-import App from './App.vue'
-
-export function createApp() {
-  const app = createApp(App)
-  
-  // SSR-specific injections
-  app.provide(ID_INJECTION_KEY, {
-    prefix: 1024,
-    current: 0,
-  })
-  
-  app.provide(ZINDEX_INJECTION_KEY, { current: 0 })
-  
-  app.use(ElementPlus)
-  
-  return { app }
-}
-```
-
-### entry-client.ts
-
-```ts
-import { createApp } from './main'
-
-const { app } = createApp()
-
-app.mount('#app')
-```
-
-### entry-server.ts
-
-```ts
-import { renderToString } from 'vue/server-renderer'
-import { createApp } from './main'
-
-export async function render() {
-  const { app } = createApp()
-  
-  const ctx = {}
-  const html = await renderToString(app, ctx)
-  
-  return { html, teleports: ctx.teleports }
-}
-```
-
-## Handling Custom Namespace
-
-If you modify the [Namespace](https://element-plus.org/en-US/guide/namespace.html) or `append-to` attribute, adjust the teleport container ID:
-
-```js
-function renderTeleports(teleports) {
-  if (!teleports) return ''
-  return Object.entries(teleports).reduce((all, [key, value]) => {
-    // Adjust the prefix if using custom namespace
-    // Default: '#el-popper-container-'
-    // Custom: '#your-namespace-popper-container-'
-    if (key.startsWith('#el-popper-container-')) {
-      return `${all}<div id="${key.slice(1)}">${value}</div>`
-    }
-    return all
-  }, teleports.body || '')
-}
-```
-
-## Common SSR Issues
-
-### 1. Hydration Mismatch
-
-**Symptom**: Console warnings about hydration mismatch.
-
-**Causes**:
-- Missing ID injection
-- Missing z-index injection
-- Teleport components rendered on server
-
-**Solutions**:
-- Add ID_INJECTION_KEY
-- Add ZINDEX_INJECTION_KEY
-- Use ClientOnly for Teleport components
-
-### 2. Missing Styles
-
-**Symptom**: Styles not applied on initial load.
-
-**Solution**: Ensure CSS is extracted and included in the HTML:
-
-```js
-// In your SSR build config
-import { createSSRApp } from 'vue'
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-```
-
-### 3. Icons Not Rendering
-
-**Symptom**: Icons missing in SSR output.
-
-**Solution**: Register icons globally or import them:
-
-```ts
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
-}
-```
-
-## Best Practices
-
-### 1. Use Nuxt Module When Possible
-
-For Nuxt projects, always use `@element-plus/nuxt` to avoid manual configuration.
-
-### 2. Client-Only for Complex Components
-
-For components with complex Teleport behavior, use client-only rendering:
-
-```vue
-<client-only>
-  <el-dialog v-model="visible">
-    <!-- Dialog content -->
-  </el-dialog>
-</client-only>
-```
-
-### 3. Test Hydration
-
-Always test SSR hydration in development:
-
-```bash
-# Build and test SSR
-npm run build:ssr
-npm run serve:ssr
-```
-
-### 4. Avoid Direct DOM Access
-
-Don't access DOM directly in setup or created hooks:
-
-```vue
-<script setup>
-// ❌ Bad - will fail in SSR
-const el = document.getElementById('my-element')
-
-// ✅ Good - use onMounted
-onMounted(() => {
-  const el = document.getElementById('my-element')
-})
-</script>
-```
-
-## Input Parameters
-
-When using this skill, provide:
-- **Framework**: Nuxt.js or custom SSR
-- **Issue type**: Hydration error, missing styles, or other
-- **Components affected**: Which Element Plus components are problematic
-- **Current setup**: Your SSR configuration
-
-## Output Format
-
-This skill provides:
-1. SSR-specific configuration code
-2. Hydration error solutions
-3. Teleport handling examples
-4. Best practices for SSR with Element Plus
-
-## Usage Limitations
-
-- Requires Vue 3.x with SSR support
-- Some components require special handling in SSR
-- Custom SSR setups need manual configuration
-- Testing SSR thoroughly is recommended
-- Performance may vary based on SSR implementation
-
-## Resources
-
-- [Vue SSR Documentation](https://vuejs.org/guide/scaling-up/ssr.html)
-- [Element Plus Nuxt Module](https://github.com/element-plus/element-plus-nuxt)
-- [Element Plus SSR Starter](https://github.com/element-plus/element-plus-nuxt-starter)
+- [docs/en-US/guide/ssr.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/guide/ssr.md)
+- [packages/hooks/use-id/index.ts](https://github.com/element-plus/element-plus/blob/2.14.6/packages/hooks/use-id/index.ts)
+- [packages/hooks/use-z-index/index.ts](https://github.com/element-plus/element-plus/blob/2.14.6/packages/hooks/use-z-index/index.ts)
+- [packages/hooks/use-popper-container/index.ts](https://github.com/element-plus/element-plus/blob/2.14.6/packages/hooks/use-popper-container/index.ts)

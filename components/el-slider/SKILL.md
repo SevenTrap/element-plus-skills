@@ -3,123 +3,40 @@ name: "el-slider"
 description: "Slider component for dragging within a fixed range. Invoke when user needs to select numeric values within a range, set volume/brightness, or filter by price range."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Slider Component
+# Numeric and range sliders
 
-Slider component allows users to drag a slider within a fixed range to select values.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Numeric range selection
-- Volume/brightness controls
-- Price range filters
-- Progress indicators
+- Bind a number in normal mode or a two-number array with `range`. Set `min`, `max`, and positive `step` consistently with the desired domain.
+- `input` fires during dragging; `change` fires on committed changes. Use the latter for expensive side effects.
+- `marks` maps numeric positions to text or styled labels; `show-stops` renders step stops. `format-tooltip` controls displayed values.
+- `vertical` needs a defined `height`. `show-input` is for non-range sliders. Use `aria-label`, and `range-start-label`/`range-end-label` for range thumbs; `label` is deprecated.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-slider v-model="value" />
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref(50)
+import { ElSlider } from 'element-plus'
+const range = ref([4, 8])
 </script>
-```
 
-## Discrete Values
-
-```vue
 <template>
-  <el-slider v-model="value" :step="10" show-stops />
+  <el-slider v-model="range" range show-stops :max="10"
+    range-start-label="Minimum" range-end-label="Maximum" />
 </template>
 ```
 
-## With Input Box
+## References
 
-```vue
-<template>
-  <el-slider v-model="value" show-input />
-</template>
-```
-
-## Range Selection
-
-```vue
-<template>
-  <el-slider v-model="range" range :max="1000" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const range = ref([100, 500])
-</script>
-```
-
-## Vertical Mode
-
-```vue
-<template>
-  <el-slider v-model="value" vertical height="200px" />
-</template>
-```
-
-## Show Marks
-
-```vue
-<template>
-  <el-slider v-model="value" :marks="marks" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref(30)
-const marks = {
-  0: '0°C',
-  8: '8°C',
-  37: '37°C',
-  100: '100°C'
-}
-</script>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `number \| number[]` | `0` |
-| min | Minimum value | `number` | `0` |
-| max | Maximum value | `number` | `100` |
-| disabled | Whether disabled | `boolean` | `false` |
-| step | Step size | `number \| 'mark'` | `1` |
-| show-input | Show input box | `boolean` | `false` |
-| show-input-controls | Show input controls | `boolean` | `true` |
-| size | Size | `'' \| 'large' \| 'default' \| 'small'` | `'default'` |
-| show-stops | Show breakpoints | `boolean` | `false` |
-| show-tooltip | Show tooltip | `boolean` | `true` |
-| range | Enable range mode | `boolean` | `false` |
-| vertical | Vertical mode | `boolean` | `false` |
-| height | Height (vertical mode) | `string` | — |
-| marks | Marks | `SliderMarks` | — |
-| placement | Tooltip position | Placement enum | `'top'` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Triggers on value change | `(value: number \| number[]) => void` |
-| input | Triggers during sliding | `(value: number \| number[]) => void` |
-
-## Best Practices
-
-1. Use `marks` for labeled intervals
-2. Use `range` for min/max selection
-3. Use `step="mark"` to restrict to mark values
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/slider.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/slider) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/slider/range-selection.vue).

@@ -3,148 +3,44 @@ name: "el-splitter"
 description: "Splitter component for dividing areas horizontally or vertically. Invoke when user needs to create resizable panels, split views, or collapsible layouts."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Splitter Component
+# Resizable panels
 
-Splitter divides areas horizontally or vertically with draggable resizing.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Split views
-- Resizable panels
-- Collapsible layouts
-- Multi-pane interfaces
+- Compose `ElSplitter` with `ElSplitterPanel`; give the splitter's container explicit dimensions. `layout="vertical"` divides height; the default horizontal layout divides width.
+- Panel `size`/`min`/`max` accept pixel numbers or percentage strings. Bind `v-model:size` on panels for controlled sizing; there is no whole-splitter value model.
+- `resizable="false"` must be bound as `:resizable="false"`; `collapsible` enables collapsing. Choose compatible minimum and maximum dimensions.
+- `resize-start`, `resize`, and `resize-end` report the affected index and panel-size array. `lazy` defers content resizing until dragging ends.
 
-## Basic Usage
+## Example
 
-```vue
-<template>
-  <el-splitter>
-    <el-splitter-panel>Panel 1</el-splitter-panel>
-    <el-splitter-panel>Panel 2</el-splitter-panel>
-  </el-splitter>
-</template>
-```
-
-## Vertical Layout
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-splitter layout="vertical">
-    <el-splitter-panel>Panel 1</el-splitter-panel>
-    <el-splitter-panel>Panel 2</el-splitter-panel>
-  </el-splitter>
-</template>
-```
-
-## Collapsible
-
-```vue
-<template>
-  <el-splitter>
-    <el-splitter-panel collapsible>Panel 1</el-splitter-panel>
-    <el-splitter-panel>Panel 2</el-splitter-panel>
-  </el-splitter>
-</template>
-```
-
-## Size Constraints
-
-```vue
-<template>
-  <el-splitter>
-    <el-splitter-panel :min="100" :max="300">Panel 1</el-splitter-panel>
-    <el-splitter-panel>Panel 2</el-splitter-panel>
-  </el-splitter>
-</template>
-```
-
-## Disable Drag
-
-```vue
-<template>
-  <el-splitter>
-    <el-splitter-panel :resizable="false">Panel 1</el-splitter-panel>
-    <el-splitter-panel>Panel 2</el-splitter-panel>
-  </el-splitter>
-</template>
-```
-
-## Track Size
-
-```vue
-<template>
-  <el-splitter>
-    <el-splitter-panel v-model:size="size1">Panel 1</el-splitter-panel>
-    <el-splitter-panel v-model:size="size2">Panel 2</el-splitter-panel>
-  </el-splitter>
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const size1 = ref('50%')
-const size2 = ref('50%')
+import { ElSplitter, ElSplitterPanel } from 'element-plus'
+const size = ref(180)
 </script>
-```
 
-## Lazy Mode
-
-```vue
 <template>
-  <el-splitter lazy>
-    <el-splitter-panel>Panel 1</el-splitter-panel>
-    <el-splitter-panel>Panel 2</el-splitter-panel>
-  </el-splitter>
+  <div style="height: 240px; width: 100%">
+    <el-splitter>
+      <el-splitter-panel v-model:size="size" :min="100" :max="300">Navigation</el-splitter-panel>
+      <el-splitter-panel>Content</el-splitter-panel>
+    </el-splitter>
+  </div>
 </template>
 ```
 
-## API Reference
+## References
 
-### Splitter Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| layout | Layout direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| lazy | Enable lazy mode | `boolean` | `false` |
-
-### Splitter Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| resize-start | Resize starts | `(index, sizes) => void` |
-| resize | During resize | `(index, sizes) => void` |
-| resize-end | Resize ends | `(index, sizes) => void` |
-| collapse | Panel collapsed | `(index, type, sizes) => void` |
-
-### SplitterPanel Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| size / v-model:size | Panel size | `string \| number` | — |
-| min | Minimum size | `string \| number` | — |
-| max | Maximum size | `string \| number` | — |
-| resizable | Can be resized | `boolean` | `true` |
-| collapsible | Can be collapsed | `boolean` | `false` |
-
-### SplitterPanel Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| update:size | Size changes | `(size: number) => void` |
-
-### SplitterPanel Slots
-
-| Name | Description |
-|------|-------------|
-| default | Panel content |
-| start-collapsible | Start collapse button |
-| end-collapsible | End collapse button |
-
-## Best Practices
-
-1. Use `min`/`max` to constrain panel sizes
-2. Use `collapsible` for collapsible panels
-3. Use `lazy` for performance with heavy content
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/splitter.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/splitter) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/splitter/size.vue).

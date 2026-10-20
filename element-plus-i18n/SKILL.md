@@ -1,354 +1,79 @@
 ---
 name: "element-plus-i18n"
-description: "Configures internationalization and localization for Element Plus components. Invoke when user needs to change language, add custom translations, or configure locale settings."
+description: "Configure and switch Element Plus 2.14.6 component locales, including Day.js date localization and integration with app translations."
 metadata:
   author: jiaiyan
   version: "1.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Element Plus Internationalization
+# Element Plus internationalization
 
-This skill provides comprehensive guidance for configuring internationalization (i18n) in Element Plus applications.
+Target **Element Plus 2.14.6**. Component strings default to English. Element Plus locales and application translations are separate systems.
 
-## When to Invoke
+## Global locale
 
-Invoke this skill when:
-- User wants to change the default language
-- User needs to configure multiple languages
-- User asks about date/time localization
-- User wants to add custom translations
-- User needs to switch languages dynamically
-
-## Default Language
-
-Element Plus components use **English** by default. To use other languages, you need to configure the locale.
-
-## Configuration Methods
-
-### 1. Global Configuration
-
-Configure the locale when registering Element Plus:
+For full registration:
 
 ```ts
-import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import App from './App.vue'
+import 'dayjs/locale/zh-cn'
 
-const app = createApp(App)
-app.use(ElementPlus, {
-  locale: zhCn,
-})
+app.use(ElementPlus, { locale: zhCn })
 ```
 
-### 2. ConfigProvider Component
+Import Day.js locale data separately for date/time components. Setting Element Plus locale alone does not bundle that data.
 
-Use `el-config-provider` for dynamic locale switching:
+## Reactive locale with ConfigProvider
 
 ```vue
-<template>
-  <el-config-provider :locale="locale">
-    <app />
-  </el-config-provider>
-</template>
-
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { computed, ref } from 'vue'
 import { ElConfigProvider } from 'element-plus'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
-
-const locale = ref(zhCn)
-
-const switchLanguage = (lang) => {
-  locale.value = lang === 'zh' ? zhCn : en
-}
-</script>
-```
-
-### 3. CDN Usage
-
-For CDN-based projects:
-
-```html
-<script src="//unpkg.com/element-plus/dist/locale/zh-cn"></script>
-<script>
-  app.use(ElementPlus, {
-    locale: ElementPlusLocaleZhCn,
-  })
-</script>
-```
-
-## Date and Time Localization
-
-Element Plus uses [Day.js](https://day.js.org/) for date/time management in components like `DatePicker`. You must import Day.js locale separately:
-
-```ts
-import 'dayjs/locale/zh-cn'
-```
-
-### Complete Example with DatePicker
-
-```vue
-<template>
-  <el-config-provider :locale="locale">
-    <el-date-picker
-      v-model="date"
-      type="date"
-      placeholder="Pick a day"
-    />
-  </el-config-provider>
-</template>
-
-<script setup>
-import { ref } from 'vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
 
-const locale = ref(zhCn)
-const date = ref('')
+const language = ref<'en' | 'zh-cn'>('en')
+const locale = computed(() => language.value === 'zh-cn' ? zhCn : en)
 </script>
-```
 
-## Supported Languages
-
-Element Plus supports 50+ languages. Here's a partial list:
-
-| Language | Code | Import Path |
-|----------|------|-------------|
-| Simplified Chinese | zh-cn | `element-plus/es/locale/lang/zh-cn` |
-| American English | en | `element-plus/es/locale/lang/en` |
-| Traditional Chinese | zh-tw | `element-plus/es/locale/lang/zh-tw` |
-| Hong Kong Chinese | zh-hk | `element-plus/es/locale/lang/zh-hk` |
-| Japanese | ja | `element-plus/es/locale/lang/ja` |
-| Korean | ko | `element-plus/es/locale/lang/ko` |
-| German | de | `element-plus/es/locale/lang/de` |
-| French | fr | `element-plus/es/locale/lang/fr` |
-| Spanish | es | `element-plus/es/locale/lang/es` |
-| Portuguese | pt | `element-plus/es/locale/lang/pt` |
-| Russian | ru | `element-plus/es/locale/lang/ru` |
-| Arabic | ar | `element-plus/es/locale/lang/ar` |
-| Thai | th | `element-plus/es/locale/lang/th` |
-| Vietnamese | vi | `element-plus/es/locale/lang/vi` |
-
-Full list available at: [GitHub - Element Plus Locale](https://github.com/element-plus/element-plus/tree/dev/packages/locale/lang)
-
-## Dynamic Language Switching
-
-### Complete Example
-
-```vue
 <template>
-  <div>
-    <el-select v-model="currentLang" @change="changeLanguage">
-      <el-option label="简体中文" value="zh-cn" />
-      <el-option label="English" value="en" />
-      <el-option label="日本語" value="ja" />
-    </el-select>
-
-    <el-config-provider :locale="locale">
-      <el-date-picker
-        v-model="date"
-        type="date"
-        placeholder="Pick a day"
-      />
-      <el-pagination
-        :total="100"
-        :page-size="10"
-      />
-    </el-config-provider>
-  </div>
+  <button @click="language = language === 'en' ? 'zh-cn' : 'en'">Switch language</button>
+  <ElConfigProvider :locale="locale">
+    <router-view />
+  </ElConfigProvider>
 </template>
-
-<script setup>
-import { ref, watch } from 'vue'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import en from 'element-plus/es/locale/lang/en'
-import ja from 'element-plus/es/locale/lang/ja'
-
-const locales = {
-  'zh-cn': zhCn,
-  'en': en,
-  'ja': ja
-}
-
-const currentLang = ref('zh-cn')
-const locale = ref(zhCn)
-const date = ref('')
-
-const changeLanguage = (lang) => {
-  locale.value = locales[lang]
-  // Also change Day.js locale
-  import(`dayjs/locale/${lang}`)
-}
-</script>
 ```
 
-## Adding Custom Languages
+The `locale` prop takes a locale object, not a code string. Place the provider above consumers and load styles through the project's normal import strategy. For `vue-i18n`, derive the Element Plus object from the same application language using an explicit mapping. Map application `en-US` to Element Plus `en`, for example; do not assume every app code is a package filename.
 
-If your language is not supported, you can create a custom locale file:
+For direct Day.js use outside Element Plus, set or pass its locale independently as needed. Avoid a shared per-user global Day.js locale during SSR; initialize request-specific application state consistently on server and client.
+
+## CDN and custom messages
+
+For a pinned CDN build, load `https://unpkg.com/element-plus@2.14.6/dist/locale/zh-cn.js` after the main build and pass `ElementPlusLocaleZhCn` to `app.use(ElementPlus, { locale: ... })`. Date/time locale data still needs its own setup.
+
+For a small message override, preserve the complete locale shape:
 
 ```ts
-// custom-locale.ts
-export default {
-  name: 'xx',
+const customZhCn = {
+  ...zhCn,
   el: {
-    colorpicker: {
-      confirm: 'Confirm',
-      clear: 'Clear',
-    },
-    datepicker: {
-      now: 'Now',
-      today: 'Today',
-      cancel: 'Cancel',
-      clear: 'Clear',
-      confirm: 'OK',
-      selectDate: 'Select date',
-      selectTime: 'Select time',
-      startDate: 'Start Date',
-      startTime: 'Start Time',
-      endDate: 'End Date',
-      endTime: 'End Time',
-      prevYear: 'Previous Year',
-      nextYear: 'Next Year',
-      prevMonth: 'Previous Month',
-      nextMonth: 'Next Month',
-      year: '',
-      month1: 'January',
-      month2: 'February',
-      month3: 'March',
-      month4: 'April',
-      month5: 'May',
-      month6: 'June',
-      month7: 'July',
-      month8: 'August',
-      month9: 'September',
-      month10: 'October',
-      month11: 'November',
-      month12: 'December',
-      week: 'week',
-      weeks: {
-        sun: 'Sun',
-        mon: 'Mon',
-        tue: 'Tue',
-        wed: 'Wed',
-        thu: 'Thu',
-        fri: 'Fri',
-        sat: 'Sat',
-      },
-      months: {
-        jan: 'Jan',
-        feb: 'Feb',
-        mar: 'Mar',
-        apr: 'Apr',
-        may: 'May',
-        jun: 'Jun',
-        jul: 'Jul',
-        aug: 'Aug',
-        sep: 'Sep',
-        oct: 'Oct',
-        nov: 'Nov',
-        dec: 'Dec',
-      },
-    },
-    select: {
-      loading: 'Loading',
-      noMatch: 'No matching data',
-      noData: 'No data',
-      placeholder: 'Select',
-    },
-    // ... other component translations
+    ...zhCn.el,
+    pagination: { ...zhCn.el.pagination, goto: '跳至' },
   },
 }
 ```
 
-Then use it:
+Use the pinned locale directory as the supported-language inventory. Do not promise a locale merely because it exists on `dev`: Galician (`gl`) was added after 2.14.6 and is excluded here. Verify button/pagination strings and date picker month/day names after switching languages.
 
-```ts
-import customLocale from './custom-locale'
+## Versioned sources
 
-app.use(ElementPlus, {
-  locale: customLocale,
-})
-```
+Validated against Element Plus **2.14.6**. Use the release sources below when checking details; the upstream `dev` branch can contain unreleased changes.
 
-## Best Practices
-
-### 1. Persist Language Preference
-
-Store the user's language preference in localStorage:
-
-```ts
-const savedLang = localStorage.getItem('language') || 'en'
-const locale = ref(locales[savedLang])
-
-watch(locale, (newLocale) => {
-  localStorage.setItem('language', newLocale.name)
-})
-```
-
-### 2. Sync with Application i18n
-
-If using vue-i18n, sync Element Plus locale with your app locale:
-
-```ts
-import { createI18n } from 'vue-i18n'
-import ElementPlus from 'element-plus'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import en from 'element-plus/es/locale/lang/en'
-
-const i18n = createI18n({
-  locale: 'zh',
-  messages: {
-    zh: { /* ... */ },
-    en: { /* ... */ },
-  },
-})
-
-const elementLocales = {
-  zh: zhCn,
-  en: en,
-}
-
-app.use(i18n)
-app.use(ElementPlus, {
-  locale: elementLocales[i18n.global.locale],
-})
-```
-
-### 3. Lazy Load Locales
-
-For better performance, lazy load locales:
-
-```ts
-const loadLocale = async (lang) => {
-  const [dayjsLocale, elementLocale] = await Promise.all([
-    import(`dayjs/locale/${lang}`),
-    import(`element-plus/es/locale/lang/${lang}`),
-  ])
-  return elementLocale.default
-}
-```
-
-## Input Parameters
-
-When using this skill, provide:
-- **Target language**: The language code you want to use
-- **Configuration method**: Global or ConfigProvider
-- **Dynamic switching**: Whether you need runtime language switching
-- **Date components**: Whether you use DatePicker or other date components
-
-## Output Format
-
-This skill provides:
-1. Locale configuration examples
-2. Language switching implementations
-3. Day.js integration for date components
-4. Custom locale creation guide
-
-## Usage Limitations
-
-- Day.js locale must be imported separately for date components
-- Some languages may have incomplete translations
-- Custom locales need to follow the Element Plus locale structure
-- CDN usage requires different import syntax
+- [docs/en-US/guide/i18n.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/guide/i18n.md)
+- [docs/en-US/component/config-provider.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/config-provider.md)
+- [packages/locale/lang/en.ts](https://github.com/element-plus/element-plus/blob/2.14.6/packages/locale/lang/en.ts)
+- [packages/locale/lang/zh-cn.ts](https://github.com/element-plus/element-plus/blob/2.14.6/packages/locale/lang/zh-cn.ts)

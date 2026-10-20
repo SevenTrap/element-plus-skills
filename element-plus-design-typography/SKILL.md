@@ -1,211 +1,78 @@
 ---
 name: "element-plus-design-typography"
-description: "Typography design specifications for Element Plus. Invoke when user needs to understand font conventions, font-family settings, or text styling guidelines."
+description: "Apply Element Plus 2.14.6 typography tokens and distinguish documented font recommendations from actual emitted CSS defaults."
 metadata:
   author: jiaiyan
   version: "1.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Typography Design Specifications
+# Element Plus typography
 
-Element Plus creates font conventions to ensure the best presentation across different platforms.
+Target **Element Plus 2.14.6**, default `el` namespace. The typography guide recommends an Inter-first font stack, while theme-chalk's actual default `--el-font-family` starts with Helvetica Neue. Do not confuse the recommendation with the emitted theme token.
 
-## When to Use
+## Font stack
 
-- Understanding font conventions
-- Applying consistent text styles
-- Setting font-family for cross-platform compatibility
-- Managing font sizes and line heights
-
----
-
-## Font Family
-
-Element Plus uses a carefully selected font stack for optimal cross-platform display:
+Documented application recommendation:
 
 ```css
-font-family:
-  Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-  'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-```
-
-### Font Stack Explanation
-
-| Font | Platform | Purpose |
-|------|----------|---------|
-| Inter | All | Primary modern font |
-| Helvetica Neue | macOS | System fallback |
-| Helvetica | macOS/iOS | System fallback |
-| PingFang SC | macOS (Chinese) | Chinese characters |
-| Hiragino Sans GB | macOS (Chinese) | Chinese characters |
-| Microsoft YaHei | Windows (Chinese) | Chinese characters |
-| Arial | All | Universal fallback |
-| sans-serif | All | Generic fallback |
-
----
-
-## Font Sizes
-
-Element Plus provides standardized font size variables:
-
-| Variable | Value | Usage |
-|----------|-------|-------|
-| `--el-font-size-extra-large` | `20px` | Extra large headings |
-| `--el-font-size-large` | `18px` | Large headings |
-| `--el-font-size-medium` | `16px` | Medium text, subheadings |
-| `--el-font-size-base` | `14px` | Base body text |
-| `--el-font-size-small` | `13px` | Small text, captions |
-| `--el-font-size-extra-small` | `12px` | Extra small text, hints |
-
-### Usage Examples
-
-```css
-/* Heading */
-h1 {
-  font-size: var(--el-font-size-extra-large);
-}
-
-/* Subheading */
-h2 {
-  font-size: var(--el-font-size-large);
-}
-
-/* Body text */
-p {
-  font-size: var(--el-font-size-base);
-}
-
-/* Caption */
-.caption {
-  font-size: var(--el-font-size-small);
-}
-
-/* Hint text */
-.hint {
-  font-size: var(--el-font-size-extra-small);
-}
-```
-
----
-
-## Font Weight
-
-| Variable | Value | Usage |
-|----------|-------|-------|
-| `--el-font-weight-primary` | `500` | Primary weight for emphasis |
-| `--el-font-weight-secondary` | `100` | Secondary weight for light text |
-
-```css
-/* Emphasized text */
-.emphasis {
-  font-weight: var(--el-font-weight-primary);
-}
-
-/* Light text */
-.light {
-  font-weight: var(--el-font-weight-secondary);
-}
-```
-
----
-
-## Line Height
-
-Element Plus provides line height variables for consistent vertical rhythm:
-
-| Variable | Value | Usage |
-|----------|-------|-------|
-| `--el-font-line-height-primary` | `24px` | Primary line height |
-| `--el-font-line-height-secondary` | `16px` | Secondary line height |
-
-### Line Height Guidelines
-
-```css
-/* Body text */
-p {
-  line-height: var(--el-font-line-height-primary);
-}
-
-/* Compact text */
-.compact {
-  line-height: var(--el-font-line-height-secondary);
-}
-```
-
----
-
-## CSS Variables Summary
-
-```css
-:root {
-  /* Font Family */
-  --el-font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 
+body {
+  font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC',
     'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-  
-  /* Font Sizes */
-  --el-font-size-extra-large: 20px;
-  --el-font-size-large: 18px;
-  --el-font-size-medium: 16px;
-  --el-font-size-base: 14px;
-  --el-font-size-small: 13px;
-  --el-font-size-extra-small: 12px;
-  
-  /* Font Weight */
-  --el-font-weight-primary: 500;
-  --el-font-weight-secondary: 100;
-  
-  /* Line Height */
-  --el-font-line-height-primary: 24px;
-  --el-font-line-height-secondary: 16px;
 }
 ```
 
----
+Element Plus does not load Inter for the application. Use the project's existing font assets/loading strategy if choosing it. To align with the actual component theme token use `font-family: var(--el-font-family)`; its default is the above stack without Inter.
 
-## Text Component
+## Emitted typography variables
 
-Element Plus provides a Text component for styled text display:
+| Variable | Default |
+| --- | --- |
+| `--el-font-size-extra-large` | `20px` |
+| `--el-font-size-large` | `18px` |
+| `--el-font-size-medium` | `16px` |
+| `--el-font-size-base` | `14px` |
+| `--el-font-size-small` | `13px` |
+| `--el-font-size-extra-small` | `12px` |
+| `--el-font-weight-primary` | `500` |
+| `--el-font-line-height-primary` | `24px` |
+
+`--el-font-weight-secondary` and `--el-font-line-height-secondary` are not emitted by this release. Set application values explicitly rather than relying on those nonexistent tokens. The typography demo illustrates unitless line-height values 1, 1.3, 1.5, and 1.7; these are examples, not additional theme variables.
+
+```css
+.heading {
+  font-size: var(--el-font-size-extra-large);
+  font-weight: var(--el-font-weight-primary);
+  color: var(--el-text-color-primary);
+}
+.body-copy {
+  font-family: var(--el-font-family);
+  font-size: var(--el-font-size-base);
+  line-height: 1.5;
+  color: var(--el-text-color-regular);
+}
+```
+
+## Text component
 
 ```vue
 <template>
-  <!-- Text types -->
-  <el-text>Default text</el-text>
-  <el-text type="primary">Primary text</el-text>
-  <el-text type="success">Success text</el-text>
-  <el-text type="warning">Warning text</el-text>
-  <el-text type="danger">Danger text</el-text>
-  <el-text type="info">Info text</el-text>
-  
-  <!-- Text sizes -->
-  <el-text size="large">Large text</el-text>
-  <el-text size="default">Default text</el-text>
-  <el-text size="small">Small text</el-text>
-  
-  <!-- Truncated text -->
-  <el-text truncated>Long text that will be truncated...</el-text>
-  
-  <!-- Line clamped text -->
-  <el-text :line-clamp="2">Long text clamped to 2 lines...</el-text>
+  <el-text type="primary" size="large">Heading-like text</el-text>
+  <el-text style="width: 160px" truncated>Long single-line content</el-text>
+  <el-text :line-clamp="2">Long content limited to two lines</el-text>
 </template>
 ```
 
----
+Text supports semantic `type` values `primary`, `success`, `warning`, `danger`, `info`, plus the default empty type; sizes are `large`, `default`, `small`. Give truncation a width constraint. Use actual heading elements or Text's `tag` prop when heading semantics are required; font size alone does not create a heading. Dark mode changes the consumed text colors, not font size or family.
 
-## Best Practices
+For detailed Text props use the sibling [Text skill](../components/el-text/SKILL.md). For text colors use [color tokens](../element-plus-design-color/SKILL.md).
 
-1. **Use CSS Variables**: Always use predefined font variables for consistency
-2. **Cross-Platform**: The font stack ensures consistent display across platforms
-3. **Hierarchy**: Use font sizes to establish visual hierarchy
-4. **Line Height**: Maintain readable line heights for body text
-5. **Dark Mode**: Typography automatically adjusts in dark mode
-6. **Chinese Support**: Font stack includes Chinese-optimized fonts
+## Versioned sources
 
----
+Validated against Element Plus **2.14.6**. Use the release sources below when checking details; the upstream `dev` branch can contain unreleased changes.
 
-## Related Resources
-
-| Resource | Description |
-|----------|-------------|
-| [Text Component](./components/el-text/SKILL.md) | Text component documentation |
-| [Color Design](./element-plus-design-color/SKILL.md) | Text color variables |
-| [Border Design](./element-plus-design-border/SKILL.md) | Related design specifications |
+- [docs/en-US/component/typography.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/typography.md)
+- [docs/en-US/component/text.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/text.md)
+- [packages/theme-chalk/src/common/var.scss](https://github.com/element-plus/element-plus/blob/2.14.6/packages/theme-chalk/src/common/var.scss)
+- [packages/theme-chalk/src/var.scss](https://github.com/element-plus/element-plus/blob/2.14.6/packages/theme-chalk/src/var.scss)
+- [docs/examples/typography/line-height.vue](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/typography/line-height.vue)

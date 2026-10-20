@@ -3,119 +3,36 @@ name: "el-page-header"
 description: "PageHeader component for page navigation headers. Invoke when user needs to create page headers with back navigation, breadcrumbs, or title sections."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# PageHeader Component
+# Page header and back action
 
-PageHeader provides a header section with back navigation and content areas.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Page headers
-- Back navigation
-- Breadcrumb integration
-- Page title sections
+- Use `ElPageHeader` for a page title and a back affordance; it emits `back` but does not perform navigation. Attach the application's router/history action explicitly.
+- Set `title` for the back-area text and `content` for the main heading, or use their named slots. There is no `v-model`.
+- `breadcrumb` appears above the heading, `extra` holds actions, and the default slot holds page content below it.
+- `icon` accepts an icon component; use `icon=""` to suppress it. The `icon` slot provides custom markup.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-page-header @back="goBack">
-    <template #content>
-      <span class="text-large font-600 mr-3"> Title </span>
-    </template>
-  </el-page-header>
-</template>
-
-<script setup>
-const goBack = () => {
-  console.log('Go back')
-}
+<script setup lang="ts">
+import { ElPageHeader } from 'element-plus'
+const goBack = () => window.history.back()
 </script>
+
+<template><el-page-header title="Back" content="Details" @back="goBack" /></template>
 ```
 
-## Complete Example
+## References
 
-```vue
-<template>
-  <el-page-header @back="goBack">
-    <template #breadcrumb>
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
-        <el-breadcrumb-item>Detail</el-breadcrumb-item>
-      </el-breadcrumb>
-    </template>
-    <template #content>
-      <span class="text-large font-600 mr-3"> Title </span>
-    </template>
-    <template #extra>
-      <el-button type="primary">Action</el-button>
-    </template>
-    <template #default>
-      <p>Description content</p>
-    </template>
-  </el-page-header>
-</template>
-```
-
-## Custom Icon
-
-```vue
-<template>
-  <el-page-header :icon="ArrowLeft" @back="goBack">
-    <template #content>
-      <span>Custom Icon</span>
-    </template>
-  </el-page-header>
-</template>
-
-<script setup>
-import { ArrowLeft } from '@element-plus/icons-vue'
-</script>
-```
-
-## No Icon
-
-```vue
-<template>
-  <el-page-header icon="" @back="goBack">
-    <template #content>
-      <span>No Icon</span>
-    </template>
-  </el-page-header>
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| icon | Icon component | `string \| Component` | `Back` |
-| title | Main title | `string` | `''` |
-| content | Content text | `string` | `''` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| back | Back button clicked | `() => void` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| icon | Custom icon |
-| title | Custom title |
-| content | Custom content |
-| extra | Extra section |
-| breadcrumb | Breadcrumb section |
-| default | Main content |
-
-## Best Practices
-
-1. Use `breadcrumb` slot for navigation paths
-2. Use `extra` slot for action buttons
-3. Use `default` slot for page content
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/page-header.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/page-header) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/page-header/basic.vue).

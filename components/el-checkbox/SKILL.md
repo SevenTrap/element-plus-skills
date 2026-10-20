@@ -3,190 +3,34 @@ name: "el-checkbox"
 description: "Checkbox component for multiple choice selection. Invoke when user needs to allow users to select multiple options from a list, create check-all functionality, or toggle between states."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Checkbox Component
+# Checkbox
 
-Checkbox component provides a group of options for multiple choices with various styles and configurations.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Multiple selection from options
-- Toggle between states
-- Check-all functionality
-- Form multi-select fields
+Standalone v-model is normally boolean; true-value/false-value allow custom values. CheckboxGroup binds an array and children need explicit value. Using label as the stored value is deprecated for removal in 3.0.0. true-label/false-label are deprecated in favor of true-value/false-value; controls is deprecated in favor of aria-controls. indeterminate changes appearance only.
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-checkbox v-model="checked">Option</el-checkbox>
+  <el-checkbox-group v-model="selected"><el-checkbox value="vue">Vue</el-checkbox><el-checkbox value="ep">Element Plus</el-checkbox></el-checkbox-group>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const checked = ref(false)
+const selected = ref<string[]>(['vue'])
 </script>
 ```
 
-## Disabled State
+## Versioned reference
 
-```vue
-<template>
-  <el-checkbox v-model="checked" disabled>Disabled</el-checkbox>
-</template>
-```
-
-## Checkbox Group
-
-```vue
-<template>
-  <el-checkbox-group v-model="checkList">
-    <el-checkbox value="Option A">Option A</el-checkbox>
-    <el-checkbox value="Option B">Option B</el-checkbox>
-    <el-checkbox value="Option C">Option C</el-checkbox>
-  </el-checkbox-group>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const checkList = ref(['Option A', 'Option B'])
-</script>
-```
-
-## Options Attribute
-
-```vue
-<template>
-  <el-checkbox-group v-model="checkList" :options="options" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const checkList = ref(['Option A'])
-const options = [
-  { value: 'Option A', label: 'Option A' },
-  { value: 'Option B', label: 'Option B' },
-  { value: 'Option C', label: 'Option C', disabled: true }
-]
-</script>
-```
-
-## Indeterminate (Check All)
-
-```vue
-<template>
-  <el-checkbox
-    v-model="checkAll"
-    :indeterminate="isIndeterminate"
-    @change="handleCheckAllChange"
-  >
-    Check all
-  </el-checkbox>
-  <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-    <el-checkbox v-for="city in cities" :key="city" :value="city">
-      {{ city }}
-    </el-checkbox>
-  </el-checkbox-group>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const checkAll = ref(false)
-const isIndeterminate = ref(true)
-const cities = ['Shanghai', 'Beijing', 'Guangzhou', 'Shenzhen']
-const checkedCities = ref(['Shanghai', 'Beijing'])
-
-const handleCheckAllChange = (val) => {
-  checkedCities.value = val ? cities : []
-  isIndeterminate.value = false
-}
-
-const handleCheckedCitiesChange = (value) => {
-  const checkedCount = value.length
-  checkAll.value = checkedCount === cities.length
-  isIndeterminate.value = checkedCount > 0 && checkedCount < cities.length
-}
-</script>
-```
-
-## Min/Max Items
-
-```vue
-<template>
-  <el-checkbox-group v-model="checkedCities" :min="1" :max="2">
-    <el-checkbox v-for="city in cities" :key="city" :value="city">
-      {{ city }}
-    </el-checkbox>
-  </el-checkbox-group>
-</template>
-```
-
-## Button Style
-
-```vue
-<template>
-  <el-checkbox-group v-model="checkList">
-    <el-checkbox-button value="Option A">Option A</el-checkbox-button>
-    <el-checkbox-button value="Option B">Option B</el-checkbox-button>
-    <el-checkbox-button value="Option C">Option C</el-checkbox-button>
-  </el-checkbox-group>
-</template>
-```
-
-## With Borders
-
-```vue
-<template>
-  <el-checkbox v-model="checked" border>Option</el-checkbox>
-</template>
-```
-
-## API Reference
-
-### Checkbox Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| number \| boolean` | — |
-| value | Value when used in checkbox-group | `string \| number \| boolean \| object` | — |
-| label | Label text | `string \| number \| boolean \| object` | — |
-| true-value | Value when checked | `string \| number` | — |
-| false-value | Value when unchecked | `string \| number` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| border | Whether to add border | `boolean` | `false` |
-| size | Size | `'large' \| 'default' \| 'small'` | — |
-| name | Native name attribute | `string` | — |
-| checked | Whether checked | `boolean` | `false` |
-| indeterminate | Indeterminate state | `boolean` | `false` |
-| validate-event | Whether to trigger form validation | `boolean` | `true` |
-
-### Checkbox Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Triggers when value changes | `(value: string \| number \| boolean) => void` |
-
-### CheckboxGroup Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string[] \| number[]` | `[]` |
-| size | Size of checkboxes | `'large' \| 'default' \| 'small'` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| min | Minimum checked items | `number` | — |
-| max | Maximum checked items | `number` | — |
-| options | Data of options | `Array<{[key: string]: any}>` | — |
-| props | Configuration options | `object` | — |
-| type | Component type | `'checkbox' \| 'button'` | `'checkbox'` |
-
-## Best Practices
-
-1. Use `value` prop (not `label`) for checkbox values since 2.6.0
-2. Use `indeterminate` for check-all patterns
-3. Use `min`/`max` to limit selection count
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/checkbox) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/checkbox.md).

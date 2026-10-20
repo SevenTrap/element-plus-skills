@@ -3,112 +3,30 @@ name: "el-anchor"
 description: "Anchor component for anchor navigation. Invoke when user needs to create page anchor navigation, table of contents, or quick navigation to specific sections."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Anchor Component
+# Anchor
 
-Anchor provides quick navigation to specific sections on the current page.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Page table of contents
-- Document navigation
-- Section anchors
-- Quick page navigation
+Compose el-anchor with el-anchor-link and matching section IDs. container accepts a selector, HTMLElement, or Window; offset changes the scroll destination, bound changes activation tolerance. The click event receives a MouseEvent: preventDefault() to suppress hash/history navigation. Horizontal mode does not support nested sub-link slots. There is no v-model.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-anchor>
-    <el-anchor-link href="#section1" title="Section 1" />
-    <el-anchor-link href="#section2" title="Section 2" />
-    <el-anchor-link href="#section3" title="Section 3" />
-  </el-anchor>
-</template>
-```
-
-## Horizontal Mode
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-anchor direction="horizontal">
-    <el-anchor-link href="#section1" title="Section 1" />
-    <el-anchor-link href="#section2" title="Section 2" />
-  </el-anchor>
+  <el-anchor><el-anchor-link href="#details" title="Details" /></el-anchor>
+  <section id="details" style="margin-top: 500px; height: 800px">Details</section>
 </template>
 ```
 
-## Scroll Container
+## Versioned reference
 
-```vue
-<template>
-  <el-anchor :container="containerRef" :offset="100">
-    <el-anchor-link href="#section1" title="Section 1" />
-  </el-anchor>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const containerRef = ref(null)
-</script>
-```
-
-## Underline Type
-
-```vue
-<template>
-  <el-anchor type="underline">
-    <el-anchor-link href="#section1" title="Section 1" />
-  </el-anchor>
-</template>
-```
-
-## API Reference
-
-### Anchor Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| container | Scroll container | `string \| HTMLElement \| Window` | — |
-| offset | Scroll offset | `number` | `0` |
-| bound | Offset for triggering anchor | `number` | `15` |
-| duration | Scroll duration (ms) | `number` | `300` |
-| marker | Show marker | `boolean` | `true` |
-| type | Anchor type | `'default' \| 'underline'` | `'default'` |
-| direction | Anchor direction | `'vertical' \| 'horizontal'` | `'vertical'` |
-
-### Anchor Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Active link changes | `(href: string) => void` |
-| click | Link clicked | `(e: MouseEvent, href?: string) => void` |
-
-### Anchor Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| scrollTo | Scroll to specific position | `(href: string) => void` |
-
-### AnchorLink Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| title | Link text | `string` | — |
-| href | Link address | `string` | — |
-
-### AnchorLink Slots
-
-| Name | Description |
-|------|-------------|
-| default | Child links |
-| sub-link | Child links |
-
-## Best Practices
-
-1. Use `container` for custom scroll areas
-2. Use `offset` for fixed headers
-3. Use `direction="horizontal"` for top navigation
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/anchor) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/anchor.md).

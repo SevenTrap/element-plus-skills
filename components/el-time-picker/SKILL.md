@@ -3,135 +3,40 @@ name: "el-time-picker"
 description: "TimePicker component for time input. Invoke when user needs to select time values, time ranges, or limit time selections."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# TimePicker Component
+# Arbitrary time selection
 
-TimePicker allows users to select time values with optional range support.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Time selection
-- Time range selection
-- Limited time options
-- Scheduling
+- Without `value-format`, the selected value is a Date; `is-range` uses a two-element pair. The public model also accepts timestamps/strings; initialize it to match the chosen format and allow clearing.
+- `format` controls display only. `value-format` changes serialization, using Dayjs tokens with case-sensitive hours/minutes/seconds. Do not confuse display format with the model type.
+- `disabled-hours`, `disabled-minutes`, and `disabled-seconds` return arrays of unavailable numeric units. Their range-role arguments support different start/end constraints.
+- `arrow-control` uses arrows instead of scrolling. Bind `v-model` for selection; `change` reflects committed edits, and `visible-change` reports panel visibility.
+- Use `aria-label`; the old `label` alias is deprecated. For fixed interval choices use the separate TimeSelect component.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-time-picker v-model="value" placeholder="Arbitrary time" />
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref('')
+import { ElTimePicker } from 'element-plus'
+const time = ref<string | null>('09:30:00')
 </script>
-```
 
-## Time Range
-
-```vue
 <template>
-  <el-time-picker
-    v-model="value"
-    is-range
-    range-separator="To"
-    start-placeholder="Start time"
-    end-placeholder="End time"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref([])
-</script>
-```
-
-## Arrow Control
-
-```vue
-<template>
-  <el-time-picker
-    v-model="value"
-    arrow-control
-    placeholder="Arbitrary time"
-  />
+  <el-time-picker v-model="time" format="HH:mm" value-format="HH:mm:ss" aria-label="Start time" />
 </template>
 ```
 
-## Limit Time Range
+## References
 
-```vue
-<template>
-  <el-time-picker
-    v-model="value"
-    :disabled-hours="disabledHours"
-    :disabled-minutes="disabledMinutes"
-    :disabled-seconds="disabledSeconds"
-    placeholder="Arbitrary time"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref('')
-
-const disabledHours = () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23].filter(x => x < 9 || x > 18)
-
-const disabledMinutes = (hour) => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59].filter(x => x > 30)
-
-const disabledSeconds = () => []
-</script>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| Date \| number \| array` | — |
-| readonly | Read only | `boolean` | `false` |
-| disabled | Disabled | `boolean` | `false` |
-| editable | Input editable | `boolean` | `true` |
-| clearable | Show clear button | `boolean` | `true` |
-| size | Size | `'large' \| 'default' \| 'small'` | — |
-| placeholder | Placeholder | `string` | — |
-| start-placeholder | Start placeholder | `string` | — |
-| end-placeholder | End placeholder | `string` | — |
-| is-range | Enable range mode | `boolean` | `false` |
-| arrow-control | Use arrow buttons | `boolean` | `false` |
-| format | Display format | `string` | `'HH:mm:ss'` |
-| value-format | Value format | `string` | — |
-| disabled-hours | Disabled hours | `(role, comparingDate?) => number[]` | — |
-| disabled-minutes | Disabled minutes | `(hour, role, comparingDate?) => number[]` | — |
-| disabled-seconds | Disabled seconds | `(hour, minute, role, comparingDate?) => number[]` | — |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Value changes | `(value) => void` |
-| blur | Input blurs | `(e: FocusEvent) => void` |
-| focus | Input focuses | `(e: FocusEvent) => void` |
-| visible-change | Dropdown visibility changes | `(visibility: boolean) => void` |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| focus | Focus input | `() => void` |
-| blur | Blur input | `() => void` |
-| handleOpen | Open picker | `() => void` |
-| handleClose | Close picker | `() => void` |
-
-## Best Practices
-
-1. Use `arrow-control` for precise selection
-2. Use `disabled-hours/minutes/seconds` to limit options
-3. Use `is-range` for time range selection
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/time-picker.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/time-picker) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/time-picker/basic.vue).

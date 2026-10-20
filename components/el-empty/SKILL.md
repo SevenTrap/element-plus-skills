@@ -3,115 +3,29 @@ name: "el-empty"
 description: "Empty component for placeholder hints in empty states. Invoke when user needs to display empty data states, no results found, or placeholder content."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Empty Component
+# Empty
 
-Empty component provides placeholder hints for empty states with customizable images and content.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Empty data states
-- No search results
-- Placeholder content
-- Error states
+Use el-empty without a model. description is text; image supplies a URL; image-size is image width in pixels. image/description slots replace those parts; the default slot is the bottom action area.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-empty />
-</template>
-```
-
-## Custom Image
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-empty image="https://example.com/empty.png" />
+  <el-empty description="No saved items"><el-button>Create item</el-button></el-empty>
 </template>
 ```
 
-## Image Size
+## Versioned reference
 
-```vue
-<template>
-  <el-empty :image-size="200" />
-</template>
-```
-
-## Bottom Content
-
-```vue
-<template>
-  <el-empty>
-    <el-button type="primary">Button</el-button>
-  </el-empty>
-</template>
-```
-
-## Custom Description
-
-```vue
-<template>
-  <el-empty description="No data found">
-    <el-button type="primary">Add Data</el-button>
-  </el-empty>
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| image | Image URL | `string` | `''` |
-| image-size | Image size (width) | `number` | — |
-| description | Description text | `string` | `''` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Content as bottom content |
-| image | Content as image |
-| description | Content as description |
-
-## Common Patterns
-
-### Empty Table State
-
-```vue
-<template>
-  <el-table :data="tableData">
-    <el-table-column prop="name" label="Name" />
-    <template #empty>
-      <el-empty description="No data available">
-        <el-button type="primary" @click="fetchData">Refresh</el-button>
-      </el-empty>
-    </template>
-  </el-table>
-</template>
-```
-
-### Custom SVG Image
-
-```vue
-<template>
-  <el-empty>
-    <template #image>
-      <svg viewBox="0 0 100 100">
-        <!-- Custom SVG -->
-      </svg>
-    </template>
-  </el-empty>
-</template>
-```
-
-## Best Practices
-
-1. Provide actionable buttons in empty states
-2. Use descriptive messages
-3. Customize image size based on context
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/empty) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/empty.md).

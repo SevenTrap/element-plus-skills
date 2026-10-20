@@ -3,143 +3,34 @@ name: "el-input-tag"
 description: "InputTag component for adding content as tags. Invoke when user needs to create tag inputs, multi-value inputs, or keyword/tag entry fields."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# InputTag Component
+# InputTag
 
-InputTag allows users to add content as tags with various customization options.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Tag inputs
-- Keyword entry
-- Multi-value inputs
-- Email/tag lists
+Bind string[]. trigger is Enter or Space; delimiter can also create tags. max limits stored tag count while max-collapse-tags controls how many tags remain visible with collapse-tags. draggable enables ordering; drag-tag reports old/new indices and value. input reports unfinished text, change/add-tag/remove-tag report stored tags. Customize tags through the tag slot. No virtual scrolling is provided.
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-input-tag v-model="tags" placeholder="Press Enter to add tag" />
+  <el-input-tag v-model="tags" :max="5" clearable draggable aria-label="Tags" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const tags = ref(['Tag 1', 'Tag 2'])
+const tags = ref<string[]>(['Vue'])
 </script>
 ```
 
-## Custom Trigger
+## Versioned reference
 
-```vue
-<template>
-  <el-input-tag
-    v-model="tags"
-    trigger="Space"
-    placeholder="Press Space to add tag"
-  />
-</template>
-```
-
-## Maximum Tags
-
-```vue
-<template>
-  <el-input-tag v-model="tags" :max="5" />
-</template>
-```
-
-## Collapse Tags
-
-```vue
-<template>
-  <el-input-tag
-    v-model="tags"
-    collapse-tags
-    collapse-tags-tooltip
-  />
-</template>
-```
-
-## Draggable
-
-```vue
-<template>
-  <el-input-tag v-model="tags" draggable />
-</template>
-```
-
-## Delimiter
-
-```vue
-<template>
-  <el-input-tag v-model="tags" delimiter="," />
-</template>
-```
-
-## Custom Tag
-
-```vue
-<template>
-  <el-input-tag v-model="tags">
-    <template #tag="{ value, index }">
-      <el-tag type="success">{{ value }}</el-tag>
-    </template>
-  </el-input-tag>
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string[]` | — |
-| max | Max number of tags | `number` | — |
-| tag-type | Tag type | `'' \| 'success' \| 'info' \| 'warning' \| 'danger'` | `'info'` |
-| tag-effect | Tag effect | `'' \| 'light' \| 'dark' \| 'plain'` | `'light'` |
-| trigger | Trigger key | `'Enter' \| 'Space'` | `'Enter'` |
-| draggable | Enable drag | `boolean` | `false` |
-| delimiter | Add tag on delimiter match | `string \| RegExp` | — |
-| size | Size | `'large' \| 'default' \| 'small'` | — |
-| collapse-tags | Collapse tags | `boolean` | `false` |
-| collapse-tags-tooltip | Show tooltip on collapse | `boolean` | `false` |
-| save-on-blur | Save on blur | `boolean` | `true` |
-| clearable | Show clear button | `boolean` | `false` |
-| disabled | Disabled | `boolean` | `false` |
-| placeholder | Placeholder | `string` | — |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Value changes | `(value: string[]) => void` |
-| add-tag | Tag added | `(value: string \| string[]) => void` |
-| remove-tag | Tag removed | `(value: string, index: number) => void` |
-| focus | Input focuses | `(event: FocusEvent) => void` |
-| blur | Input blurs | `(event: FocusEvent) => void` |
-| clear | Clear clicked | `() => void` |
-
-### Slots
-
-| Name | Description | Type |
-|------|-------------|------|
-| tag | Custom tag | `{ value, index }` |
-| prefix | Prefix content | — |
-| suffix | Suffix content | — |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| focus | Focus input | `() => void` |
-| blur | Blur input | `() => void` |
-
-## Best Practices
-
-1. Use `max` to limit tag count
-2. Use `delimiter` for comma-separated input
-3. Use `draggable` for reordering
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/input-tag) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/input-tag.md).

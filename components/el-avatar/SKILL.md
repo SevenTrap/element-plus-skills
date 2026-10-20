@@ -3,123 +3,29 @@ name: "el-avatar"
 description: "Avatar component for representing people or objects with images, icons, or characters. Invoke when user needs to display user avatars, profile pictures, or entity representations."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Avatar Component
+# Avatar
 
-Avatar component displays user avatars or entity representations, supporting images, icons, or characters.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- User profile pictures
-- Team member displays
-- Entity representations
-- Avatar groups for teams
+Use src, an imported icon component, or default-slot fallback text; no v-model is used. size is pixels or large/default/small. fit controls image object-fit and error reports failures. el-avatar-group is available in 2.14.6; collapse options belong to the group.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-avatar :size="50" :src="avatarUrl" />
-  <el-avatar shape="square" :size="50" :src="avatarUrl" />
-</template>
-
-<script setup>
-const avatarUrl = 'https://example.com/avatar.jpg'
-</script>
-```
-
-## Types
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-avatar :icon="UserFilled" />
-  <el-avatar :src="avatarUrl" />
-  <el-avatar>user</el-avatar>
-</template>
-
-<script setup>
-import { UserFilled } from '@element-plus/icons-vue'
-</script>
-```
-
-## Fallback
-
-```vue
-<template>
-  <el-avatar :src="invalidUrl" @error="errorHandler">
-    <img src="fallback.jpg" />
-  </el-avatar>
-</template>
-
-<script setup>
-const errorHandler = () => true
-</script>
-```
-
-## Fit Container
-
-```vue
-<template>
-  <el-avatar shape="square" :size="100" fit="fill" :src="avatarUrl" />
-  <el-avatar shape="square" :size="100" fit="contain" :src="avatarUrl" />
-  <el-avatar shape="square" :size="100" fit="cover" :src="avatarUrl" />
+  <el-avatar :size="48" src="/avatar.png" alt="User">U</el-avatar>
 </template>
 ```
 
-## Avatar Group
+## Versioned reference
 
-```vue
-<template>
-  <el-avatar-group>
-    <el-avatar :src="url1" />
-    <el-avatar :src="url2" />
-    <el-avatar :src="url3" />
-  </el-avatar-group>
-</template>
-```
-
-## API Reference
-
-### Avatar Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| icon | Icon representation | `string \| Component` | — |
-| size | Avatar size | `number \| 'large' \| 'default' \| 'small'` | — |
-| shape | Avatar shape | `'circle' \| 'square'` | — |
-| src | Image source | `string` | — |
-| src-set | Native srcset attribute | `string` | — |
-| alt | Native alt attribute | `string` | — |
-| fit | How image fits container | `'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'` | `'cover'` |
-
-### Avatar Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| error | Trigger when image load error | `(e: Event) => void` |
-
-### Avatar Slots
-
-| Name | Description |
-|------|-------------|
-| default | Customize avatar content |
-
-### AvatarGroup Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| size | Control size of avatars in group | `number \| 'large' \| 'default' \| 'small'` | — |
-| shape | Control shape of avatars in group | `'circle' \| 'square'` | — |
-| collapse-avatars | Whether to collapse avatars | `boolean` | `false` |
-| collapse-avatars-tooltip | Show collapsed avatars on hover | `boolean` | `false` |
-| max-collapse-avatars | Max avatars shown before collapse | `number` | `1` |
-| effect | Tooltip theme | `'dark' \| 'light'` | `'light'` |
-| placement | Tooltip placement | Placement enum | `'top'` |
-
-## Best Practices
-
-1. Use `fit="cover"` for consistent avatar appearance
-2. Provide fallback content for image load errors
-3. Use AvatarGroup for team displays with collapse feature
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/avatar) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/avatar.md).

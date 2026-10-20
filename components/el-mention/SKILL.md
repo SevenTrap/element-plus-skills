@@ -3,194 +3,35 @@ name: "el-mention"
 description: "Mention component for mentioning users or items in input. Invoke when user needs to implement @mentions, user tagging, or item references in text inputs."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Mention Component
+# Mention
 
-Mention allows users to mention someone or something in an input field.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- User mentions (@username)
-- Item references
-- Tagging functionality
-- Rich text inputs
+Bind the entire input text string. Options use value/label/disabled or aliases through props. prefix is one character or an array of one-character triggers. search emits pattern/prefix; select emits option/prefix. Guard remote responses against stale requests. type="textarea" enables multiline text. whole/check-is-whole controls deletion of complete mentions. Customize labels with the label slot; there is no virtual scrolling API.
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-mention
-    v-model="value"
-    :options="options"
-    placeholder="Type @ to mention"
-  />
+  <el-mention v-model="text" :options="options" placeholder="Type @ to mention" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref('')
-const options = [
-  { value: 'user1', label: 'User 1' },
-  { value: 'user2', label: 'User 2' },
-  { value: 'user3', label: 'User 3' }
-]
+const text = ref('')
+const options = [{ value: 'alex', label: 'Alex' }, { value: 'sam', label: 'Sam' }]
 </script>
 ```
 
-## Textarea Mode
+## Versioned reference
 
-```vue
-<template>
-  <el-mention
-    v-model="value"
-    :options="options"
-    type="textarea"
-    placeholder="Type @ to mention"
-  />
-</template>
-```
-
-## Custom Props
-
-```vue
-<template>
-  <el-mention
-    v-model="value"
-    :options="options"
-    :props="{ value: 'id', label: 'name' }"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref('')
-const options = [
-  { id: '1', name: 'User 1' },
-  { id: '2', name: 'User 2' }
-]
-</script>
-```
-
-## Custom Label
-
-```vue
-<template>
-  <el-mention v-model="value" :options="options">
-    <template #label="{ item }">
-      <div style="display: flex; align-items: center;">
-        <el-avatar :size="24" />
-        <span>{{ item.label }}</span>
-      </div>
-    </template>
-  </el-mention>
-</template>
-```
-
-## Remote Loading
-
-```vue
-<template>
-  <el-mention
-    v-model="value"
-    :options="options"
-    :loading="loading"
-    @search="handleSearch"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref('')
-const options = ref([])
-const loading = ref(false)
-
-const handleSearch = async (pattern, prefix) => {
-  loading.value = true
-  const res = await fetch(`/api/users?q=${pattern}`)
-  options.value = await res.json()
-  loading.value = false
-}
-</script>
-```
-
-## Custom Trigger
-
-```vue
-<template>
-  <el-mention
-    v-model="value"
-    :options="options"
-    prefix="#"
-    placeholder="Type # to tag"
-  />
-</template>
-```
-
-## Delete as Whole
-
-```vue
-<template>
-  <el-mention
-    v-model="value"
-    :options="options"
-    whole
-  />
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Input value | `string` | — |
-| options | Mention options | `MentionOption[]` | `[]` |
-| props | Configuration options | `MentionOptionProps` | `{value: 'value', label: 'label', disabled: 'disabled'}` |
-| prefix | Trigger character | `string \| string[]` | `'@'` |
-| split | Split character | `string` | `' '` |
-| filter-option | Custom filter logic | `(pattern, option) => boolean` | — |
-| placement | Popup placement | `'bottom' \| 'top'` | `'bottom'` |
-| show-arrow | Show dropdown arrow | `boolean` | `false` |
-| offset | Dropdown offset | `number` | `0` |
-| whole | Delete mention as whole | `boolean` | `false` |
-| check-is-whole | Custom whole check | `(pattern, prefix) => boolean` | — |
-| loading | Loading state | `boolean` | `false` |
-| popper-class | Custom dropdown class | `string \| object` | `''` |
-| popper-style | Custom dropdown style | `string \| object` | — |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| search | Triggered on prefix hit | `(pattern, prefix) => void` |
-| select | Option selected | `(option, prefix) => void` |
-| whole-remove | Whole mention removed | `(pattern, prefix) => void` |
-
-### Slots
-
-| Name | Description | Type |
-|------|-------------|------|
-| label | Custom option label | `{ item, index }` |
-| loading | Loading content | — |
-| header | Dropdown header | — |
-| footer | Dropdown footer | — |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| input | Input component instance | `Ref<InputInstance>` |
-| tooltip | Tooltip component instance | `Ref<TooltipInstance>` |
-| dropdownVisible | Dropdown visibility | `ComputedRef<boolean>` |
-
-## Best Practices
-
-1. Use `loading` for async option loading
-2. Use `prefix` for different trigger characters
-3. Use `whole` for better UX when deleting mentions
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/mention) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/mention.md).

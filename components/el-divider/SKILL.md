@@ -3,80 +3,29 @@ name: "el-divider"
 description: "Divider component for separating content. Invoke when user needs to create visual separation between content sections, add horizontal or vertical dividers."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Divider Component
+# Divider
 
-Divider component creates a dividing line that separates content.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Content separation
-- Section dividers
-- Visual grouping
-- Layout organization
+Use horizontal or vertical direction without a model. Default-slot content and content-position apply to horizontal dividers. border-style accepts CSS styles such as dashed.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <div>
-    <p>Content above</p>
-    <el-divider />
-    <p>Content below</p>
-  </div>
-</template>
-```
-
-## Custom Content
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-divider content-position="left">Left</el-divider>
-  <el-divider content-position="center">Center</el-divider>
-  <el-divider content-position="right">Right</el-divider>
+  <p>Overview</p><el-divider content-position="left" border-style="dashed">Details</el-divider><p>Content</p>
 </template>
 ```
 
-## Dashed Line
+## Versioned reference
 
-```vue
-<template>
-  <el-divider border-style="dashed" />
-</template>
-```
-
-## Vertical Divider
-
-```vue
-<template>
-  <div style="display: flex; align-items: center;">
-    <span>Left</span>
-    <el-divider direction="vertical" />
-    <span>Right</span>
-  </div>
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| direction | Divider direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| border-style | Style of divider | CSS border-style | `'solid'` |
-| content-position | Position of content | `'left' \| 'right' \| 'center'` | `'center'` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Customized content on divider |
-
-## Best Practices
-
-1. Use `direction="vertical"` for inline separators
-2. Use `border-style="dashed"` for subtle dividers
-3. Position content with `content-position`
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/divider) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/divider.md).

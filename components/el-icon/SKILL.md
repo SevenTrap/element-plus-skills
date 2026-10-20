@@ -3,126 +3,33 @@ name: "el-icon"
 description: "Icon component for displaying SVG icons. Invoke when user needs to display icons, customize icon sizes and colors, or use Element Plus icon collection."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Icon Component
+# Icon
 
-Icon component provides SVG icons with customizable size and color.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- UI icons
-- Button icons
-- Status indicators
-- Visual elements
+Import SVG icons from @element-plus/icons-vue; el-icon styles its child component with size/color. Component icon props take imported bindings such as :icon="Edit". Old Element UI CSS icon classes are not this API. No model is used; label icon-only actions. Alias names such as Menu if native-tag naming conflicts arise.
 
-## Installation
+## Working example
 
-```bash
-npm install @element-plus/icons-vue
-```
-
-## Basic Usage
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-icon :size="30" :color="color">
-    <Edit />
-  </el-icon>
+  <el-icon :size="24" color="#409eff"><Edit /></el-icon>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
 import { Edit } from '@element-plus/icons-vue'
-
-const color = ref('#409EFC')
 </script>
 ```
 
-## Combined with Components
+## Versioned reference
 
-```vue
-<template>
-  <el-button type="primary">
-    <el-icon style="vertical-align: middle;">
-      <Search />
-    </el-icon>
-    <span style="vertical-align: middle;">Search</span>
-  </el-button>
-</template>
-
-<script setup>
-import { Search } from '@element-plus/icons-vue'
-</script>
-```
-
-## Loading Icon
-
-```vue
-<template>
-  <el-icon class="is-loading">
-    <Loading />
-  </el-icon>
-</template>
-
-<script setup>
-import { Loading } from '@element-plus/icons-vue'
-</script>
-```
-
-## Using SVG Directly
-
-```vue
-<template>
-  <Edit style="width: 1em; height: 1em; margin-right: 8px;" />
-  <Share style="width: 1em; height: 1em; margin-right: 8px;" />
-  <Delete style="width: 1em; height: 1em; margin-right: 8px;" />
-</template>
-
-<script setup>
-import { Edit, Share, Delete } from '@element-plus/icons-vue'
-</script>
-```
-
-## Global Registration
-
-```ts
-// main.ts
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
-const app = createApp(App)
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
-}
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| color | SVG fill color | `string` | inherit from parent |
-| size | Icon size | `number \| string` | inherit from font size |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | SVG icon component |
-
-## Icon Collection
-
-Element Plus provides 300+ icons including:
-- Action icons: Edit, Delete, Share, Download, Upload
-- Arrow icons: ArrowLeft, ArrowRight, ArrowUp, ArrowDown
-- Status icons: SuccessFilled, WarningFilled, CircleCloseFilled, InfoFilled
-- Media icons: Picture, VideoCamera, Microphone
-- And many more...
-
-## Best Practices
-
-1. Use `el-icon` wrapper for consistent sizing
-2. Add `is-loading` class for loading animations
-3. Import icons individually for tree-shaking
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/icon) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/icon.md).

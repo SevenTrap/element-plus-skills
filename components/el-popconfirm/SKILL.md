@@ -3,122 +3,42 @@ name: "el-popconfirm"
 description: "Popconfirm component for simple confirmation dialogs. Invoke when user needs to confirm actions before execution, like delete operations or irreversible actions."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Popconfirm Component
+# Inline confirmation popover
 
-Popconfirm provides a simple confirmation dialog for element click actions.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Delete confirmations
-- Action confirmations
-- Irreversible operation warnings
-- Quick confirm dialogs
+- Put one trigger element in `#reference` and provide `title`; `content` is ignored. Popconfirm uses a click trigger by default.
+- Run the operation on `confirm`, not on the reference button's click; handle `cancel` separately. There is no ordinary value model; controlled visibility is inherited from Tooltip.
+- Configure confirmation/cancellation text and button types, `icon`/`hide-icon`, and placement as needed. Consult the inherited Popover/Tooltip options for positioning.
+- `actions` slot receives `confirm` and `cancel`; call these to preserve the component's event/closing behavior when replacing buttons.
 
-## Basic Usage
+## Example
 
-```vue
-<template>
-  <el-popconfirm title="Are you sure to delete this?">
-    <template #reference>
-      <el-button>Delete</el-button>
-    </template>
-  </el-popconfirm>
-</template>
-```
-
-## Customize
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-popconfirm
-    title="Are you sure?"
-    confirm-button-text="Yes"
-    cancel-button-text="No"
-    @confirm="handleConfirm"
-    @cancel="handleCancel"
-  >
-    <template #reference>
-      <el-button type="danger">Delete</el-button>
-    </template>
-  </el-popconfirm>
-</template>
-
-<script setup>
-const handleConfirm = () => {
-  console.log('Confirmed')
-}
-
-const handleCancel = () => {
-  console.log('Cancelled')
-}
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ElButton, ElPopconfirm } from 'element-plus'
+const deleted = ref(false)
 </script>
-```
 
-## Trigger Event
-
-```vue
 <template>
-  <el-popconfirm
-    title="Delete this item?"
-    @confirm="deleteItem"
-  >
-    <template #reference>
-      <el-button type="danger">Delete</el-button>
-    </template>
+  <el-popconfirm title="Delete this item?" @confirm="deleted = true">
+    <template #reference><el-button :disabled="deleted">Delete</el-button></template>
   </el-popconfirm>
+  <p v-if="deleted">Deleted</p>
 </template>
-
-<script setup>
-const deleteItem = () => {
-  // Delete logic
-}
-</script>
 ```
 
-## API Reference
+## References
 
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| title | Title | `string` | — |
-| effect | Tooltip theme | `'dark' \| 'light'` | `'light'` |
-| confirm-button-text | Confirm button text | `string` | — |
-| cancel-button-text | Cancel button text | `string` | — |
-| confirm-button-type | Confirm button type | Button type enum | `'primary'` |
-| cancel-button-type | Cancel button type | Button type enum | `'text'` |
-| icon | Icon component | `string \| Component` | `QuestionFilled` |
-| icon-color | Icon color | `string` | `'#f90'` |
-| hide-icon | Hide icon | `boolean` | `false` |
-| hide-after | Disappear delay (ms) | `number` | `200` |
-| teleported | Teleport to body | `boolean` | `true` |
-| width | Popconfirm width | `string \| number` | `150` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| confirm | Click confirm button | `(e: MouseEvent) => void` |
-| cancel | Click cancel button | `(e: MouseEvent) => void` |
-
-### Slots
-
-| Name | Description | Type |
-|------|-------------|------|
-| reference | Trigger element | — |
-| actions | Custom footer | `{ confirm, cancel }` |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| hide | Hide popconfirm | `() => void` |
-
-## Best Practices
-
-1. Use for destructive action confirmations
-2. Provide clear confirmation messages
-3. Use appropriate button types
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/popconfirm.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/popconfirm) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/popconfirm/trigger-event.vue).

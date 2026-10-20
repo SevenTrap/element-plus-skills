@@ -3,132 +3,42 @@ name: "el-radio"
 description: "Radio component for single selection among multiple options. Invoke when user needs to allow users to select one option from a list, create radio groups, or implement mutually exclusive choices."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Radio Component
+# Single-choice controls
 
-Radio component provides single selection among multiple options with various styles.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Single selection from options
-- Mutually exclusive choices
-- Form radio fields
-- Settings selection
+- Use a scalar `string | number | boolean` model on `ElRadioGroup`, with `ElRadio` or `ElRadioButton` children. Values must match the model's type (`:value="3"` differs from `value="3"`).
+- Set each radio's `value` explicitly. The fallback where `label` acts as the value is deprecated and scheduled for removal in 3.0.0; labels/slots provide display text.
+- Group `options` and `props` mappings are available in 2.14.6 as an alternative to child declarations.
+- Use `aria-label` for accessible group naming; the RadioGroup `label` accessibility alias is deprecated. Group size styles radio buttons and bordered radios.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-radio v-model="radio" value="1">Option A</el-radio>
-  <el-radio v-model="radio" value="2">Option B</el-radio>
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const radio = ref('1')
+import { ElRadio, ElRadioGroup } from 'element-plus'
+const value = ref(3)
 </script>
-```
 
-## Disabled
-
-```vue
 <template>
-  <el-radio v-model="radio" value="1" disabled>Disabled</el-radio>
-</template>
-```
-
-## Radio Group
-
-```vue
-<template>
-  <el-radio-group v-model="radio">
-    <el-radio value="1">Option A</el-radio>
-    <el-radio value="2">Option B</el-radio>
-    <el-radio value="3">Option C</el-radio>
+  <el-radio-group v-model="value" aria-label="Plan">
+    <el-radio :value="3">Basic</el-radio>
+    <el-radio :value="6">Advanced</el-radio>
   </el-radio-group>
 </template>
 ```
 
-## With Borders
+## References
 
-```vue
-<template>
-  <el-radio-group v-model="radio">
-    <el-radio value="1" border>Option A</el-radio>
-    <el-radio value="2" border>Option B</el-radio>
-  </el-radio-group>
-</template>
-```
-
-## Radio Button
-
-```vue
-<template>
-  <el-radio-group v-model="radio">
-    <el-radio-button value="1">Option A</el-radio-button>
-    <el-radio-button value="2">Option B</el-radio-button>
-    <el-radio-button value="3">Option C</el-radio-button>
-  </el-radio-group>
-</template>
-```
-
-## Options Attribute
-
-```vue
-<template>
-  <el-radio-group v-model="radio" :options="options" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const radio = ref('1')
-const options = [
-  { value: '1', label: 'Option A' },
-  { value: '2', label: 'Option B' },
-  { value: '3', label: 'Option C' }
-]
-</script>
-```
-
-## API Reference
-
-### Radio Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| number \| boolean` | — |
-| value | Value of radio | `string \| number \| boolean` | — |
-| label | Label text | `string \| number \| boolean` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| border | Whether to add border | `boolean` | `false` |
-| size | Size | `'large' \| 'default' \| 'small'` | — |
-| name | Native name attribute | `string` | — |
-
-### Radio Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Triggers when value changes | `(value: string \| number \| boolean) => void` |
-
-### RadioGroup Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| number \| boolean` | — |
-| size | Size of radios | `'large' \| 'default' \| 'small'` | `'default'` |
-| disabled | Whether disabled | `boolean` | `false` |
-| text-color | Font color when active | `string` | `'#ffffff'` |
-| fill | Background color when active | `string` | `'#409eff'` |
-| options | Data of options | `Array<{[key: string]: any}>` | — |
-| props | Configuration options | `object` | — |
-| type | Component type | `'radio' \| 'button'` | `'radio'` |
-
-## Best Practices
-
-1. Use `value` prop (not `label`) for radio values since 2.6.0
-2. Use `el-radio-button` for button-style groups
-3. Use `options` for dynamic radio lists
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/radio.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/radio) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/radio/radio-group.vue).

@@ -3,135 +3,34 @@ name: "el-color-picker"
 description: "ColorPicker component for color selection. Invoke when user needs to select colors, set theme colors, or customize color values."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# ColorPicker Component
+# ColorPicker
 
-ColorPicker is a color selector supporting multiple color formats.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Theme customization
-- Color selection
-- Design tools
-- Style configuration
+Bind a color string and allow null or the configured clear value. show-alpha enables alpha; default format is hex without alpha, rgb with alpha. Set color-format when storage requires a fixed representation. active-change reports intermediate movement; change reports commitment. label is deprecated for accessibility: use aria-label. Use ColorPickerPanel for an always-visible editor.
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-color-picker v-model="color" />
+  <el-color-picker v-model="color" show-alpha color-format="rgb" aria-label="Accent" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const color = ref('#409EFF')
+const color = ref<string | null>('rgba(64, 158, 255, 0.8)')
 </script>
 ```
 
-## Alpha Channel
+## Versioned reference
 
-```vue
-<template>
-  <el-color-picker v-model="color" show-alpha />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const color = ref('rgba(19, 206, 102, 0.8)')
-</script>
-```
-
-## Predefined Colors
-
-```vue
-<template>
-  <el-color-picker
-    v-model="color"
-    :predefine="predefineColors"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const color = ref('#409EFF')
-const predefineColors = [
-  '#ff4500',
-  '#ff8c00',
-  '#ffd700',
-  '#90ee90',
-  '#00ced1',
-  '#1e90ff',
-  '#c71585'
-]
-</script>
-```
-
-## Sizes
-
-```vue
-<template>
-  <el-color-picker v-model="color" size="large" />
-  <el-color-picker v-model="color" />
-  <el-color-picker v-model="color" size="small" />
-</template>
-```
-
-## Color Formats
-
-```vue
-<template>
-  <el-color-picker v-model="color" color-format="rgb" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const color = ref('rgb(64, 158, 255)')
-</script>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string` | — |
-| disabled | Disabled | `boolean` | `false` |
-| clearable | Show clear button | `boolean` | `true` |
-| size | Size | `'large' \| 'default' \| 'small'` | — |
-| show-alpha | Show alpha slider | `boolean` | `false` |
-| color-format | Color format | `'rgb' \| 'prgb' \| 'hex' \| 'hex3' \| 'hex4' \| 'hex6' \| 'hex8' \| 'name' \| 'hsl' \| 'hsv'` | `'hex'` or `'rgb'` |
-| predefine | Predefined colors | `string[]` | — |
-| validate-event | Trigger form validation | `boolean` | `true` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Value changes | `(value: string) => void` |
-| active-change | Active color changes | `(value: string) => void` |
-| focus | Component focuses | `(event: FocusEvent) => void` |
-| blur | Component blurs | `(event: FocusEvent) => void` |
-| clear | Clear button clicked | `() => void` |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| color | Current color object | `Color` |
-| show | Show picker | `() => void` |
-| hide | Hide picker | `() => void` |
-| focus | Focus picker | `() => void` |
-| blur | Blur picker | `() => void` |
-
-## Best Practices
-
-1. Use `show-alpha` for transparent colors
-2. Use `predefine` for brand colors
-3. Use `color-format` for specific format needs
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/color-picker) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/color-picker.md).

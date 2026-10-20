@@ -3,180 +3,41 @@ name: "el-select-v2"
 description: "Virtualized Select component for large datasets. Invoke when user needs to select from thousands of options with virtual scrolling for performance."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Virtualized Select (SelectV2) Component
+# Virtualized select inputs
 
-SelectV2 provides a virtualized select for handling large datasets efficiently.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Large datasets (1000+ options)
-- Performance-critical selects
-- Virtual scrolling needed
-- Multi-select with many options
+- Use `ElSelectV2` with an `options` array; do not copy the child `ElOption` structure of standard Select. This is the virtualized select, marked beta in the official docs.
+- Single selection uses one value; `multiple` uses an array. For object values, `value-key` identifies the object, while `props` maps option label/value/disabled fields.
+- `item-height` controls fixed option height (default 34); `estimated-option-height` supports dynamic-height virtualization. Custom option rendering must match the chosen sizing strategy.
+- Remote search requires `filterable`, `remote`, `remote-method`, and application-managed loading/results. `allow-create` requires filtering.
+- Configure `empty-values`/`value-on-clear` for clear behavior. Prefer `teleported` and `append-to`; `popper-append-to-body` is deprecated. `end-reached` exists in 2.14.6.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-select-v2 v-model="value" :options="options" placeholder="Select" />
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref('')
-const options = Array.from({ length: 1000 }).map((_, idx) => ({
-  value: `value${idx}`,
-  label: `Option ${idx}`
+import { ElSelectV2 } from 'element-plus'
+const selected = ref('option-0')
+const options = Array.from({ length: 1000 }, (_, index) => ({
+  value: `option-${index}`, label: `Option ${index + 1}`,
 }))
 </script>
+
+<template><el-select-v2 v-model="selected" :options="options" filterable style="width: 240px" /></template>
 ```
 
-## Multiple Selection
+## References
 
-```vue
-<template>
-  <el-select-v2
-    v-model="value"
-    :options="options"
-    multiple
-    collapse-tags
-    collapse-tags-tooltip
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref([])
-const options = Array.from({ length: 1000 }).map((_, idx) => ({
-  value: `value${idx}`,
-  label: `Option ${idx}`
-}))
-</script>
-```
-
-## Filterable
-
-```vue
-<template>
-  <el-select-v2
-    v-model="value"
-    :options="options"
-    filterable
-  />
-</template>
-```
-
-## Remote Search
-
-```vue
-<template>
-  <el-select-v2
-    v-model="value"
-    :options="options"
-    filterable
-    remote
-    :remote-method="remoteMethod"
-    :loading="loading"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref('')
-const options = ref([])
-const loading = ref(false)
-
-const remoteMethod = async (query) => {
-  if (query) {
-    loading.value = true
-    const res = await fetch(`/api/search?q=${query}`)
-    options.value = await res.json()
-    loading.value = false
-  }
-}
-</script>
-```
-
-## Grouped Options
-
-```vue
-<template>
-  <el-select-v2 v-model="value" :options="groupedOptions" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref('')
-const groupedOptions = [
-  {
-    label: 'Group 1',
-    options: [
-      { value: '1', label: 'Option 1' },
-      { value: '2', label: 'Option 2' }
-    ]
-  }
-]
-</script>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| number \| boolean \| object \| array` | — |
-| options | Options data | `array` | — |
-| props | Configuration options | `object` | — |
-| multiple | Enable multiple | `boolean` | `false` |
-| disabled | Disabled | `boolean` | `false` |
-| clearable | Clearable | `boolean` | `false` |
-| filterable | Filterable | `boolean` | `false` |
-| remote | Remote search | `boolean` | `false` |
-| remote-method | Remote search method | `(query: string) => void` | — |
-| loading | Loading state | `boolean` | `false` |
-| height | Dropdown height | `number` | `274` |
-| item-height | Item height | `number` | `34` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Value changes | `(val) => void` |
-| visible-change | Dropdown visibility changes | `(visible: boolean) => void` |
-| remove-tag | Tag removed | `(tagValue) => void` |
-| clear | Clear clicked | `() => void` |
-| blur | Input blurs | `(e: FocusEvent) => void` |
-| focus | Input focuses | `(e: FocusEvent) => void` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Custom option renderer |
-| header | Dropdown header |
-| footer | Dropdown footer |
-| empty | Empty content |
-| prefix | Input prefix |
-| tag | Custom tag |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| focus | Focus input | `() => void` |
-| blur | Blur input | `() => void` |
-| selectedLabel | Selected label | `ComputedRef<string \| string[]>` |
-
-## Best Practices
-
-1. Use for datasets with 1000+ options
-2. Use `height` and `item-height` for performance tuning
-3. Use `remote` for server-side filtering
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/select-v2.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/select-v2) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/select-v2/basic-usage.vue).

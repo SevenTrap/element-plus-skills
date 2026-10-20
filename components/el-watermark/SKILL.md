@@ -3,121 +3,39 @@ name: "el-watermark"
 description: "Watermark component for adding text or pattern watermarks. Invoke when user needs to protect content, brand documents, or add copyright notices."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Watermark Component
+# Text and image watermarks
 
-Watermark adds specific text or patterns to the page.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Content protection
-- Branding
-- Copyright notices
-- Document security
+- Wrap protected content in `ElWatermark` and supply `content` as a string or string array for multiple lines. It has no `v-model`.
+- `image` renders a logo instead of text; set explicit width/height and use a high-resolution source. Cross-origin images need suitable CORS headers because rendering uses canvas.
+- `font`, `rotate`, `gap`, `offset`, and `z-index` control appearance. Tune text color explicitly for light/dark backgrounds; watermark font color does not automatically provide suitable contrast for every theme.
+- The component observes mutations to restore its overlay, but it is a visual deterrent rather than access control. Keep data authorization in the application/server.
 
-## Basic Usage
+## Example
 
-```vue
-<template>
-  <el-watermark content="Element Plus">
-    <div style="height: 500px">
-      Content goes here
-    </div>
-  </el-watermark>
-</template>
-```
-
-## Multi-line Watermark
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-watermark :content="['Element Plus', 'Vue 3']">
-    <div style="height: 500px">
-      Content goes here
-    </div>
-  </el-watermark>
-</template>
-```
-
-## Image Watermark
-
-```vue
-<template>
-  <el-watermark
-    image="https://element-plus.org/images/element-plus-logo-small.svg"
-    :width="130"
-    :height="50"
-  >
-    <div style="height: 500px">
-      Content goes here
-    </div>
-  </el-watermark>
-</template>
-```
-
-## Custom Configuration
-
-```vue
-<template>
-  <el-watermark
-    content="Confidential"
-    :font="font"
-    :gap="[100, 100]"
-    :rotate="-22"
-  >
-    <div style="height: 500px">
-      Content goes here
-    </div>
-  </el-watermark>
-</template>
-
-<script setup>
-const font = {
-  color: 'rgba(0, 0, 0, 0.15)',
-  fontSize: 16,
-  fontWeight: 'normal',
-  fontFamily: 'sans-serif'
-}
+<script setup lang="ts">
+import { ElWatermark } from 'element-plus'
 </script>
+
+<template>
+  <el-watermark :content="['Internal', 'Team workspace']" :font="{ color: 'rgba(0, 0, 0, .15)' }">
+    <div style="height: 300px; padding: 24px">Document preview</div>
+  </el-watermark>
+</template>
 ```
 
-## API Reference
+## References
 
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| width | Watermark width | `number` | `120` |
-| height | Watermark height | `number` | `64` |
-| rotate | Rotation angle (degrees) | `number` | `-22` |
-| z-index | Z-index of watermark | `number` | `9` |
-| image | Image source | `string` | — |
-| content | Watermark text | `string \| string[]` | `'Element Plus'` |
-| font | Text style | `Font` | — |
-| gap | Spacing between watermarks | `[number, number]` | `[100, 100]` |
-| offset | Offset from top-left | `[number, number]` | `[gap[0]/2, gap[1]/2]` |
-
-### Font Configuration
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| color | Font color | `string` | `'rgba(0,0,0,.15)'` |
-| fontSize | Font size | `number \| string` | `16` |
-| fontWeight | Font weight | `'normal' \| 'bold' \| number` | `'normal'` |
-| fontFamily | Font family | `string` | `'sans-serif'` |
-| fontStyle | Font style | `'none' \| 'normal' \| 'italic' \| 'oblique'` | `'normal'` |
-| textAlign | Text align | `'left' \| 'right' \| 'center' \| 'start' \| 'end'` | `'center'` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Container for watermark |
-
-## Best Practices
-
-1. Use `image` for brand logos
-2. Set appropriate `gap` for coverage
-3. Use `font.color` with low opacity for subtlety
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/watermark.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/watermark) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/watermark/multi-line.vue).

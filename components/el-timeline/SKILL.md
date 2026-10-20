@@ -3,136 +3,45 @@ name: "el-timeline"
 description: "Timeline component for visually displaying timeline activities. Invoke when user needs to display chronological events, activity history, or process logs."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Timeline Component
+# Event timelines
 
-Timeline component visually displays timeline activities with timestamps.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Activity history
-- Chronological events
-- Process logs
-- Version history
+- Compose `ElTimeline` with `ElTimelineItem` entries; it has no model and does not sort by timestamp. Supply entries in the intended order, or use `reverse` to reverse rendering.
+- `mode` supports `start`, `alternate`, `alternate-reverse`, and `end`. Item timestamps are display text, not parsed dates.
+- Item `placement` places timestamps above/below content. `hide-timestamp` hides them; the `dot` slot replaces the node graphic; render rich timestamps in item content when needed.
+- Node `type` uses Button-style values including `danger`; use `color` for a custom color and an icon component for `icon`.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-timeline>
-    <el-timeline-item
-      v-for="(activity, index) in activities"
-      :key="index"
-      :timestamp="activity.timestamp"
-    >
-      {{ activity.content }}
-    </el-timeline-item>
-  </el-timeline>
-</template>
-
-<script setup>
-const activities = [
-  { content: 'Event 1', timestamp: '2024-01-01' },
-  { content: 'Event 2', timestamp: '2024-01-02' },
-  { content: 'Event 3', timestamp: '2024-01-03' }
+<script setup lang="ts">
+import { ElTimeline, ElTimelineItem } from 'element-plus'
+const events = [
+  { id: 1, time: '2026-10-19', text: 'Created' },
+  { id: 2, time: '2026-10-20', text: 'Approved' },
 ]
 </script>
-```
 
-## Mode
-
-```vue
 <template>
   <el-timeline mode="alternate">
-    <el-timeline-item timestamp="2024-01-01">Event 1</el-timeline-item>
-    <el-timeline-item timestamp="2024-01-02">Event 2</el-timeline-item>
-  </el-timeline>
-</template>
-```
-
-## Custom Node
-
-```vue
-<template>
-  <el-timeline>
-    <el-timeline-item
-      timestamp="2024-01-01"
-      color="#0bbd87"
-      size="large"
-    >
-      Custom node
-    </el-timeline-item>
-    <el-timeline-item
-      timestamp="2024-01-02"
-      :icon="Check"
-    >
-      With icon
-    </el-timeline-item>
-  </el-timeline>
-</template>
-
-<script setup>
-import { Check } from '@element-plus/icons-vue'
-</script>
-```
-
-## Custom Timestamp
-
-```vue
-<template>
-  <el-timeline>
-    <el-timeline-item timestamp="2024-01-01" placement="top">
-      Timestamp on top
+    <el-timeline-item v-for="event in events" :key="event.id" :timestamp="event.time">
+      {{ event.text }}
     </el-timeline-item>
   </el-timeline>
 </template>
 ```
 
-## Reverse
+## References
 
-```vue
-<template>
-  <el-timeline reverse>
-    <el-timeline-item timestamp="2024-01-01">First</el-timeline-item>
-    <el-timeline-item timestamp="2024-01-02">Second</el-timeline-item>
-  </el-timeline>
-</template>
-```
-
-## API Reference
-
-### Timeline Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| reverse | Reverse order | `boolean` | `false` |
-| mode | Position of timeline | `'start' \| 'alternate' \| 'alternate-reverse' \| 'end'` | `'start'` |
-
-### TimelineItem Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| timestamp | Timestamp content | `string` | `''` |
-| hide-timestamp | Hide timestamp | `boolean` | `false` |
-| center | Vertically centered | `boolean` | `false` |
-| placement | Position of timestamp | `'top' \| 'bottom'` | `'bottom'` |
-| type | Node type | `'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `''` |
-| color | Background color of node | `string` | `''` |
-| size | Node size | `'normal' \| 'large'` | `'normal'` |
-| icon | Icon component | `string \| Component` | — |
-| hollow | Icon is hollow | `boolean` | `false` |
-
-### TimelineItem Slots
-
-| Name | Description |
-|------|-------------|
-| default | Customize content |
-| dot | Customize node |
-
-## Best Practices
-
-1. Use `mode="alternate"` for alternating layouts
-2. Use `reverse` for newest-first ordering
-3. Customize nodes with icons for visual distinction
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/timeline.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/timeline) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/timeline/mode.vue).

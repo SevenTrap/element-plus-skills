@@ -3,166 +3,36 @@ name: "el-dropdown"
 description: "Dropdown component for toggleable menus displaying lists of links and actions. Invoke when user needs to create dropdown menus, action menus, or context menus."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Dropdown Component
+# Dropdown
 
-Dropdown component provides a toggleable menu for displaying lists of links and actions.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Navigation menus
-- Action menus
-- Context menus
-- Split button actions
+Provide one focusable default-slot trigger and a dropdown slot containing el-dropdown-menu/el-dropdown-item. trigger defaults to hover; click is useful for actions. command emits the selected item's command; there is no v-model. split-button has a separate main-button click action. hide-on-click controls dismissal. Avoid deprecated button type="text".
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-dropdown>
-    <span class="el-dropdown-link">
-      Dropdown List
-      <el-icon class="el-icon--right"><ArrowDown /></el-icon>
-    </span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>Action 1</el-dropdown-item>
-        <el-dropdown-item>Action 2</el-dropdown-item>
-        <el-dropdown-item>Action 3</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
+  <el-dropdown trigger="click" @command="select"><el-button>Actions</el-button><template #dropdown><el-dropdown-menu><el-dropdown-item command="edit">Edit</el-dropdown-item></el-dropdown-menu></template></el-dropdown>
+  <p>{{ action }}</p>
 </template>
 
-<script setup>
-import { ArrowDown } from '@element-plus/icons-vue'
+<script setup lang="ts">
+import { ref } from 'vue'
+const action = ref('')
+const select = (command: string) => { action.value = command }
 </script>
 ```
 
-## Triggering Element
+## Versioned reference
 
-```vue
-<template>
-  <el-dropdown split-button type="primary" @click="handleClick">
-    Dropdown List
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>Action 1</el-dropdown-item>
-        <el-dropdown-item>Action 2</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-</template>
-```
-
-## Trigger Methods
-
-```vue
-<template>
-  <el-dropdown trigger="click">
-    <span>Click to trigger</span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>Action</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-  
-  <el-dropdown trigger="hover">
-    <span>Hover to trigger</span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>Action</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-</template>
-```
-
-## Command Event
-
-```vue
-<template>
-  <el-dropdown @command="handleCommand">
-    <span>Dropdown</span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item command="a">Action 1</el-dropdown-item>
-        <el-dropdown-item command="b">Action 2</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-</template>
-
-<script setup>
-const handleCommand = (command) => {
-  console.log('Command:', command)
-}
-</script>
-```
-
-## Sizes
-
-```vue
-<template>
-  <el-dropdown size="large">
-    <el-button>Large</el-button>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item>Action</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-</template>
-```
-
-## API Reference
-
-### Dropdown Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| type | Menu button type | Button type enum | `''` |
-| size | Menu size | `'large' \| 'default' \| 'small'` | `''` |
-| max-height | Max height of menu | `string \| number` | `''` |
-| split-button | Display as button group | `boolean` | `false` |
-| disabled | Whether disabled | `boolean` | `false` |
-| placement | Placement of pop menu | Placement enum | `'bottom'` |
-| effect | Tooltip theme | `'dark' \| 'light'` | `'light'` |
-| trigger | How to trigger | `'click' \| 'hover' \| 'contextmenu'` | `'hover'` |
-| hide-on-click | Hide menu after clicking | `boolean` | `true` |
-| show-timeout | Delay before show | `number` | `150` |
-| hide-timeout | Delay before hide | `number` | `150` |
-| teleported | Teleport to body | `boolean` | `true` |
-
-### Dropdown Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| click | Left button clicked (split-button) | `(e: MouseEvent) => void` |
-| command | Dropdown item clicked | `(...args: any[]) => void` |
-| visible-change | Dropdown visibility changes | `(val: boolean) => void` |
-
-### Dropdown Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| handleOpen | Open dropdown menu | `() => void` |
-| handleClose | Close dropdown menu | `() => void` |
-
-### DropdownItem Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| command | Command to dispatch | `string \| number \| object` | — |
-| disabled | Whether disabled | `boolean` | `false` |
-| divided | Show divider | `boolean` | `false` |
-| icon | Custom icon | `string \| Component` | — |
-
-## Best Practices
-
-1. Use `split-button` for primary action with dropdown
-2. Use `command` event for action handling
-3. Set `hide-on-click="false"` for multi-action menus
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/dropdown) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/dropdown.md).

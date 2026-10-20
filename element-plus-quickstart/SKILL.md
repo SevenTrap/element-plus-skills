@@ -1,57 +1,21 @@
 ---
 name: "element-plus-quickstart"
-description: "Helps set up and configure Element Plus in Vue 3 projects. Invoke when user needs to install, import, or configure Element Plus in a new or existing project."
+description: "Install and configure Element Plus 2.14.6 in Vue 3, choosing full, automatic, or manual imports and the matching style pipeline."
 metadata:
   author: jiaiyan
   version: "1.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Element Plus Quick Start
+# Element Plus quick start
 
-This skill provides comprehensive guidance for setting up Element Plus in Vue 3 projects, including installation, import methods, and global configuration.
+Target **Element Plus 2.14.6**. Inspect the project's existing bundler and import strategy before adding another style or component import pipeline.
 
-## When to Invoke
-
-Invoke this skill when:
-- User wants to install Element Plus in a Vue 3 project
-- User needs help with full import vs on-demand import
-- User asks about configuring Element Plus with Vite, Webpack, or Nuxt
-- User needs to set up global configuration (size, zIndex)
-- User encounters issues with Element Plus installation or setup
-
-## Installation Methods
-
-### Package Manager Installation
-
-```bash
-# npm
-npm install element-plus --save
-
-# yarn
-yarn add element-plus
-
-# pnpm
-pnpm install element-plus
+```sh
+npm install --save-exact element-plus@2.14.6
 ```
 
-### Browser Import (CDN)
-
-```html
-<head>
-  <!-- Import style -->
-  <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
-  <!-- Import Vue 3 -->
-  <script src="//unpkg.com/vue@3"></script>
-  <!-- Import component library -->
-  <script src="//unpkg.com/element-plus"></script>
-</head>
-```
-
-## Import Methods
-
-### Full Import
-
-Suitable for projects where bundle size is not a primary concern.
+## Full import
 
 ```ts
 import { createApp } from 'vue'
@@ -59,184 +23,73 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
 
-const app = createApp(App)
-app.use(ElementPlus)
-app.mount('#app')
+createApp(App)
+  .use(ElementPlus, { size: 'small', zIndex: 3000 })
+  .mount('#app')
 ```
 
-#### Volar Support
+`size` accepts `large`, `default`, or `small`; the initial popup z-index is 2000 when not configured. For global component type checking, merge `element-plus/global` into `compilerOptions.types` without discarding existing entries.
 
-Add global component type definition in `tsconfig.json`:
+## Automatic on-demand import
 
-```json
-{
-  "compilerOptions": {
-    "types": ["element-plus/global"]
-  }
-}
-```
-
-### On-Demand Import (Recommended)
-
-Install required plugins:
-
-```bash
+```sh
 npm install -D unplugin-vue-components unplugin-auto-import
 ```
 
-#### Vite Configuration
+Merge these plugins into the existing Vite config (keep its Vue plugin):
 
 ```ts
 import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
   plugins: [
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    }),
+    vue(),
+    AutoImport({ resolvers: [ElementPlusResolver()] }),
+    Components({ resolvers: [ElementPlusResolver()] }),
   ],
 })
 ```
 
-#### Webpack Configuration
+`Components` resolves template components; `AutoImport` resolves APIs such as `ElMessage`. The resolver imports component styles as well. Do not also add full `dist/index.css` unless the project deliberately wants all styles. External plugin versions are separate from the Element Plus release; keep compatible versions in the project lockfile.
 
-```js
-const AutoImport = require('unplugin-auto-import/webpack')
-const Components = require('unplugin-vue-components/webpack')
-const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+For Webpack use the same plugins from `/webpack` rather than `/vite`.
 
-module.exports = {
-  plugins: [
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    }),
-  ],
-}
+## Explicit component imports
+
+```vue
+<script setup lang="ts">
+import { ElButton } from 'element-plus'
+import 'element-plus/es/components/button/style/css'
+</script>
+
+<template>
+  <ElButton type="primary">Save</ElButton>
+</template>
 ```
 
-### Nuxt Integration
-
-Install the Nuxt module:
-
-```bash
-npm install -D @element-plus/nuxt
-```
-
-Add to Nuxt config:
-
-```ts
-export default defineNuxtConfig({
-  modules: ['@element-plus/nuxt'],
-})
-```
-
-## Global Configuration
-
-### Full Import Configuration
-
-```ts
-import { createApp } from 'vue'
-import ElementPlus from 'element-plus'
-import App from './App.vue'
-
-const app = createApp(App)
-app.use(ElementPlus, { size: 'small', zIndex: 3000 })
-```
-
-### On-Demand Configuration
-
-Use `el-config-provider`:
+Alternatively install `unplugin-element-plus` and add `ElementPlus()` from `unplugin-element-plus/vite` to automate styles for explicit imports. Choose one coherent style pipeline. Use `ElConfigProvider` for global settings in an on-demand setup:
 
 ```vue
 <template>
-  <el-config-provider :size="size" :z-index="zIndex">
-    <app />
+  <el-config-provider size="small" :z-index="3000">
+    <router-view />
   </el-config-provider>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const zIndex = ref(3000)
-const size = ref('small')
-</script>
 ```
 
-## Browser Compatibility
+## Nuxt and environment checks
 
-| Version | Chrome | Edge | Firefox | Safari |
-|---------|--------|------|---------|--------|
-| < 2.5.0 | ≥ 64   | ≥ 79 | ≥ 78    | ≥ 12   |
-| 2.5.0+  | ≥ 85   | ≥ 85 | ≥ 79    | ≥ 14.1 |
+Use `@element-plus/nuxt` in `modules` for Nuxt; its version is independent of Element Plus. The official quick-start notes that pnpm/Nuxt may require explicit `dayjs` installation or hoisting when dependency conversion fails. Prefer fixing the actual dependency issue over changing unrelated package-manager settings.
 
-**Note:** Element Plus does not support IE11 since Vue 3 no longer supports IE11.
+2.14.6 requires Sass >= 1.79.0 when compiling source styles. It does not support IE. Confirm installed package version, render a button, and verify popup styling and generated types before declaring setup complete.
 
-## Sass Configuration
+## Versioned sources
 
-For version 2.8.5+, the minimum compatible Sass version is 1.79.0.
+Validated against Element Plus **2.14.6**. Use the release sources below when checking details; the upstream `dev` branch can contain unreleased changes.
 
-To resolve legacy JS API deprecation warning, configure in `vite.config.ts`:
-
-```ts
-css: {
-  preprocessorOptions: {
-    scss: { api: 'modern-compiler' },
-  }
-}
-```
-
-## Starter Templates
-
-- [Vite Template](https://github.com/element-plus/element-plus-vite-starter)
-- [Nuxt Template](https://github.com/element-plus/element-plus-nuxt-starter)
-- [Laravel Template](https://github.com/element-plus/element-plus-in-laravel-starter)
-
-## Common Issues
-
-### Double-Closed Tags in DOM Templates
-
-When using Element Plus in DOM templates, use double-closed tags to avoid parsing issues:
-
-```html
-<!-- Correct -->
-<el-table>
-  <el-table-column></el-table-column>
-</el-table>
-
-<!-- Incorrect -->
-<el-table>
-  <el-table-column />
-</el-table>
-```
-
-## Input Parameters
-
-When using this skill, provide the following information:
-- **Project type**: Vite, Webpack, Nuxt, or CDN
-- **Import method**: Full import or on-demand import (recommended)
-- **Configuration needs**: Size, zIndex, or other global settings
-- **TypeScript usage**: Whether the project uses TypeScript
-
-## Output Format
-
-This skill provides:
-1. Installation commands for the specified package manager
-2. Configuration code snippets for the build tool
-3. Global configuration examples
-4. Troubleshooting tips for common setup issues
-
-## Usage Limitations
-
-- Requires Vue 3.x (does not support Vue 2)
-- Does not support IE11
-- For SSR projects, additional configuration may be needed (refer to SSR skill)
-- CDN usage is not recommended for production applications
+- [docs/en-US/guide/quickstart.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/guide/quickstart.md)
+- [docs/en-US/guide/installation.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/guide/installation.md)

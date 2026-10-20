@@ -1,0 +1,50 @@
+# date-picker-panel API — Element Plus 2.14.6
+
+Adapted from [official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/date-picker-panel.md) at `5ac2b162180d3922d77c50990bb40c2f02376796`.
+Read this reference when exact prop types, defaults, events, slots, or exposes are needed. Version labels identify introductions; future removal notices do not add future APIs.
+
+The documentation type badges are rendered as bold labels here; accompanying TypeScript signatures and unions retain their original meaning.
+
+## API
+
+### Attributes
+
+| Name                   | Description                                                                                                                                | Type                                                                                                                                                                                                        | Default    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| model-value / v-model  | binding value, if it is an `range` picker, the length of the array should be 2                                                             | **number** / **string** / **Date** / **array**`number[] \| string[] \| Date[]`                                                                                                                                  | ''         |
+| border                 | whether the date picker is bordered                                                                                                        | **boolean**                                                                                                                                                                                                  | true       |
+| disabled               | whether DatePicker is disabled                                                                                                             | **boolean**                                                                                                                                                                                                  | false      |
+| clearable              | whether to show clear button                                                                                                               | **boolean**                                                                                                                                                                                                  | true       |
+| editable (since 2.13.0)     | whether the input is editable                                                                                                              | **boolean**                                                                                                                                                                                                  | true       |
+| type                   | type of the picker. `quarter`, `quarters`, and `quarterrange` are supported since (since 2.14.5)                                                | **enum**`'year' \| 'years' \|'month' \| 'months' \| 'date' \| 'dates' \| 'datetime' \| 'week' \| 'quarter' \| 'quarters' \| 'datetimerange' \| 'daterange' \| 'monthrange' \| 'yearrange' \| 'quarterrange'` | date       |
+| default-value          | optional, default date of the calendar                                                                                                     | **object**`Date \| [Date, Date]`                                                                                                                                                                             | —          |
+| default-time           | optional, the time value to use when selecting date range                                                                                  | **object**`Date \| [Date, Date]`                                                                                                                                                                             | —          |
+| value-format           | optional, format of binding value. If not specified, the binding value will be a Date object                                               | **string**                                                                                                                                                                                                   | —          |
+| date-format            | optional, format of the date displayed in input's inner panel                                                                              | **string** see [date formats](https://day.js.org/docs/en/display/format)                                                                                                                                     | YYYY-MM-DD |
+| time-format            | optional, format of the time displayed in input's inner panel                                                                              | **string** see [date formats](https://day.js.org/docs/en/display/format)                                                                                                                                     | HH:mm:ss   |
+| unlink-panels          | unlink two date-panels in range-picker                                                                                                     | **boolean**                                                                                                                                                                                                  | false      |
+| single-panel (since 2.14.0) | show only one panel in range-picker                                                                                                        | **boolean**                                                                                                                                                                                                  | false      |
+| disabled-date          | a function determining if a date is disabled with that date as its parameter. Should return a Boolean                                      | **Function**`(data: Date) => boolean`                                                                                                                                                                        | —          |
+| shortcuts              | an object array to set shortcut options                                                                                                    | **array**`Array<{ text: string, value: Date \| Function }>`                                                                                                                                                  | []         |
+| cell-class-name        | set custom className                                                                                                                       | **Function**`(data: Date) => string`                                                                                                                                                                         | —          |
+| show-footer            | whether to show footer where the date picker is one **enum**`'dates' \| 'months' \| 'years' \| 'quarters' \| 'datetime' \| 'datetimerange'` | **boolean**                                                                                                                                                                                                  | false      |
+| show-confirm           | whether to show the confirm button                                                                                                         | **boolean**                                                                                                                                                                                                  | false      |
+| show-week-number       | show the week number besides the week                                                                                                      | **boolean**                                                                                                                                                                                                  | false      |
+
+### Events
+
+| Name            | Description                                                           | Type                                                                                      |
+| --------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| calendar-change | triggers when the calendar selected date is changed. Only for `range` | **Function**`(val: [Date, null \| Date]) => void`                                          |
+| panel-change    | triggers when the navigation button click.                            | **Function**`(date: Date \| [Date, Date], mode: 'month' \| 'year', view?: string) => void` |
+| clear (since 2.13.1) | triggers when a clear button is clicked                               | **Function**`() => void`                                                                   |
+
+### Slots
+
+| Name       | Description         |
+| ---------- | ------------------- |
+| default    | custom cell content |
+| prev-month | prev month icon     |
+| next-month | next month icon     |
+| prev-year  | prev year icon      |
+| next-year  | next year icon      |

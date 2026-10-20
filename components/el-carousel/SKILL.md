@@ -3,142 +3,29 @@ name: "el-carousel"
 description: "Carousel component for looping images or texts in limited space. Invoke when user needs to display image sliders, content carousels, or rotating banners."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Carousel Component
+# Carousel
 
-Carousel component loops a series of images or texts in a limited space with various display modes.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Image sliders
-- Content carousels
-- Rotating banners
-- Product showcases
+Compose el-carousel with el-carousel-item and a usable height. There is no v-model: use initial-index, change, and navigation exposes. interval is milliseconds; autoplay, loop, and pause-on-hover control motion. Vertical mode needs explicit height. type="card" and card-scale enable card presentation. change emits current and previous indices.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-carousel height="150px">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
-</template>
-```
-
-## Motion Blur
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-carousel height="200px" motion-blur>
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
+  <el-carousel height="160px" :autoplay="false"><el-carousel-item v-for="item in 3" :key="item"><h3>{{ item }}</h3></el-carousel-item></el-carousel>
 </template>
 ```
 
-## Indicators
+## Versioned reference
 
-```vue
-<template>
-  <el-carousel indicator-position="outside">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
-</template>
-```
-
-## Arrows
-
-```vue
-<template>
-  <el-carousel :interval="4000" arrow="always">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
-</template>
-```
-
-## Card Mode
-
-```vue
-<template>
-  <el-carousel type="card" height="200px">
-    <el-carousel-item v-for="item in 6" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
-</template>
-```
-
-## Vertical
-
-```vue
-<template>
-  <el-carousel height="200px" direction="vertical">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item>
-  </el-carousel>
-</template>
-```
-
-## API Reference
-
-### Carousel Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| height | Height of the carousel | `string` | `''` |
-| initial-index | Index of initially active slide | `number` | `0` |
-| trigger | How indicators are triggered | `'hover' \| 'click'` | `'hover'` |
-| autoplay | Whether to auto loop | `boolean` | `true` |
-| interval | Interval of auto loop (ms) | `number` | `3000` |
-| indicator-position | Position of indicators | `'' \| 'none' \| 'outside'` | `''` |
-| arrow | When arrows are shown | `'always' \| 'hover' \| 'never'` | `'hover'` |
-| type | Type of carousel | `'' \| 'card'` | `''` |
-| card-scale | Scale of secondary cards in card mode | `number` | `0.83` |
-| loop | Display items in loop | `boolean` | `true` |
-| direction | Display direction | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| pause-on-hover | Pause autoplay on hover | `boolean` | `true` |
-| motion-blur | Enable motion blur effect | `boolean` | `false` |
-
-### Carousel Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Triggers when active slide switches | `(current: number, prev: number) => void` |
-
-### Carousel Slots
-
-| Name | Description | Subtags |
-|------|-------------|---------|
-| default | Customize default content | Carousel-Item |
-
-### Carousel Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| activeIndex | Active slide index | `number` |
-| setActiveItem | Manually switch slide | `(index: string \| number) => void` |
-| prev | Switch to previous slide | `() => void` |
-| next | Switch to next slide | `() => void` |
-
-### CarouselItem Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| name | Name of the item | `string` | `''` |
-| label | Text for corresponding indicator | `string \| number` | `''` |
-
-## Best Practices
-
-1. Use `type="card"` for product showcases
-2. Set `motion-blur` for smoother transitions
-3. Use `arrow="always"` for better accessibility
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/carousel) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/carousel.md).

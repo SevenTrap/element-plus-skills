@@ -3,127 +3,35 @@ name: "el-datetime-picker"
 description: "DateTimePicker component for selecting date and time together. Invoke when user needs to select both date and time in a single picker."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# DateTimePicker Component
+# DateTimePicker
 
-DateTimePicker allows selecting date and time in one picker.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Datetime selection
-- Datetime range selection
-- Scheduling
-- Event creation
+This is a mode of el-date-picker, not an el-datetime-picker component. Use type="datetime" or "datetimerange". Default models are Date or a pair of Dates; value-format changes serialization while format changes display. default-time takes Date objects, not time strings. Use disabled-date/disabled-hours and verify the callbacks for range endpoints. See the related DatePicker skill for the underlying component.
 
-## Basic Usage
+## Working example
+
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-date-picker
-    v-model="value"
-    type="datetime"
-    placeholder="Select date and time"
-  />
+  <el-date-picker v-model="date" type="datetime" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref('')
+const date = ref<string | null>('2026-10-20 12:00:00')
 </script>
 ```
 
-## DateTime Range
+## Versioned reference
 
-```vue
-<template>
-  <el-date-picker
-    v-model="value"
-    type="datetimerange"
-    range-separator="To"
-    start-placeholder="Start date"
-    end-placeholder="End date"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref([])
-</script>
-```
-
-## With Default Time
-
-```vue
-<template>
-  <el-date-picker
-    v-model="value"
-    type="datetimerange"
-    :default-time="defaultTime"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const value = ref([])
-const defaultTime = [
-  new Date(2000, 1, 1, 0, 0, 0),
-  new Date(2000, 1, 1, 23, 59, 59)
-]
-</script>
-```
-
-## Date Formats
-
-```vue
-<template>
-  <el-date-picker
-    v-model="value"
-    type="datetime"
-    format="YYYY/MM/DD HH:mm:ss"
-    value-format="YYYY-MM-DD HH:mm:ss"
-  />
-</template>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string \| Date \| number \| array` | — |
-| type | Picker type | `'datetime' \| 'datetimerange'` | `'datetime'` |
-| format | Display format | `string` | `'YYYY-MM-DD HH:mm:ss'` |
-| value-format | Value format | `string` | — |
-| default-time | Default time values | `Date \| [Date, Date]` | — |
-| date-format | Panel date format | `string` | `'YYYY-MM-DD'` |
-| time-format | Panel time format | `string` | `'HH:mm:ss'` |
-| arrow-control | Use arrow buttons | `boolean` | `false` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Value changes | `(value) => void` |
-| blur | Input blurs | `(e: FocusEvent) => void` |
-| focus | Input focuses | `(e: FocusEvent) => void` |
-| calendar-change | Calendar selection changes | `(val) => void` |
-| visible-change | Dropdown visibility changes | `(visibility: boolean) => void` |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| focus | Focus input | `() => void` |
-| blur | Blur input | `() => void` |
-
-## Best Practices
-
-1. Use `default-time` for consistent time values
-2. Use `value-format` for string values
-3. Use `arrow-control` for precise time selection
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- See [DatePicker](../el-date-picker/SKILL.md) for the underlying component.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/date-picker) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/datetime-picker.md).

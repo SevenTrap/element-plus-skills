@@ -1,173 +1,76 @@
 ---
 name: "element-plus-design-border"
-description: "Border design specifications for Element Plus components. Invoke when user needs to understand border styles, radius options, or shadow styles used throughout Element Plus."
+description: "Apply Element Plus 2.14.6 border, radius, and shadow tokens, checking actual theme-chalk defaults rather than legacy Element UI values."
 metadata:
   author: jiaiyan
   version: "1.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Border Design Specifications
+# Border, radius, and shadow
 
-Element Plus standardizes borders used in buttons, cards, pop-ups, and other components for consistent visual design.
+Target **Element Plus 2.14.6**, default light theme and `el` namespace. Use tokens rather than resetting all component borders. Dark values require the dark stylesheet and `html.dark`.
 
-## When to Use
+## Border tokens
 
-- Understanding border style options
-- Applying consistent radius styles
-- Using shadow styles for depth
-- Maintaining design consistency
+| Variable | Light default |
+| --- | --- |
+| `--el-border-width` | `1px` |
+| `--el-border-style` | `solid` |
+| `--el-border-color` | `#dcdfe6` |
+| `--el-border-color-light` | `#e4e7ed` |
+| `--el-border-color-lighter` | `#ebeef5` |
+| `--el-border-color-extra-light` | `#f2f6fc` |
+| `--el-border-color-dark` | `#d4d7de` |
+| `--el-border-color-darker` | `#cdd0d6` |
+| `--el-border-color-hover` | `var(--el-text-color-disabled)` |
+| `--el-border` | width + style + color above |
 
----
+The base color is `--el-border-color`; `--el-border-color-base` is not emitted by 2.14.6.
 
-## Border Styles
+## Radius tokens
 
-Element Plus provides several border style options:
+| Variable | Default |
+| --- | --- |
+| `--el-border-radius-base` | `4px` |
+| `--el-border-radius-small` | `2px` |
+| `--el-border-radius-round` | `20px` |
+| `--el-border-radius-circle` | `100%` |
 
-### Border Width
+## Shadow tokens
 
-| Variable | Value | Usage |
-|----------|-------|-------|
-| `--el-border-width` | `1px` | Standard border width |
-| `--el-border-width-light` | `1px` | Light border |
-| `--el-border-width-lighter` | `1px` | Lighter border |
-| `--el-border-width-extra-light` | `1px` | Extra light border |
-
-### Border Style
-
-| Variable | Value | Usage |
-|----------|-------|-------|
-| `--el-border-style` | `solid` | Default solid border |
-| `--el-border-color` | `var(--el-border-color-base)` | Default border color |
-
-### Border Colors
-
-| Variable | Usage |
-|----------|-------|
-| `--el-border-color` | Base border color |
-| `--el-border-color-light` | Light border color |
-| `--el-border-color-lighter` | Lighter border color |
-| `--el-border-color-extra-light` | Extra light border color |
-| `--el-border-color-dark` | Dark border color |
-| `--el-border-color-darker` | Darker border color |
-
----
-
-## Border Radius
-
-Element Plus provides standardized border radius values:
-
-| Variable | Value | Usage |
-|----------|-------|-------|
-| `--el-border-radius-base` | `4px` | Base radius for components |
-| `--el-border-radius-small` | `2px` | Small radius for buttons, tags |
-| `--el-border-radius-round` | `20px` | Round radius for avatars, pills |
-| `--el-border-radius-circle` | `100%` | Circle for avatars |
-
-### Usage Examples
+These are the actual light-theme defaults; older `0 2px 12px` recipes are not the 2.14.6 base shadow.
 
 ```css
-/* Base radius */
-.card {
-  border-radius: var(--el-border-radius-base);
-}
-
-/* Small radius */
-.button {
-  border-radius: var(--el-border-radius-small);
-}
-
-/* Round elements */
-.pill-button {
-  border-radius: var(--el-border-radius-round);
-}
-
-/* Circle elements */
-.avatar {
-  border-radius: var(--el-border-radius-circle);
-}
-```
-
----
-
-## Shadow Styles
-
-Element Plus provides shadow styles for depth and elevation:
-
-| Variable | Usage |
-|----------|-------|
-| `--el-box-shadow` | Base shadow for cards, dropdowns |
-| `--el-box-shadow-light` | Light shadow for subtle elevation |
-| `--el-box-shadow-lighter` | Lighter shadow for minimal elevation |
-| `--el-box-shadow-dark` | Dark shadow for modals, dialogs |
-
-### Shadow Values
-
-```css
+/* Reference values, not a required global override */
 :root {
-  --el-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  --el-box-shadow-light: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
-  --el-box-shadow-lighter: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
-  --el-box-shadow-dark: 0 4px 16px 0 rgba(0, 0, 0, 0.12);
+  --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04),
+    0px 8px 20px rgba(0, 0, 0, 0.08);
+  --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.12);
+  --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.08),
+    0px 12px 32px rgba(0, 0, 0, 0.12),
+    0px 8px 16px -8px rgba(0, 0, 0, 0.16);
 }
 ```
 
-### Usage Examples
+`dark` names a shadow strength, not the dark theme. The dark theme has its own values for all four tokens.
 
 ```css
-/* Card shadow */
-.card {
+.surface {
+  border: var(--el-border);
+  border-radius: var(--el-border-radius-base);
   box-shadow: var(--el-box-shadow-light);
 }
-
-/* Dropdown shadow */
-.dropdown {
-  box-shadow: var(--el-box-shadow);
-}
-
-/* Modal shadow */
-.modal {
-  box-shadow: var(--el-box-shadow-dark);
-}
 ```
 
----
+For custom themes override the Sass `$border-color`, `$border-radius`, or `$box-shadow` maps before compiling source styles, or override CSS variables after the bundled CSS. Confirm each component actually consumes the chosen token before relying on a global effect.
 
-## CSS Variables Summary
+## Versioned sources
 
-```css
-:root {
-  /* Border */
-  --el-border-width: 1px;
-  --el-border-style: solid;
-  --el-border-color: var(--el-border-color-base);
-  
-  /* Border Colors */
-  --el-border-color-base: #dcdfe6;
-  --el-border-color-light: #e4e7ed;
-  --el-border-color-lighter: #ebeef5;
-  --el-border-color-extra-light: #f2f6fc;
-  --el-border-color-dark: #d4d7de;
-  --el-border-color-darker: #cdd0d6;
-  
-  /* Border Radius */
-  --el-border-radius-base: 4px;
-  --el-border-radius-small: 2px;
-  --el-border-radius-round: 20px;
-  --el-border-radius-circle: 100%;
-  
-  /* Box Shadow */
-  --el-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  --el-box-shadow-light: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
-  --el-box-shadow-lighter: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
-  --el-box-shadow-dark: 0 4px 16px 0 rgba(0, 0, 0, 0.12);
-}
-```
+Validated against Element Plus **2.14.6**. Use the release sources below when checking details; the upstream `dev` branch can contain unreleased changes.
 
----
-
-## Best Practices
-
-1. **Use CSS Variables**: Always use predefined CSS variables for consistency
-2. **Match Context**: Choose appropriate shadow depth based on element importance
-3. **Responsive Radius**: Consider smaller radius values for mobile interfaces
-4. **Dark Mode**: Border colors automatically adjust in dark mode
+- [docs/en-US/component/border.md](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/border.md)
+- [packages/theme-chalk/src/common/var.scss](https://github.com/element-plus/element-plus/blob/2.14.6/packages/theme-chalk/src/common/var.scss)
+- [packages/theme-chalk/src/var.scss](https://github.com/element-plus/element-plus/blob/2.14.6/packages/theme-chalk/src/var.scss)
+- [packages/theme-chalk/src/dark/var.scss](https://github.com/element-plus/element-plus/blob/2.14.6/packages/theme-chalk/src/dark/var.scss)

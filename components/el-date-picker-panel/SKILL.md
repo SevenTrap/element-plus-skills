@@ -3,159 +3,34 @@ name: "el-date-picker-panel"
 description: "DatePickerPanel is the core panel component of DatePicker for custom date selection UI. Invoke when user needs to build custom date picker interfaces without the dropdown wrapper."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# DatePickerPanel Component
+# DatePickerPanel
 
-DatePickerPanel is the core component of DatePicker for building custom date selection interfaces.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Custom date picker UI
-- Embedded date selection
-- Calendar widgets
-- Custom dropdown implementations
+This always-visible core panel is beta in 2.14.6. Without value-format bind Date values; range modes need two values and plural modes allow arrays. Quarter variants are supported since 2.14.5. border controls its outline. Input placeholder/prefix and popup teleport settings belong to DatePicker, not the standalone panel.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-date-picker-panel v-model="date" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const date = ref('')
-</script>
-```
-
-## Types
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
   <el-date-picker-panel v-model="date" type="date" />
-  <el-date-picker-panel v-model="month" type="month" />
-  <el-date-picker-panel v-model="year" type="year" />
-  <el-date-picker-panel v-model="datetime" type="datetime" />
-  <el-date-picker-panel v-model="daterange" type="daterange" />
-</template>
-```
-
-## Without Border
-
-```vue
-<template>
-  <el-date-picker-panel v-model="date" :border="false" />
-</template>
-```
-
-## Disabled
-
-```vue
-<template>
-  <el-date-picker-panel v-model="date" disabled />
-</template>
-```
-
-## With Shortcuts
-
-```vue
-<template>
-  <el-date-picker-panel
-    v-model="date"
-    :shortcuts="shortcuts"
-  />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const date = ref('')
-const shortcuts = [
-  {
-    text: 'Today',
-    value: new Date()
-  },
-  {
-    text: 'Yesterday',
-    value: () => {
-      const date = new Date()
-      date.setTime(date.getTime() - 3600 * 1000 * 24)
-      return date
-    }
-  }
-]
+const date = ref(new Date())
 </script>
 ```
 
-## Disabled Dates
+## Versioned reference
 
-```vue
-<template>
-  <el-date-picker-panel
-    v-model="date"
-    :disabled-date="disabledDate"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const date = ref('')
-
-const disabledDate = (time) => {
-  return time.getTime() > Date.now()
-}
-</script>
-```
-
-## API Reference
-
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `number \| string \| Date \| array` | `''` |
-| border | Show border | `boolean` | `true` |
-| disabled | Disabled | `boolean` | `false` |
-| clearable | Show clear button | `boolean` | `true` |
-| editable | Input editable | `boolean` | `true` |
-| type | Picker type | `'year' \| 'years' \| 'month' \| 'months' \| 'date' \| 'dates' \| 'datetime' \| 'week' \| 'datetimerange' \| 'daterange' \| 'monthrange' \| 'yearrange'` | `'date'` |
-| default-value | Default calendar date | `Date \| [Date, Date]` | — |
-| default-time | Default time for range | `Date \| [Date, Date]` | — |
-| value-format | Value format | `string` | — |
-| date-format | Date display format | `string` | `'YYYY-MM-DD'` |
-| time-format | Time display format | `string` | `'HH:mm:ss'` |
-| unlink-panels | Unlink range panels | `boolean` | `false` |
-| disabled-date | Disabled date function | `(date) => boolean` | — |
-| shortcuts | Shortcut options | `Array<{ text, value }>` | `[]` |
-| cell-class-name | Custom cell class | `(date) => string` | — |
-| show-footer | Show footer | `boolean` | `false` |
-| show-confirm | Show confirm button | `boolean` | `false` |
-| show-week-number | Show week number | `boolean` | `false` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| calendar-change | Calendar selection changes | `(val) => void` |
-| panel-change | Navigation button click | `(date, mode, view) => void` |
-| clear | Clear button clicked | `() => void` |
-
-### Slots
-
-| Name | Description |
-|------|-------------|
-| default | Custom cell content |
-| prev-month | Previous month icon |
-| next-month | Next month icon |
-| prev-year | Previous year icon |
-| next-year | Next year icon |
-
-## Best Practices
-
-1. Use for custom date picker implementations
-2. Combine with Popover for dropdown behavior
-3. Use `shortcuts` for quick selections
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/date-picker-panel) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/date-picker-panel.md).

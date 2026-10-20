@@ -3,128 +3,29 @@ name: "el-descriptions"
 description: "Descriptions component for displaying multiple fields in list form. Invoke when user needs to display detailed information, product specifications, or profile data."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# Descriptions Component
+# Descriptions
 
-Descriptions component displays multiple fields in list form, suitable for detail pages and information displays.
+Target **Element Plus 2.14.6** with Vue 3. APIs added to dev after this release are outside this skill.
 
-## When to Use
+## Implementation guidance
 
-- Product detail pages
-- User profile displays
-- Information summaries
-- Specification lists
+Compose el-descriptions with el-descriptions-item for read-only fields; there is no model. column counts items per row; item span/rowspan affect table layout. direction="vertical" places labels above values. label-width can be shared or overridden per item. Use label/default slots for richer fields.
 
-## Basic Usage
+## Working example
 
-```vue
-<template>
-  <el-descriptions title="User Info">
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-    <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
-    <el-descriptions-item label="Remarks">
-      <el-tag size="small">School</el-tag>
-    </el-descriptions-item>
-  </el-descriptions>
-</template>
-```
-
-## Sizes
+Assumes Element Plus 2.14.6 components and CSS are registered in the application. Icons and local directives are imported explicitly when used.
 
 ```vue
 <template>
-  <el-descriptions title="Large" size="large">
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-  </el-descriptions>
-  
-  <el-descriptions title="Default">
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-  </el-descriptions>
-  
-  <el-descriptions title="Small" size="small">
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-  </el-descriptions>
+  <el-descriptions title="Account" :column="2" border><el-descriptions-item label="Name">Alex</el-descriptions-item><el-descriptions-item label="Status">Active</el-descriptions-item></el-descriptions>
 </template>
 ```
 
-## Vertical List
+## Versioned reference
 
-```vue
-<template>
-  <el-descriptions direction="vertical" border>
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-    <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
-  </el-descriptions>
-</template>
-```
-
-## With Border
-
-```vue
-<template>
-  <el-descriptions border>
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-  </el-descriptions>
-</template>
-```
-
-## Rowspan
-
-```vue
-<template>
-  <el-descriptions border direction="vertical">
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone" :rowspan="2">18100000000</el-descriptions-item>
-    <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
-    <el-descriptions-item label="Address">No.1188, Wuzhong Avenue</el-descriptions-item>
-  </el-descriptions>
-</template>
-```
-
-## API Reference
-
-### Descriptions Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| border | With or without border | `boolean` | `false` |
-| column | Number of items in one line | `number` | `3` |
-| direction | Direction of list | `'vertical' \| 'horizontal'` | `'horizontal'` |
-| size | Size of list | `'' \| 'large' \| 'default' \| 'small'` | — |
-| title | Title text | `string` | `''` |
-| extra | Extra text on top right | `string` | `''` |
-| label-width | Label width of every column | `string \| number` | — |
-
-### Descriptions Slots
-
-| Name | Description | Subtags |
-|------|-------------|---------|
-| default | Customize default content | Descriptions Item |
-| title | Custom title | — |
-| extra | Custom extra area | — |
-
-### DescriptionsItem Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| label | Label text | `string` | `''` |
-| span | Colspan of column | `number` | `1` |
-| rowspan | Number of rows to span | `number` | `1` |
-| width | Column width | `string \| number` | `''` |
-| min-width | Column minimum width | `string \| number` | `''` |
-| label-width | Column label width | `string \| number` | — |
-| align | Column content alignment | `'left' \| 'center' \| 'right'` | `'left'` |
-| label-align | Column label alignment | `'left' \| 'center' \| 'right'` | — |
-| class-name | Column content class | `string` | `''` |
-| label-class-name | Column label class | `string` | `''` |
-
-## Best Practices
-
-1. Use `border` for better visual separation
-2. Use `direction="vertical"` for compact displays
-3. Use `span` and `rowspan` for complex layouts
+- Read [the complete 2.14.6 API](references/api.md) for props, events, slots, exposes, defaults, and callback types before adding options.
+- Check [2.14.6 source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/descriptions) and [release documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/descriptions.md).

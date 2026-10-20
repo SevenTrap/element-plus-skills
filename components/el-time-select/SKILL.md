@@ -3,122 +3,40 @@ name: "el-time-select"
 description: "TimeSelect component for selecting from fixed time options. Invoke when user needs to select from predefined time slots or schedule times."
 metadata:
   author: jiaiyan
-  version: "1.0.0"
+  version: "2.0.0"
+  element-plus-version: "2.14.6"
 ---
 
-# TimeSelect Component
+# Fixed-interval time selection
 
-TimeSelect provides selection from fixed time options.
+Target Element Plus **2.14.6** with Vue 3. Check the pinned API before adopting examples from the moving `dev` branch.
 
-## When to Use
+## Usage decisions
 
-- Fixed time selection
-- Schedule slots
-- Appointment times
-- Business hours
+- `ElTimeSelect` offers discrete string times. Bind `string | null` rather than Date objects; use TimePicker for arbitrary time selection.
+- `start`, `end`, and `step` define available choices, typically `HH:mm`; `format` controls display. Tokens are case-sensitive (`HH` for 24-hour clock, `mm` for minutes).
+- `min-time` and `max-time` disable choices outside the permitted interval; `include-end-time` includes the end choice even when interval stepping does not land on it.
+- For dependent start/end fields, bind the later field's `min-time` to the selected start time and validate the final interval in application code.
 
-## Basic Usage
+## Example
+
+This SFC assumes Element Plus 2.14.6 CSS is loaded by the application.
 
 ```vue
-<template>
-  <el-time-select
-    v-model="value"
-    start="08:30"
-    step="00:15"
-    end="18:30"
-    placeholder="Select time"
-  />
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
-const value = ref('')
+import { ElTimeSelect } from 'element-plus'
+const time = ref('')
 </script>
-```
 
-## Time Range
-
-```vue
 <template>
-  <el-time-select
-    v-model="startTime"
-    placeholder="Start time"
-    start="08:30"
-    step="00:30"
-    end="18:30"
-    :max-time="endTime"
-  />
-  <el-time-select
-    v-model="endTime"
-    placeholder="End time"
-    start="08:30"
-    step="00:30"
-    end="18:30"
-    :min-time="startTime"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const startTime = ref('')
-const endTime = ref('')
-</script>
-```
-
-## Time Format
-
-```vue
-<template>
-  <el-time-select
-    v-model="value"
-    format="HH:mm A"
-    start="08:00"
-    step="01:00"
-    end="18:00"
-  />
+  <el-time-select v-model="time" start="08:30" end="18:30" step="00:15"
+    placeholder="Select time" style="width: 240px" />
 </template>
 ```
 
-## API Reference
+## References
 
-### Attributes
-
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| model-value / v-model | Binding value | `string` | — |
-| disabled | Disabled | `boolean` | `false` |
-| editable | Input editable | `boolean` | `true` |
-| clearable | Show clear button | `boolean` | `true` |
-| size | Size | `'large' \| 'default' \| 'small'` | `'default'` |
-| placeholder | Placeholder | `string` | — |
-| start | Start time | `string` | `'09:00'` |
-| end | End time | `string` | `'18:00'` |
-| step | Time step | `string` | `'00:30'` |
-| min-time | Minimum time | `string` | — |
-| max-time | Maximum time | `string` | — |
-| format | Time format | `string` | `'HH:mm'` |
-| include-end-time | Include end time | `boolean` | `false` |
-
-### Events
-
-| Name | Description | Type |
-|------|-------------|------|
-| change | Value changes | `(value: string) => void` |
-| blur | Input blurs | `(e: FocusEvent) => void` |
-| focus | Input focuses | `(e: FocusEvent) => void` |
-| clear | Clear button clicked | `() => void` |
-
-### Exposes
-
-| Name | Description | Type |
-|------|-------------|------|
-| focus | Focus input | `() => void` |
-| blur | Blur input | `() => void` |
-
-## Best Practices
-
-1. Use `min-time`/`max-time` for range validation
-2. Set appropriate `step` for use case
-3. Use `format` for custom display
+- Read [the 2.14.6 API](references/api.md) for complete props, events, slots, and exposed methods.
+- [Official 2.14.6 documentation](https://github.com/element-plus/element-plus/blob/2.14.6/docs/en-US/component/time-select.md).
+- [Component source](https://github.com/element-plus/element-plus/tree/2.14.6/packages/components/time-select) and [upstream example](https://github.com/element-plus/element-plus/blob/2.14.6/docs/examples/time-select/basic.vue).

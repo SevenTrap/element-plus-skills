@@ -1,0 +1,553 @@
+{
+  "element_plus_version": "2.14.6",
+  "tag_commit": "5ac2b162180d3922d77c50990bb40c2f02376796",
+  "dev_commit": "06602dff62d3ddb300782f8254a2f28b617ec216",
+  "components": [
+    {
+      "skill": "components/el-affix/SKILL.md",
+      "source": "docs/en-US/component/affix.md",
+      "source_sha256": "1e331124de05106844aa8d995fb0b3f58bfd608b09ab833762f48005caa37315",
+      "reference": "components/el-affix/references/api.md",
+      "reference_sha256": "1a7686f83a92f9300c058c85bd8c636e8a11f12260c9cb564ad937258050daf3"
+    },
+    {
+      "skill": "components/el-alert/SKILL.md",
+      "source": "docs/en-US/component/alert.md",
+      "source_sha256": "ba2fb1286ac41ff151f6a479f3ac92def32216ae067239f534e527317855ad13",
+      "reference": "components/el-alert/references/api.md",
+      "reference_sha256": "e42a18bb35d6700c591f7e06a969340faa943df200d810e3851f15fb217b59bf"
+    },
+    {
+      "skill": "components/el-anchor/SKILL.md",
+      "source": "docs/en-US/component/anchor.md",
+      "source_sha256": "d5737d18b43b68f0bf83466307ca399c797b06174b951173c1107b24ab88fff5",
+      "reference": "components/el-anchor/references/api.md",
+      "reference_sha256": "90e6686b87c94689d02e41c9bba234aa9d0f30ff5b64b4611976eb026104fc8b"
+    },
+    {
+      "skill": "components/el-autocomplete/SKILL.md",
+      "source": "docs/en-US/component/autocomplete.md",
+      "source_sha256": "cfa2842e2c7c614c55ec00c9fa770d6ecb09ed2506e1797ea92ee91c656b9e17",
+      "reference": "components/el-autocomplete/references/api.md",
+      "reference_sha256": "e881cf721d6b8eba2b7fe08ddeda2e34b6845b0cd774101c5b29d5aa835805a7"
+    },
+    {
+      "skill": "components/el-avatar/SKILL.md",
+      "source": "docs/en-US/component/avatar.md",
+      "source_sha256": "a8b9833932cc0aa874016227f635f515296a79c7506f96c927f9bdcf5df42a9d",
+      "reference": "components/el-avatar/references/api.md",
+      "reference_sha256": "5affd82f27dbdf2f940d91de00d7c397afd0b47f0fed526464a30817a08a29ea"
+    },
+    {
+      "skill": "components/el-backtop/SKILL.md",
+      "source": "docs/en-US/component/backtop.md",
+      "source_sha256": "6913b632f32feb8a4f87bd214717720995311d7c6b0a26e10fd0fbc01b0b1ca1",
+      "reference": "components/el-backtop/references/api.md",
+      "reference_sha256": "215d3c72cd8c548b02c1c724315fa7a804c3377ab892bdd4e241414e9366e5fe"
+    },
+    {
+      "skill": "components/el-badge/SKILL.md",
+      "source": "docs/en-US/component/badge.md",
+      "source_sha256": "3cb36966eb8de3ecf576954dd40ebe910ecffd780ce6c075f135bdf43cc7b569",
+      "reference": "components/el-badge/references/api.md",
+      "reference_sha256": "0bfca34908295392c72341c650e69df1f19a873d04123bf8a294a4ab116fe438"
+    },
+    {
+      "skill": "components/el-breadcrumb/SKILL.md",
+      "source": "docs/en-US/component/breadcrumb.md",
+      "source_sha256": "8daa8dacb8ade72df5ad7c9c389d7f3f856e40f67b0d79608cce24fdc3cf4d9b",
+      "reference": "components/el-breadcrumb/references/api.md",
+      "reference_sha256": "a57615979a83dcf09dd4ad30fa9bce8e89435c7b0a5515e467d82ef91a81d9e2"
+    },
+    {
+      "skill": "components/el-button/SKILL.md",
+      "source": "docs/en-US/component/button.md",
+      "source_sha256": "e3f1dbea2db4fa33d8892d59916e69589cb94583417ce7dbcfdf9b2c36df75c1",
+      "reference": "components/el-button/references/api.md",
+      "reference_sha256": "1390249e854c5f0a27136342c718a7750043f78106d187d5e9cf46b8ed0f2a7f"
+    },
+    {
+      "skill": "components/el-calendar/SKILL.md",
+      "source": "docs/en-US/component/calendar.md",
+      "source_sha256": "bd86baa80e33ce0264100aafdbe8018a98e89e38a4c82142d1e78b1d14d85bfb",
+      "reference": "components/el-calendar/references/api.md",
+      "reference_sha256": "a46ed9989e34f29b9bd5e0b8ee036c5ab1dd59fc986448f518bfc256b2fe0a8a"
+    },
+    {
+      "skill": "components/el-card/SKILL.md",
+      "source": "docs/en-US/component/card.md",
+      "source_sha256": "24558d9206e933c0261a68e782223f687e2b282d18c8a5165422f8ce76571257",
+      "reference": "components/el-card/references/api.md",
+      "reference_sha256": "89328daf86da88d8c7576b364ab51aed275156f927c75ac39f3f1751f2336928"
+    },
+    {
+      "skill": "components/el-carousel/SKILL.md",
+      "source": "docs/en-US/component/carousel.md",
+      "source_sha256": "1c5c6ead6723ce4d38658a61a8c92da8e0ad4edf61035af287bfb924aed5eb31",
+      "reference": "components/el-carousel/references/api.md",
+      "reference_sha256": "a86df413ca15455b41a3a7c81ec63d3d1713f55b6475b20b60eb7ea41555257b"
+    },
+    {
+      "skill": "components/el-cascader/SKILL.md",
+      "source": "docs/en-US/component/cascader.md",
+      "source_sha256": "431aaef2c0761da31acd15e50867cd82b0e7ab8d4b7e6f3fc50d3f46ced1a11b",
+      "reference": "components/el-cascader/references/api.md",
+      "reference_sha256": "b07e781f156c0ff31658f70497b2af5d74a40ed2ec3bafc64d37c830cbf45132"
+    },
+    {
+      "skill": "components/el-checkbox/SKILL.md",
+      "source": "docs/en-US/component/checkbox.md",
+      "source_sha256": "ce2a9fe3517105b350e3a26c484ba493f8b577d478d2d784157dc86f872aef8e",
+      "reference": "components/el-checkbox/references/api.md",
+      "reference_sha256": "6f53a39b75eed3710457467d3b5a577b61f3593bc00c793da70654e2fa86aa01"
+    },
+    {
+      "skill": "components/el-collapse/SKILL.md",
+      "source": "docs/en-US/component/collapse.md",
+      "source_sha256": "17d2a84da3504d7b5101b0e026926647cc1b250ba123fee758e2d5093764c621",
+      "reference": "components/el-collapse/references/api.md",
+      "reference_sha256": "3fb342ceaa111cdd89443b495d3a6c8b6208e0df00310179bed5a84cb35612d8"
+    },
+    {
+      "skill": "components/el-color-picker/SKILL.md",
+      "source": "docs/en-US/component/color-picker.md",
+      "source_sha256": "412d2775c0e0ad47b9e6d9f04db4db1c3bc7be28fd3b3e185a4b9ea041a41a45",
+      "reference": "components/el-color-picker/references/api.md",
+      "reference_sha256": "fe40c7271c0ebe1fae5cdf131cd43e2d6b675d94cb87ce8f43ed2d960422b2c2"
+    },
+    {
+      "skill": "components/el-color-picker-panel/SKILL.md",
+      "source": "docs/en-US/component/color-picker-panel.md",
+      "source_sha256": "d10b9744231f45ce24a2f496063b893d9d93345faef45a2365a75dd1b41dcf94",
+      "reference": "components/el-color-picker-panel/references/api.md",
+      "reference_sha256": "ccd8a45f2537d40326b3433acf10c05754a5c216b7384b10787f94de844c5fb9"
+    },
+    {
+      "skill": "components/el-config-provider/SKILL.md",
+      "source": "docs/en-US/component/config-provider.md",
+      "source_sha256": "611167b067c61ea944bc793c871fb7469b4ec314fc69c73a84c3dadca4d00e63",
+      "reference": "components/el-config-provider/references/api.md",
+      "reference_sha256": "b63e460f79f71ff1895a657ac300ef022d8b40ad3cce0bcdb1b1e4c783641392"
+    },
+    {
+      "skill": "components/el-container/SKILL.md",
+      "source": "docs/en-US/component/container.md",
+      "source_sha256": "f79aad95bb6c04a0d14cdf195f0d44840e56e6f7891830d6d9d6d177a61fba60",
+      "reference": "components/el-container/references/api.md",
+      "reference_sha256": "b495dd010431c1b99bb29ae1d5f7a4897db3360aa324be244f11cc572108e951"
+    },
+    {
+      "skill": "components/el-date-picker/SKILL.md",
+      "source": "docs/en-US/component/date-picker.md",
+      "source_sha256": "5f4e6ab4bc7c256065a6b3676e8c326acb076edaaa172c67383ee573d82f58da",
+      "reference": "components/el-date-picker/references/api.md",
+      "reference_sha256": "97b3171a875469cebda8d20c1ba7afba8c0054897fe4292f36747be435581c7b"
+    },
+    {
+      "skill": "components/el-date-picker-panel/SKILL.md",
+      "source": "docs/en-US/component/date-picker-panel.md",
+      "source_sha256": "3ef206781de02cf34149922b1345588a4976098343e27a278d7d9f5f927bca67",
+      "reference": "components/el-date-picker-panel/references/api.md",
+      "reference_sha256": "28a1851e4d3b01c7f15539eb926f57f70e82f68524006a54ebe758006e2e6c89"
+    },
+    {
+      "skill": "components/el-datetime-picker/SKILL.md",
+      "source": "docs/en-US/component/datetime-picker.md",
+      "source_sha256": "49ac2f5c22cdec4a8586fcb151d28eabb59d2f5ddb5b4fbec83352ad3ca6e1ef",
+      "reference": "components/el-datetime-picker/references/api.md",
+      "reference_sha256": "52ff7fc53e43722f1bf29aa967d2ad2fc236d7f3b5b909308dd7052a5956a8f0"
+    },
+    {
+      "skill": "components/el-descriptions/SKILL.md",
+      "source": "docs/en-US/component/descriptions.md",
+      "source_sha256": "bf95f767018109e15092200006deac91cd3456eca030535ae00194f7f8268e37",
+      "reference": "components/el-descriptions/references/api.md",
+      "reference_sha256": "bd4441180bc9acd9a25789ff3766e24e22c832e73ee6d85eb8a3274de2d4d379"
+    },
+    {
+      "skill": "components/el-dialog/SKILL.md",
+      "source": "docs/en-US/component/dialog.md",
+      "source_sha256": "b1da090825538dab6679c0e5a2d5089d7e7ad13b98b0976363830c0dd0f4062f",
+      "reference": "components/el-dialog/references/api.md",
+      "reference_sha256": "c00940db7918b905d5f043af0f41bf1a39a0dec06f834c157818d0c5098c6495"
+    },
+    {
+      "skill": "components/el-divider/SKILL.md",
+      "source": "docs/en-US/component/divider.md",
+      "source_sha256": "b06d52dfd8e5026e7b8a2d95b1437e4bead2867d0f81d272f32dc25f2ee470ab",
+      "reference": "components/el-divider/references/api.md",
+      "reference_sha256": "e8bd4823f9f8b96b625abead881a197b1e491ef771e03ec54765dd3a88c09768"
+    },
+    {
+      "skill": "components/el-drawer/SKILL.md",
+      "source": "docs/en-US/component/drawer.md",
+      "source_sha256": "68ce509d720d5a4f87cdf1cc88c7aa42ef462d8deafcf6c5c622e8daf86e2867",
+      "reference": "components/el-drawer/references/api.md",
+      "reference_sha256": "38a80ac268ea4917c685ecd10cfab234c9e58ad17f57038f522312a9d406103d"
+    },
+    {
+      "skill": "components/el-dropdown/SKILL.md",
+      "source": "docs/en-US/component/dropdown.md",
+      "source_sha256": "c4d578a42ae65b08af802e33f1451eb2a4900340549f0ff9ef13bf3d48d3682f",
+      "reference": "components/el-dropdown/references/api.md",
+      "reference_sha256": "9ca2137e26502af3c8267da9c17c75fc05cf6cfb97465d514b17853430330113"
+    },
+    {
+      "skill": "components/el-empty/SKILL.md",
+      "source": "docs/en-US/component/empty.md",
+      "source_sha256": "735ca859a553c142e33a0bac2bb965aa16ec95426e0481f6e8326d53917c5c6e",
+      "reference": "components/el-empty/references/api.md",
+      "reference_sha256": "c62b6279a6658f1521865a0a762944a08ef98cecb5003b691dc0321aa3313506"
+    },
+    {
+      "skill": "components/el-form/SKILL.md",
+      "source": "docs/en-US/component/form.md",
+      "source_sha256": "6a57f4653321449a414e8c4e40b6652b4f84d01c5fdd80d88ab6183333162c36",
+      "reference": "components/el-form/references/api.md",
+      "reference_sha256": "116451de05ce193a9542c8c68b2b9a8aa2dbdfa7aaddc83ad5938ad63b11d1ec"
+    },
+    {
+      "skill": "components/el-icon/SKILL.md",
+      "source": "docs/en-US/component/icon.md",
+      "source_sha256": "e1632666b64600072a1ed02e6b0f6c6975d5dfefc8b5c22899a6e70e7c64ee34",
+      "reference": "components/el-icon/references/api.md",
+      "reference_sha256": "6ab8eb4b14364bc24042d3fbb2e5ae469b6d8ca40e45e5bb5fdfd04cecbe9fdb"
+    },
+    {
+      "skill": "components/el-image/SKILL.md",
+      "source": "docs/en-US/component/image.md",
+      "source_sha256": "e3268cfaee8c58a35291774a38cb3376676a5896fef299382b62c502ddd17aa9",
+      "reference": "components/el-image/references/api.md",
+      "reference_sha256": "65de76f1272c8a9ed3072c909aac3f9518354e371e09e2eefba9764020e52e5b"
+    },
+    {
+      "skill": "components/el-infinite-scroll/SKILL.md",
+      "source": "docs/en-US/component/infinite-scroll.md",
+      "source_sha256": "4305cf4501f031f96f92ef8747abc440aa32d099933e0b35e03c459988af9ebb",
+      "reference": "components/el-infinite-scroll/references/api.md",
+      "reference_sha256": "6b38011929f15883cb2d8ecd429661496b2a1361dee77b69a447295040a99944"
+    },
+    {
+      "skill": "components/el-input/SKILL.md",
+      "source": "docs/en-US/component/input.md",
+      "source_sha256": "d3ec95575317b5007e26bcbebe53e160a9d36419a4c860de4313e722ff18fcdb",
+      "reference": "components/el-input/references/api.md",
+      "reference_sha256": "b305deff6d159ad5b37c3e0c67ab942e49ba48f2c3ac2eb16bbe951c75d7fd11"
+    },
+    {
+      "skill": "components/el-input-number/SKILL.md",
+      "source": "docs/en-US/component/input-number.md",
+      "source_sha256": "ba910f1f9a86f429a412694715c6c37b19b99d2c1933908ebfde207b14a23df8",
+      "reference": "components/el-input-number/references/api.md",
+      "reference_sha256": "982a9466d2e62923af8283e530873defa12d0420d534919dc7d347621f42f7e1"
+    },
+    {
+      "skill": "components/el-input-otp/SKILL.md",
+      "source": "docs/en-US/component/input-otp.md",
+      "source_sha256": "3148abca24906bfe7904f920ff4145eef36db49ea0e6ab510a9bb41007a9990c",
+      "reference": "components/el-input-otp/references/api.md",
+      "reference_sha256": "b02bf880067291372b28465122ae6b3e01908f217e06392d2b2bfb64437fb8a8"
+    },
+    {
+      "skill": "components/el-input-tag/SKILL.md",
+      "source": "docs/en-US/component/input-tag.md",
+      "source_sha256": "4048f94a0a8d08a523d00d1f9e0c0e46d93a38c29315083276da94528018b532",
+      "reference": "components/el-input-tag/references/api.md",
+      "reference_sha256": "02c43c534b1a98425429d9d3e5e67b5b5e35665ad9c797e28f04200aab790694"
+    },
+    {
+      "skill": "components/el-link/SKILL.md",
+      "source": "docs/en-US/component/link.md",
+      "source_sha256": "d17007f48fac3d3bcbe97ad2b537faba0c9bddb2e8c0443391fd76b6b11e90bf",
+      "reference": "components/el-link/references/api.md",
+      "reference_sha256": "035db079375d2d2c312b8b5801d4a09e81370b2f91af2761521c8c43a8778c0d"
+    },
+    {
+      "skill": "components/el-loading/SKILL.md",
+      "source": "docs/en-US/component/loading.md",
+      "source_sha256": "38a423b91e1fd07230e7847167407562221f8123cb020fdd7df5f251461d5932",
+      "reference": "components/el-loading/references/api.md",
+      "reference_sha256": "86a71c7f69aa203df407243f3bcac5bd95e8e88b19663dd5d11f89342b265d7e"
+    },
+    {
+      "skill": "components/el-mention/SKILL.md",
+      "source": "docs/en-US/component/mention.md",
+      "source_sha256": "7cebbe881dad3d744cefd273fe4cb9da658c1c8941a13fe18d1b75ccf10eda16",
+      "reference": "components/el-mention/references/api.md",
+      "reference_sha256": "e5749d85361892380d9a5c65a513d9689e4f1814715a82950d874fcf07e0a75a"
+    },
+    {
+      "skill": "components/el-menu/SKILL.md",
+      "source": "docs/en-US/component/menu.md",
+      "source_sha256": "bf3128f80f7f2ee0853ea539842c4615ed73159fd45e15f4bb7beacf661b3896",
+      "reference": "components/el-menu/references/api.md",
+      "reference_sha256": "7a25e8b5a805be3639a5dd0d37fee040017aae6b7cdd061b2bf7a47b7326a3f8"
+    },
+    {
+      "skill": "components/el-message/SKILL.md",
+      "source": "docs/en-US/component/message.md",
+      "source_sha256": "8554ac55624185865684b0194b46dcbff74a66ca9e9680044bf5c2a8eb12ce21",
+      "reference": "components/el-message/references/api.md",
+      "reference_sha256": "4d377cda0dd49bb27e9f7b5f3c377ec8d27a1b78a0c00109300305542dea917d"
+    },
+    {
+      "skill": "components/el-message-box/SKILL.md",
+      "source": "docs/en-US/component/message-box.md",
+      "source_sha256": "be7d218e047eccb3e88b1afc044def8e4cee263849c131e5f592f20cd0402506",
+      "reference": "components/el-message-box/references/api.md",
+      "reference_sha256": "1016b4aaf99613a36c0db5b40faab811804557584726ddb4c294da5791ed9145"
+    },
+    {
+      "skill": "components/el-notification/SKILL.md",
+      "source": "docs/en-US/component/notification.md",
+      "source_sha256": "617a492d08d5fb1e557b178ad3b16557ac73f3588047e2ca9ae34ff17cad86ef",
+      "reference": "components/el-notification/references/api.md",
+      "reference_sha256": "7dddf32604cd38437ba619de7d9ee69efc5bc5471c25f48af26ece89caf21f70"
+    },
+    {
+      "skill": "components/el-page-header/SKILL.md",
+      "source": "docs/en-US/component/page-header.md",
+      "source_sha256": "cdc47f8b17bd385990b28399a455531ca43c3b8e7627ccfacf5aad23fdaeb005",
+      "reference": "components/el-page-header/references/api.md",
+      "reference_sha256": "2aa7ea18aa76d23df67176b8182623cec1dd140e9d17d816064cd8dc6e5944f3"
+    },
+    {
+      "skill": "components/el-pagination/SKILL.md",
+      "source": "docs/en-US/component/pagination.md",
+      "source_sha256": "5b6a361560fe89be152ff46ad9c18221e52e133b34b2cfcf9b94caa91d814b36",
+      "reference": "components/el-pagination/references/api.md",
+      "reference_sha256": "91311bd707f65b966a65d9d7ca246910de1238b42e0f8734ee4bf0e373214977"
+    },
+    {
+      "skill": "components/el-popconfirm/SKILL.md",
+      "source": "docs/en-US/component/popconfirm.md",
+      "source_sha256": "8833ceb124549c238e47196c15ecc0102fd0a325e13e58ea45b2cb28658bb6c4",
+      "reference": "components/el-popconfirm/references/api.md",
+      "reference_sha256": "083391fa77c63d3368beed776df3de07d93ba603897ee9090668719d69be1d9c"
+    },
+    {
+      "skill": "components/el-popover/SKILL.md",
+      "source": "docs/en-US/component/popover.md",
+      "source_sha256": "42a21e9dd2058fad4e0b18a6cf1e74806e437365ad98327b8ed0f6abebb2fb9c",
+      "reference": "components/el-popover/references/api.md",
+      "reference_sha256": "78ec3fa8a204d044b149aebd89f4d42796b3f934d9e5d37a9c2858a98516ca8b"
+    },
+    {
+      "skill": "components/el-progress/SKILL.md",
+      "source": "docs/en-US/component/progress.md",
+      "source_sha256": "0495f6b4bc342b8b26d447b84d2cddb16c0ab00a6d81c6dbd6e0ea0515e54acc",
+      "reference": "components/el-progress/references/api.md",
+      "reference_sha256": "f66ca2d708f399fdb42042dee6fe50c964619ce2b66c654a274e66e1e8a43aa7"
+    },
+    {
+      "skill": "components/el-radio/SKILL.md",
+      "source": "docs/en-US/component/radio.md",
+      "source_sha256": "a6fc5fa3184dc1ebefd979969bb1305d6b02c9f57e2083ca9ff852e210ab3e1f",
+      "reference": "components/el-radio/references/api.md",
+      "reference_sha256": "39431f7b0dda9517b0b01fc58fd01bc89fe06f9fb7b39cd134d8e00c916215c2"
+    },
+    {
+      "skill": "components/el-rate/SKILL.md",
+      "source": "docs/en-US/component/rate.md",
+      "source_sha256": "9347a7b6ad38284f15230210e270fb6eeb480a42437d9654912f725c0625938e",
+      "reference": "components/el-rate/references/api.md",
+      "reference_sha256": "110984205a5f76cfe5edef824ddace578dca5a68aadffa2190e61fa14ebeee64"
+    },
+    {
+      "skill": "components/el-result/SKILL.md",
+      "source": "docs/en-US/component/result.md",
+      "source_sha256": "56eae8b7820210a7aa3c61a6c150d1e07826fe3c02c1d4a43d8126d3c7658ed5",
+      "reference": "components/el-result/references/api.md",
+      "reference_sha256": "6d47faa041ecae0587884650d67fb4daaf6b884564e8b9eab2106c56bdb59574"
+    },
+    {
+      "skill": "components/el-scrollbar/SKILL.md",
+      "source": "docs/en-US/component/scrollbar.md",
+      "source_sha256": "237549b41219c5d0ba0f432f20fde7ce31332a421e76fe8db8970609644d317e",
+      "reference": "components/el-scrollbar/references/api.md",
+      "reference_sha256": "98dc170af919b1c17420131483e304381d73ea152246f21e37ca4421f9a8bbe0"
+    },
+    {
+      "skill": "components/el-segmented/SKILL.md",
+      "source": "docs/en-US/component/segmented.md",
+      "source_sha256": "af2e37a69ab0c90e6af79aac7ad87a48dbbf9d5ac2e3d243577fbb51a3c03742",
+      "reference": "components/el-segmented/references/api.md",
+      "reference_sha256": "303599a34d4f9c372df0da7d1c93ee634a9c20ded5ed62a665dad830f0002a51"
+    },
+    {
+      "skill": "components/el-select/SKILL.md",
+      "source": "docs/en-US/component/select.md",
+      "source_sha256": "f01b02642068b2c75215b546045a0fec47c0ae076f95110f05cd5af8b665a18c",
+      "reference": "components/el-select/references/api.md",
+      "reference_sha256": "468e74f276d5eaa1b5796b1d72bb2e73d4dba0a352ccfbbd17b00977dfa37f2e"
+    },
+    {
+      "skill": "components/el-select-v2/SKILL.md",
+      "source": "docs/en-US/component/select-v2.md",
+      "source_sha256": "24b06dbd81b39a1e26c0378791ef89ed53e4d2aef524d96c7d51752e64631282",
+      "reference": "components/el-select-v2/references/api.md",
+      "reference_sha256": "f42004de4f0caa87642650c2041c6ecd6f4bf957f98a58d7a598db5b39c3ab78"
+    },
+    {
+      "skill": "components/el-skeleton/SKILL.md",
+      "source": "docs/en-US/component/skeleton.md",
+      "source_sha256": "1906ace860e0c03746308896d66966d8abc08a8b1ce4fadfd5fcfff15c7de7c0",
+      "reference": "components/el-skeleton/references/api.md",
+      "reference_sha256": "f21472e7f079b0c12f48ecb34414ccb49909c8b90e894bd791aad9469a5b860c"
+    },
+    {
+      "skill": "components/el-slider/SKILL.md",
+      "source": "docs/en-US/component/slider.md",
+      "source_sha256": "fec2b9e5ad5e6abebad242b3b7b0e8c1585133266d35a042bc9b056827f033eb",
+      "reference": "components/el-slider/references/api.md",
+      "reference_sha256": "813636aa9046c22e53b99b161053f8768f7ddcae67f0422dc80b10c44cacf989"
+    },
+    {
+      "skill": "components/el-space/SKILL.md",
+      "source": "docs/en-US/component/space.md",
+      "source_sha256": "89c598d92ec59d7e744d19b09dcc131c8ec3946d1530a5ed3128fe279447d9e7",
+      "reference": "components/el-space/references/api.md",
+      "reference_sha256": "22f777f2e0439349c026216e2a94274689cedec4efc972a6c2b3f124623d7a41"
+    },
+    {
+      "skill": "components/el-splitter/SKILL.md",
+      "source": "docs/en-US/component/splitter.md",
+      "source_sha256": "6184fef2738c15a0d75d670035c609d387ed50e2b417b871126df9f0058e8360",
+      "reference": "components/el-splitter/references/api.md",
+      "reference_sha256": "c748616d92ab4d40567b8f214f783b20a62f72efe626ec436b17a46699fdd569"
+    },
+    {
+      "skill": "components/el-statistic/SKILL.md",
+      "source": "docs/en-US/component/statistic.md",
+      "source_sha256": "39c11766009edd845c916f29757d813e7cf43f89546b4ce157d4bd9069c3f7c4",
+      "reference": "components/el-statistic/references/api.md",
+      "reference_sha256": "58376545cb3ba232212741e53994250a545f87c15cbc2d199322484f94b91003"
+    },
+    {
+      "skill": "components/el-steps/SKILL.md",
+      "source": "docs/en-US/component/steps.md",
+      "source_sha256": "194534207e7d4e8be24d36079eafcbfe93fcd3de88f4272eb9b542b7795c9644",
+      "reference": "components/el-steps/references/api.md",
+      "reference_sha256": "739bad3402a953e4de899288d7c150cd7f5ecf5c49c08d048a497c0a441538f0"
+    },
+    {
+      "skill": "components/el-switch/SKILL.md",
+      "source": "docs/en-US/component/switch.md",
+      "source_sha256": "e5326510ed24aee42bcd8fbaf0df75eec91f9bba5bf64fac0c7dd4c95ce5245d",
+      "reference": "components/el-switch/references/api.md",
+      "reference_sha256": "190d0aa55f799554dc49c2b0f4dff7f1e4a054e2e398701fe247fd22f8eb5564"
+    },
+    {
+      "skill": "components/el-table/SKILL.md",
+      "source": "docs/en-US/component/table.md",
+      "source_sha256": "16211251dfa0b4c42ea2b29f568d9a5906c9353efaae57450ef17e3163efc041",
+      "reference": "components/el-table/references/api.md",
+      "reference_sha256": "dcb00340434d34a3f98d344de1af67bf8fe4469be2b1f6a64ffda844995fe8d4"
+    },
+    {
+      "skill": "components/el-table-v2/SKILL.md",
+      "source": "docs/en-US/component/table-v2.md",
+      "source_sha256": "5998b40c2f1a109d92d9188cd00b168632848026af9702ce7310178f610476b3",
+      "reference": "components/el-table-v2/references/api.md",
+      "reference_sha256": "0c45c3e6ef1805b2cbf4b9ca59b1c2937743aceb9f578fc3e32decc44e71be62"
+    },
+    {
+      "skill": "components/el-tabs/SKILL.md",
+      "source": "docs/en-US/component/tabs.md",
+      "source_sha256": "206b51950cccf0054c50f8cf278e6e6fe8be78fdecc668b7b34d3fe18300966c",
+      "reference": "components/el-tabs/references/api.md",
+      "reference_sha256": "4cb560860298c4bd73a9313f499801ab461246310085b079dc5addfff226d164"
+    },
+    {
+      "skill": "components/el-tag/SKILL.md",
+      "source": "docs/en-US/component/tag.md",
+      "source_sha256": "327ceb254034e80c5fe17129c56a89514474fef932e5ee80a57e97d9c415c7c6",
+      "reference": "components/el-tag/references/api.md",
+      "reference_sha256": "edb1ba0bf8f65fc2c6e1b6e29ba66be20c35bf3d45a95cf9fcd15c44f7439c66"
+    },
+    {
+      "skill": "components/el-text/SKILL.md",
+      "source": "docs/en-US/component/text.md",
+      "source_sha256": "5488bb40d0037f61186e13a97ce0c197cc32d0b6184c30cfd0954d759752ac9f",
+      "reference": "components/el-text/references/api.md",
+      "reference_sha256": "aba18e8ba629273c59013f561a4eea7cdd0d8f939d3794bbbb70eb26e6f8992f"
+    },
+    {
+      "skill": "components/el-time-picker/SKILL.md",
+      "source": "docs/en-US/component/time-picker.md",
+      "source_sha256": "2adfadabb7485a3bcb8d07146e04ce46c6ce39538baac0475417994777932c59",
+      "reference": "components/el-time-picker/references/api.md",
+      "reference_sha256": "7568eeec0550aaa070a230c5e8b3ccd648c1fcc78b5aebf78eb4a60d5dade6b9"
+    },
+    {
+      "skill": "components/el-time-select/SKILL.md",
+      "source": "docs/en-US/component/time-select.md",
+      "source_sha256": "faa508ff7868b0a117b66e0c74d10d0ae11d1446ffc1cf7ad2b28ddf0ff821a8",
+      "reference": "components/el-time-select/references/api.md",
+      "reference_sha256": "b9c684607fcd49fc46b2d8fdeb732fa6319e37b739cda1c5de8294be06402847"
+    },
+    {
+      "skill": "components/el-timeline/SKILL.md",
+      "source": "docs/en-US/component/timeline.md",
+      "source_sha256": "8742490b89742a22d9ec0ed7f5a054116fd0592272a5de8192bd5c49a78eec81",
+      "reference": "components/el-timeline/references/api.md",
+      "reference_sha256": "87f505b09a2b04022f345a12f1da4ce201b4f70c03e84ce4cf5a2898502e6d1a"
+    },
+    {
+      "skill": "components/el-tooltip/SKILL.md",
+      "source": "docs/en-US/component/tooltip.md",
+      "source_sha256": "1fda5d44a9d491dddfc23f0b0c1ee258a41385cb18a36f8aad05ea2da5598b09",
+      "reference": "components/el-tooltip/references/api.md",
+      "reference_sha256": "9a2116fc2f738850782cf2eb1641adf84d22179116920ac51df52a2698bb449e"
+    },
+    {
+      "skill": "components/el-tour/SKILL.md",
+      "source": "docs/en-US/component/tour.md",
+      "source_sha256": "720ab00a433780b49914abfdd8ee4de544de3a4635f603f483f17eb2c7b1e61d",
+      "reference": "components/el-tour/references/api.md",
+      "reference_sha256": "8ad1b537126b8ef370466f8bc7550259cd87bfa2d7395ed2861a8c5e85d682ef"
+    },
+    {
+      "skill": "components/el-transfer/SKILL.md",
+      "source": "docs/en-US/component/transfer.md",
+      "source_sha256": "26b26713ea1732f070b8be48e08161196614f6a40991043cfb2f0847333e4d42",
+      "reference": "components/el-transfer/references/api.md",
+      "reference_sha256": "ec0ceaced0ff55db427352ffa737115068e0dfb6cb53428dea574d0f1dcb2676"
+    },
+    {
+      "skill": "components/el-tree/SKILL.md",
+      "source": "docs/en-US/component/tree.md",
+      "source_sha256": "63ae32e471fdf3d821920ec757fd3fdc2a0214ea4be9eb804d4e6c4209bf6ec0",
+      "reference": "components/el-tree/references/api.md",
+      "reference_sha256": "a2bcf3ffcef7bb598e1635b436616a3b2ec93a35dcc7265e4aa1dc0d4a6e4ddf"
+    },
+    {
+      "skill": "components/el-tree-select/SKILL.md",
+      "source": "docs/en-US/component/tree-select.md",
+      "source_sha256": "755f5557c40f190d915fdfa64c97f65ed47498c5a969c2a6553c6b2b4e7a4920",
+      "reference": "components/el-tree-select/references/api.md",
+      "reference_sha256": "f327250ed4659207b31cb6e231cc7eef2127b2a1dbbf3d27ade85fe055aed355"
+    },
+    {
+      "skill": "components/el-tree-v2/SKILL.md",
+      "source": "docs/en-US/component/tree-v2.md",
+      "source_sha256": "6d59af9d350206da9d0b1b05766e79d15ec4796b1126b517afff541d3acc9edd",
+      "reference": "components/el-tree-v2/references/api.md",
+      "reference_sha256": "d92101841b4d7070203c3870ad9c2d620cfa4942bf8c10a682f769dfdcb88d86"
+    },
+    {
+      "skill": "components/el-upload/SKILL.md",
+      "source": "docs/en-US/component/upload.md",
+      "source_sha256": "0c0c9f6ed848b480ff80803b6921308945a41645bd55065bb5c6e144458f2fbb",
+      "reference": "components/el-upload/references/api.md",
+      "reference_sha256": "8fe07232268d5641f9ae9321c142abc4f0b8df6e6c4918b1a5de96cf10655e78"
+    },
+    {
+      "skill": "components/el-watermark/SKILL.md",
+      "source": "docs/en-US/component/watermark.md",
+      "source_sha256": "8b40f4afe688a764cc699eafb1737abfabd7444e4b3f6f55cd219e7c56710dd9",
+      "reference": "components/el-watermark/references/api.md",
+      "reference_sha256": "df8581960ebb84d960da86664cfe72ea214e65f7ce1db38f289e26d178b0f76c"
+    }
+  ]
+}
